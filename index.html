@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Sora:wght@400;700&display=swap" rel="stylesheet">
     <link rel="apple-touch-icon" href="https://yahlidm.github.io/Forge-Y.D/apple-touch-icon.png">
     <style>
-=============================================================================*/
+/* ============================================================================= */
 :root{
   --a:#c9a84c;          /* amber gold */
   --a2:#e8c87a;         /* light gold */
@@ -764,7 +764,6 @@ body{
 <div class="vov"></div>
 <div class="ambient"></div>
 
-<!-- SPLASH -->
 <div id="splash">
   <div class="splash-icon lr">
     <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
@@ -777,7 +776,6 @@ body{
 </div>
 
 <div class="app">
-  <!-- HEADER -->
   <header class="hdr">
     <div class="hdr-l">
       <div class="hdr-icon lr">
@@ -803,15 +801,12 @@ body{
 
   <div class="scroll" id="scroll">
 
-    <!-- SUPER: WORKOUT -->
     <div class="super-panel active" id="super-workout">
-      <!-- workout sub-tabs -->
       <div class="wtabs">
         <button class="wtab active" data-wp="a" onclick="switchWorkout(this)">A · דחיפה</button>
         <button class="wtab" data-wp="b" onclick="switchWorkout(this)">B · משיכה</button>
         <button class="wtab" data-wp="c" onclick="switchWorkout(this)">C · מאוזן</button>
       </div>
-    <!-- PANEL A -->
     <div class="panel active" id="panel-a">
       <div class="whead"><div class="wbadge lr">A</div><div><div class="wtitle">אימון דחיפה</div><div class="wfocus">חזה · כתפיים · טרייספס</div></div></div>
       <div class="ex lr" style="animation-delay:.05s" onclick="showTip(this)"
@@ -872,7 +867,6 @@ body{
       </div>
     </div>
 
-    <!-- PANEL B -->
     <div class="panel" id="panel-b">
       <div class="whead"><div class="wbadge lr">B</div><div><div class="wtitle">אימון משיכה</div><div class="wfocus">גב · אחורי כתף · בייספס</div></div></div>
       <div class="ex lr" style="animation-delay:.05s" onclick="showTip(this)"
@@ -918,7 +912,6 @@ body{
       </div>
     </div>
 
-    <!-- PANEL C -->
     <div class="panel" id="panel-c">
       <div class="whead"><div class="wbadge lr">C</div><div><div class="wtitle">עליון מאוזן</div><div class="wfocus">נפח כולל · סופרסטים</div></div></div>
       <div class="ex lr" style="animation-delay:.05s" onclick="showTip(this)"
@@ -965,11 +958,7 @@ body{
       </div>
     </div>
 
-    </div><!-- /super-workout -->
-
-    <!-- SUPER: TOOLS -->
-    <div class="super-panel" id="super-tools">
-      <!-- toggle timer / 1RM -->
+    </div><div class="super-panel" id="super-tools">
       <div class="tool-toggle">
         <button class="ttog active" data-tool="timer" onclick="switchTool(this)">
           <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
@@ -981,7 +970,6 @@ body{
         </button>
       </div>
 
-      <!-- TIMER panel -->
       <div class="tool-panel active" id="tool-timer">
         <div class="timer-ring-wrap">
           <div class="timer-ring lr">
@@ -1016,7 +1004,6 @@ body{
         <div id="timer-laps" style="padding:0 2px;max-height:180px;overflow-y:auto;"></div>
       </div>
 
-      <!-- 1RM panel -->
       <div class="tool-panel" id="tool-orm">
         <div style="padding-top:16px">
           <div class="shead">בחר תרגיל</div>
@@ -1044,10 +1031,7 @@ body{
           </div>
         </div>
       </div>
-    </div><!-- /super-tools -->
-
-    <!-- SUPER: TRACKER -->
-    <div class="super-panel" id="super-tracker">
+    </div><div class="super-panel" id="super-tracker">
       <div style="padding:14px 18px 130px">
         <div class="shead">בחר תרגיל</div>
         <div class="trk-ex-tabs" id="trk-ex-tabs"></div>
@@ -1073,11 +1057,7 @@ body{
         <div class="shead">היסטוריה</div>
         <div id="trk-hist"></div>
       </div>
-    </div><!-- /super-tracker -->
-
-    <!-- SUPER: INFO -->
-    <div class="super-panel" id="super-info">
-    <!-- PANEL INFO -->
+    </div><div class="super-panel" id="super-info">
     <div class="panel" id="panel-info">
       <div class="shead">עקרונות</div>
       <div class="sprow">
@@ -1104,11 +1084,7 @@ body{
       </div>
     </div>
 
-    </div><!-- /super-info -->
-  </div><!-- /scroll -->
-
-  <!-- BOTTOM NAV — 4 super-tabs -->
-  <nav class="bnav">
+    </div></div><nav class="bnav">
     <button class="ntab active" data-super="workout" onclick="switchSuper(this)">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h2v10H6zM16 7h2v10h-2zM8 12h8M3 9h1v6H3zM20 9h1v6h-1z"/></svg>
       <span class="nl">אימונים</span>
@@ -1128,7 +1104,6 @@ body{
   </nav>
 </div>
 
-<!-- TIP MODAL -->
 <div class="tip-bd" id="tip-bd" onclick="closeTipOut(event)">
   <div class="tip-sh">
     <div class="tip-drag"></div>
@@ -1158,7 +1133,6 @@ body{
   </div>
 </div>
 
-<!-- CUSTOMIZE MODAL -->
 <div class="cust-bd" id="cust-bd" onclick="closeCustOut(event)">
   <div class="cust-sh lr" id="cust-sh">
     <div class="drag-h"></div>

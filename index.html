@@ -5,11 +5,9 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="FORGE">
 <meta name="theme-color" content="#000">
 <title>FORGE — Y.D</title>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="apple-touch-icon" href="https://yahlidm.github.io/Forge-Y.D/apple-touch-icon.png">
 <style>
 /* ═══════════════════════════════════════════════════════
    FORGE v5 — Dark Gold · Frosted Glass · Premium
@@ -116,28 +114,255 @@ body{
 }
 
 /* ── SPLASH ── */
+/* ── SPLASH ── */
 #splash{
   position:fixed;inset:0;z-index:9999;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:36px;
   background:var(--bg);
-  transition:opacity .7s cubic-bezier(.4,0,.2,1),transform .7s cubic-bezier(.4,0,.2,1);
+  transition:opacity .8s cubic-bezier(.4,0,.2,1),transform .8s cubic-bezier(.4,0,.2,1);
+  overflow:hidden;
 }
-#splash.hide{opacity:0;transform:scale(1.05);pointer-events:none;}
-.splash-icon{
-  width:84px;height:84px;border-radius:26px;
+#splash.hide{opacity:0;transform:scale(1.06);pointer-events:none;}
+
+/* ambient rings */
+.splash-ring{
+  position:absolute;border-radius:50%;border:1px solid rgba(201,168,76,.12);
+  animation:splashRingPulse 3s ease-in-out infinite;
+}
+.splash-ring-1{width:180px;height:180px;animation-delay:0s;}
+.splash-ring-2{width:280px;height:280px;animation-delay:.4s;border-color:rgba(201,168,76,.07);}
+.splash-ring-3{width:400px;height:400px;animation-delay:.8s;border-color:rgba(201,168,76,.04);}
+@keyframes splashRingPulse{
+  0%,100%{transform:scale(1);opacity:.6;}
+  50%{transform:scale(1.04);opacity:1;}
+}
+
+/* center group */
+.splash-center{
+  position:relative;z-index:1;
+  display:flex;flex-direction:column;align-items:center;gap:0;
+  opacity:0;transform:scale(.9) translateY(10px);
+  transition:opacity .55s cubic-bezier(.22,1,.36,1),transform .55s cubic-bezier(.22,1,.36,1);
+}
+.splash-center.in{opacity:1;transform:scale(1) translateY(0);}
+
+/* icon */
+.splash-icon-wrap{
+  width:92px;height:92px;border-radius:28px;
   background:var(--grad);
   display:flex;align-items:center;justify-content:center;
-  box-shadow:0 0 56px rgba(201,168,76,.5),inset 0 2px 0 rgba(255,255,255,.3);
-  animation:pulseGold 2.2s ease-in-out infinite;
+  box-shadow:0 0 0 1px rgba(255,255,255,.2) inset,0 0 40px rgba(201,168,76,.5),0 0 80px rgba(201,168,76,.2),0 20px 40px rgba(0,0,0,.4);
+  animation:iconFloat 3s ease-in-out infinite;
+  margin-bottom:24px;
 }
+@keyframes iconFloat{
+  0%,100%{box-shadow:0 0 0 1px rgba(255,255,255,.2) inset,0 0 40px rgba(201,168,76,.5),0 0 80px rgba(201,168,76,.2),0 20px 40px rgba(0,0,0,.4);}
+  50%{box-shadow:0 0 0 1px rgba(255,255,255,.25) inset,0 0 55px rgba(201,168,76,.7),0 0 110px rgba(201,168,76,.3),0 24px 44px rgba(0,0,0,.45);}
+}
+
+/* title */
 .splash-title{
-  font-size:38px;font-weight:800;letter-spacing:3px;
-  background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  font-size:44px;font-weight:800;letter-spacing:5px;
+  background:linear-gradient(135deg,var(--a3),var(--a2),var(--a));
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  filter:drop-shadow(0 0 16px rgba(201,168,76,.4));
+  line-height:1;
 }
-.splash-sub{font-size:11px;color:var(--dim);letter-spacing:3.5px;text-transform:uppercase;font-weight:500;}
-.splash-bar-wrap{width:150px;height:2px;background:rgba(255,255,255,.08);border-radius:99px;overflow:hidden;margin-top:6px;}
-.splash-bar{height:100%;width:0%;background:var(--grad);border-radius:99px;transition:width .05s linear;
-  box-shadow:0 0 8px rgba(201,168,76,.6);}
+.splash-sub{
+  font-size:11px;color:var(--dim);letter-spacing:4px;text-transform:uppercase;
+  font-weight:500;opacity:.8;margin-top:8px;
+}
+
+/* credit — directly below FORGE */
+.splash-credit{
+  margin-top:16px;
+  display:flex;align-items:center;justify-content:center;gap:14px;
+}
+.splash-credit-text{
+  font-size:13px;font-weight:700;letter-spacing:5px;
+  background:linear-gradient(90deg,
+    #5a3d0a 0%,#c9a84c 20%,#f5e0a0 40%,#fff8e7 50%,#f5e0a0 60%,#c9a84c 80%,#5a3d0a 100%);
+  background-size:250% 100%;
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  animation:luxeShimmer 2.8s ease-in-out infinite;
+  filter:drop-shadow(0 0 8px rgba(201,168,76,.4));
+}
+/* side orbs */
+.splash-orb{
+  width:5px;height:5px;border-radius:50%;
+  background:radial-gradient(circle,rgba(245,224,160,1),rgba(201,168,76,.6));
+  box-shadow:0 0 10px 3px rgba(201,168,76,.5);
+  animation:orbPulse 2.8s ease-in-out infinite;
+  flex-shrink:0;
+}
+.splash-orb:last-child{animation-delay:.4s;}
+@keyframes luxeShimmer{
+  0%{background-position:150% 0;}
+  50%{background-position:0% 0;filter:drop-shadow(0 0 14px rgba(245,224,160,.9));}
+  100%{background-position:-150% 0;}
+}
+@keyframes orbPulse{
+  0%,100%{opacity:.3;transform:scale(.7);}
+  50%{opacity:1;transform:scale(1.3);}
+}
+
+/* progress */
+.splash-progress{
+  position:relative;z-index:1;
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  opacity:0;transform:translateY(8px);
+  transition:opacity .5s cubic-bezier(.22,1,.36,1),transform .5s cubic-bezier(.22,1,.36,1);
+}
+.splash-progress.in{opacity:1;transform:translateY(0);}
+.splash-bar-wrap{width:140px;height:2px;background:rgba(255,255,255,.07);border-radius:99px;overflow:hidden;}
+.splash-bar{
+  height:100%;width:0%;border-radius:99px;
+  background:linear-gradient(90deg,var(--a),var(--a2),var(--a3));
+  background-size:200% 100%;
+  box-shadow:0 0 10px rgba(201,168,76,.7);
+  transition:width .06s linear;
+  animation:barShimmer 1.5s linear infinite;
+}
+@keyframes barShimmer{0%{background-position:100% 0;}100%{background-position:-100% 0;}}
+.splash-pct{font-size:10px;font-weight:700;color:var(--dim);letter-spacing:1px;font-variant-numeric:tabular-nums;}
+
+
+/* ambient rings behind icon */
+.splash-ring{
+  position:absolute;border-radius:50%;border:1px solid rgba(201,168,76,.12);
+  animation:splashRingPulse 3s ease-in-out infinite;
+}
+.splash-ring-1{width:180px;height:180px;animation-delay:0s;}
+.splash-ring-2{width:280px;height:280px;animation-delay:.4s;border-color:rgba(201,168,76,.07);}
+.splash-ring-3{width:400px;height:400px;animation-delay:.8s;border-color:rgba(201,168,76,.04);}
+@keyframes splashRingPulse{
+  0%,100%{transform:scale(1);opacity:.6;}
+  50%{transform:scale(1.04);opacity:1;}
+}
+
+/* icon */
+.splash-icon{
+  position:relative;z-index:1;
+  width:92px;height:92px;border-radius:28px;
+  background:var(--grad);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.2) inset,
+    0 0 40px rgba(201,168,76,.5),
+    0 0 80px rgba(201,168,76,.2),
+    0 20px 40px rgba(0,0,0,.4);
+  animation:iconFloat 3s ease-in-out infinite;
+  opacity:0;transform:scale(.7) translateY(10px);
+  transition:opacity .5s cubic-bezier(.22,1,.36,1),transform .5s cubic-bezier(.22,1,.36,1);
+}
+.splash-icon.in{opacity:1;transform:scale(1) translateY(0);}
+@keyframes iconFloat{
+  0%,100%{box-shadow:0 0 0 1px rgba(255,255,255,.2) inset,0 0 40px rgba(201,168,76,.5),0 0 80px rgba(201,168,76,.2),0 20px 40px rgba(0,0,0,.4);}
+  50%{box-shadow:0 0 0 1px rgba(255,255,255,.25) inset,0 0 55px rgba(201,168,76,.7),0 0 110px rgba(201,168,76,.3),0 24px 44px rgba(0,0,0,.45);}
+}
+
+/* text group */
+.splash-text{
+  position:relative;z-index:1;
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  margin-top:28px;
+  opacity:0;transform:translateY(14px);
+  transition:opacity .5s cubic-bezier(.22,1,.36,1),transform .5s cubic-bezier(.22,1,.36,1);
+}
+.splash-text.in{opacity:1;transform:translateY(0);}
+.splash-title{
+  font-size:42px;font-weight:800;letter-spacing:4px;
+  background:linear-gradient(135deg,var(--a3),var(--a2),var(--a));
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  filter:drop-shadow(0 0 16px rgba(201,168,76,.4));
+  line-height:1;
+}
+.splash-sub{
+  font-size:11px;color:var(--dim);letter-spacing:4px;text-transform:uppercase;
+  font-weight:500;opacity:.8;
+}
+
+/* progress */
+.splash-progress{
+  position:relative;z-index:1;
+  margin-top:36px;
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  opacity:0;transform:translateY(10px);
+  transition:opacity .5s cubic-bezier(.22,1,.36,1),transform .5s cubic-bezier(.22,1,.36,1);
+}
+.splash-progress.in{opacity:1;transform:translateY(0);}
+.splash-bar-wrap{
+  width:140px;height:2px;
+  background:rgba(255,255,255,.07);border-radius:99px;overflow:hidden;
+}
+.splash-bar{
+  height:100%;width:0%;border-radius:99px;
+  background:linear-gradient(90deg,var(--a),var(--a2),var(--a3));
+  background-size:200% 100%;
+  box-shadow:0 0 10px rgba(201,168,76,.7);
+  transition:width .06s linear;
+  animation:barShimmer 1.5s linear infinite;
+}
+@keyframes barShimmer{
+  0%{background-position:100% 0;}
+  100%{background-position:-100% 0;}
+}
+.splash-pct{
+  font-size:10px;font-weight:700;color:var(--dim);
+  letter-spacing:1px;font-variant-numeric:tabular-nums;
+}
+/* credit — pushed to bottom inside splash */
+.splash-credit{
+  position:relative;
+  margin-top:auto;
+  padding-bottom:calc(env(safe-area-inset-bottom,0px)+36px);
+  width:100%;
+  text-align:center;
+  opacity:0;
+  transition:opacity .9s cubic-bezier(.4,0,.2,1);
+}
+.splash-credit.in{opacity:1;}
+.splash-credit.hide{opacity:0;}
+/* the text itself */
+.splash-credit-text{
+  display:inline-block;
+  font-size:22px;font-weight:800;letter-spacing:7px;
+  background:linear-gradient(90deg,
+    #5a3d0a 0%,
+    #c9a84c 20%,
+    #f5e0a0 40%,
+    #fff8e7 50%,
+    #f5e0a0 60%,
+    #c9a84c 80%,
+    #5a3d0a 100%);
+  background-size:250% 100%;
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  animation:luxeShimmer 2.8s ease-in-out infinite;
+  filter:drop-shadow(0 0 12px rgba(201,168,76,.55)) drop-shadow(0 0 28px rgba(201,168,76,.3));
+  position:relative;
+}
+/* glow orbs on sides */
+.splash-credit-text::before,
+.splash-credit-text::after{
+  content:"";
+  position:absolute;top:50%;transform:translateY(-50%);
+  width:28px;height:28px;border-radius:50%;
+  background:radial-gradient(circle,rgba(245,224,160,.7),rgba(201,168,76,.3),transparent 70%);
+  filter:blur(8px);
+  animation:orbPulse 2.8s ease-in-out infinite;
+}
+.splash-credit-text::before{right:calc(100% + 10px);}
+.splash-credit-text::after{left:calc(100% + 10px);}
+@keyframes luxeShimmer{
+  0%{background-position:150% 0;filter:drop-shadow(0 0 8px rgba(201,168,76,.4)) drop-shadow(0 0 20px rgba(201,168,76,.2));}
+  50%{background-position:0% 0;filter:drop-shadow(0 0 18px rgba(245,224,160,.8)) drop-shadow(0 0 40px rgba(201,168,76,.5));}
+  100%{background-position:-150% 0;filter:drop-shadow(0 0 8px rgba(201,168,76,.4)) drop-shadow(0 0 20px rgba(201,168,76,.2));}
+}
+@keyframes orbPulse{
+  0%,100%{opacity:.4;transform:translateY(-50%) scale(.8);}
+  50%{opacity:1;transform:translateY(-50%) scale(1.2);}
+}
+
 
 /* ── APP SHELL ── */
 .app{position:relative;z-index:2;display:flex;flex-direction:column;height:100vh;height:100dvh;}
@@ -265,15 +490,16 @@ body{
   background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
 }
 .ex .body{flex:1;min-width:0;}
-.ex .exname{font-weight:700;font-size:15.5px;line-height:1.3;color:var(--text);}
-.ex .exmeta{display:flex;align-items:center;gap:10px;margin-top:6px;}
+.ex .exname{font-weight:700;font-size:14.5px;line-height:1.35;color:var(--text);word-break:keep-all;overflow-wrap:break-word;}
+.ex .exmeta{display:flex;align-items:center;gap:8px;margin-top:6px;flex-wrap:wrap;}
 .ex .exscheme{font-size:12px;color:var(--dim);font-weight:500;}
 .ex .tap-hint{
-  font-size:10.5px;color:var(--a);opacity:.75;
+  font-size:10px;color:var(--a);opacity:.75;
   display:flex;align-items:center;gap:4px;
   background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);
-  padding:3px 8px;border-radius:99px;
+  padding:3px 7px;border-radius:99px;
   transition:opacity .2s,background .2s;
+  white-space:nowrap;flex-shrink:0;
 }
 .ex:hover .tap-hint{opacity:1;background:rgba(201,168,76,.18);}
 .ex .sets{
@@ -292,7 +518,7 @@ body{
 .ex.stretch .sets{margin-top:18px;}
 .stag{
   position:absolute;left:14px;top:12px;
-  font-size:9px;letter-spacing:.6px;font-weight:700;
+  font-size:10px;letter-spacing:.5px;font-weight:700;
   color:var(--a2);
   background:rgba(201,168,76,.12);
   border:1px solid rgba(201,168,76,.28);
@@ -446,7 +672,7 @@ body{
 }
 /* outer glass disc */
 .timer-disc{
-  position:relative;width:260px;height:260px;border-radius:50%;
+  position:relative;width:min(260px,78vw);height:min(260px,78vw);border-radius:50%;
   display:flex;align-items:center;justify-content:center;
   background:radial-gradient(circle at 50% 35%, rgba(255,252,240,.06), rgba(255,252,240,.015) 60%, transparent);
   backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
@@ -492,7 +718,7 @@ body{
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
 }
 .timer-display{
-  font-size:60px;font-weight:800;letter-spacing:-3px;color:var(--text);
+  font-size:clamp(40px,13vw,60px);font-weight:800;letter-spacing:-3px;color:var(--text);
   font-variant-numeric:tabular-nums;line-height:1;
   transition:color .4s,text-shadow .4s;
   text-shadow:0 2px 20px rgba(0,0,0,.4);
@@ -515,7 +741,7 @@ body{
 .timer-status.running{color:var(--a2);}
 
 /* buttons */
-.timer-btns{display:flex;gap:18px;justify-content:center;align-items:center;margin:28px 0 22px;}
+.timer-btns{display:flex;gap:clamp(12px,4vw,18px);justify-content:center;align-items:center;margin:24px 0 20px;}
 .timer-btn{
   border-radius:50%;cursor:pointer;
   display:flex;align-items:center;justify-content:center;
@@ -767,17 +993,22 @@ body{
 .trk-step-btn:active{transform:scale(.85);background:rgba(201,168,76,.15);}
 .trk-step-btn svg{width:16px;height:16px;stroke:currentColor;stroke-width:2.6;}
 .trk-weight-box{
-  display:flex;flex-direction:column;align-items:center;min-width:64px;
+  display:flex;flex-direction:column;align-items:center;min-width:80px;
 }
 .trk-weight-val{
   font-size:24px;font-weight:800;color:var(--a2);letter-spacing:-.5px;
   font-variant-numeric:tabular-nums;line-height:1;
-  background:transparent;border:none;outline:none;text-align:center;width:64px;
+  background:transparent;border:none;outline:none;text-align:center;
+  width:80px;
   -webkit-text-fill-color:var(--a2);font-family:var(--font);
   transition:color .2s;
 }
+/* hide number input spinners */
+.trk-weight-val::-webkit-outer-spin-button,
+.trk-weight-val::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
+.trk-weight-val{-moz-appearance:textfield;appearance:textfield;}
 .trk-weight-val:focus{-webkit-text-fill-color:var(--a3);}
-.trk-weight-unit{font-size:9px;color:var(--dim);margin-top:2px;letter-spacing:.5px;}
+.trk-weight-unit{font-size:10px;color:var(--dim);margin-top:2px;letter-spacing:.5px;}
 /* delta + expand row */
 .trk-card-bottom{
   display:flex;align-items:center;justify-content:space-between;
@@ -798,8 +1029,19 @@ body{
 .trk-card.open .trk-expand-btn svg{transform:rotate(180deg);}
 /* expandable chart area */
 .trk-detail{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.4,0,.2,1);}
-.trk-card.open .trk-detail{max-height:300px;}
-.trk-chart-mini{padding-top:14px;}
+.trk-card.open .trk-detail{max-height:520px;}
+.trk-chart-mini{
+  padding:14px 0 0;border-radius:14px;
+  background:rgba(255,252,240,.03);
+  border:1px solid rgba(255,252,240,.07);
+  padding:14px 12px 12px;margin-top:4px;
+}
+.chart-axis-label{font-size:9px;fill:rgba(255,252,240,.3);font-family:inherit;}
+.chart-grid-line{stroke:rgba(255,252,240,.05);stroke-width:1;}
+.chart-dot-outer{fill:rgba(201,168,76,.2);transition:r .15s;}
+.chart-dot-inner{fill:var(--a);filter:drop-shadow(0 0 4px rgba(201,168,76,.7));}
+.chart-area{opacity:.5;}
+.chart-line{stroke:var(--a);stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round;}
 .chart-svg{width:100%;overflow:visible;}
 .trk-hist-mini{margin-top:12px;display:flex;flex-direction:column;gap:5px;max-height:130px;overflow-y:auto;}
 .trk-hist-mini::-webkit-scrollbar{width:2px;}
@@ -899,100 +1141,139 @@ body{
 }
 .tip-step-txt{font-size:13.5px;color:var(--text2);line-height:1.7;padding-top:3px;}
 
+
+/* selection ripple for accent/bg buttons */
+@keyframes selPop{
+  0%{transform:scale(.95);opacity:.8;}
+  50%{transform:scale(1.06);}
+  100%{transform:scale(1.04);}
+}
+@keyframes selPopBg{
+  0%{transform:scale(.97);}
+  50%{transform:scale(1.05);}
+  100%{transform:scale(1.03);}
+}
 /* ── CUSTOMIZE MODAL ── */
 .cust-bd{
   position:fixed;inset:0;z-index:200;
   display:flex;align-items:flex-end;justify-content:center;
-  background:rgba(0,0,0,.7);backdrop-filter:blur(18px);
+  background:rgba(0,0,0,.72);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
   opacity:0;pointer-events:none;transition:opacity .28s;padding:0;
 }
 .cust-bd.open{opacity:1;pointer-events:all;}
 .cust-sh{
-  width:100%;max-width:560px;max-height:90vh;overflow-y:auto;
-  background:linear-gradient(160deg,rgba(18,16,22,.97),rgba(10,8,14,.99));
-  border:1px solid rgba(201,168,76,.15);border-radius:28px 28px 0 0;
-  padding:20px 20px calc(env(safe-area-inset-bottom,0px)+32px);
-  box-shadow:0 -4px 60px rgba(0,0,0,.65);
-  transform:translateY(100%);transition:transform .35s cubic-bezier(.22,1,.36,1);
+  width:100%;max-width:560px;max-height:88vh;overflow-y:auto;
+  background:linear-gradient(160deg,rgba(18,15,22,.97),rgba(9,8,12,.99));
+  border:1px solid rgba(201,168,76,.15);
+  border-radius:28px 28px 0 0;
+  padding:0 0 calc(env(safe-area-inset-bottom,0px)+32px);
+  box-shadow:0 -4px 60px rgba(0,0,0,.65),0 -1px 0 rgba(201,168,76,.08);
+  transform:translateY(100%);
+  transition:transform .42s cubic-bezier(.22,1.1,.36,1);
 }
 .cust-bd.open .cust-sh{transform:translateY(0);}
+/* backdrop fade */
+.cust-bd{transition:opacity .3s cubic-bezier(.4,0,.2,1);}
 .cust-sh::-webkit-scrollbar{width:2px;}
 .cust-sh::-webkit-scrollbar-thumb{background:rgba(201,168,76,.2);border-radius:99px;}
-.drag-h{width:40px;height:4px;border-radius:99px;background:rgba(255,252,240,.14);margin:0 auto 24px;}
+/* sticky header inside sheet */
+.cust-hdr{
+  position:sticky;top:0;z-index:2;
+  background:linear-gradient(160deg,rgba(18,15,22,.97),rgba(9,8,12,.99));
+  padding:14px 22px 0;
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.drag-h{width:40px;height:4px;border-radius:99px;background:rgba(255,252,240,.16);margin:0 auto 18px;}
+.cust-title-row{
+  display:flex;align-items:center;justify-content:space-between;
+  padding-bottom:16px;
+}
+.cust-title-l{display:flex;align-items:center;gap:13px;}
+.cust-title-ico{
+  width:44px;height:44px;border-radius:13px;
+  background:var(--grad);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 0 18px rgba(201,168,76,.35),inset 0 1px 0 rgba(255,255,255,.25);
+  transition:background .3s;flex-shrink:0;
+}
+.cust-title-txt{font-size:20px;font-weight:800;letter-spacing:-.3px;color:#fff;}
+.cust-title-sub{font-size:11px;color:var(--dim);margin-top:2px;}
+.cust-close{
+  width:36px;height:36px;border-radius:50%;flex-shrink:0;
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);
+  color:#94a3b8;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .18s;
+}
+.cust-close:active{transform:scale(.88);background:rgba(255,255,255,.14);}
+/* scrollable body */
+.cust-body{padding:24px 22px 0;}
 .csec{
-  font-size:11px;font-weight:700;color:var(--dim);letter-spacing:1.5px;
-  text-transform:uppercase;margin:0 0 13px;display:flex;align-items:center;gap:7px;
+  font-size:10.5px;font-weight:700;color:var(--dim2);
+  letter-spacing:2px;text-transform:uppercase;
+  margin:0 0 14px;display:flex;align-items:center;gap:9px;
 }
-.csec svg{stroke:var(--a);opacity:.7;}
+.csec::after{content:"";flex:1;height:1px;background:rgba(255,255,255,.06);}
+.csec-wrap{margin-bottom:28px;}
 
-/* BG GRID */
-.bg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:10px;margin-bottom:26px;}
+/* BG GRID — 2 columns, taller */
+.bg-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:0;}
 .bg-btn{
-  position:relative;padding:16px 10px;border-radius:var(--radius-sm);cursor:pointer;
-  font-family:var(--font);display:flex;flex-direction:column;align-items:center;gap:9px;
-  transition:all .22s cubic-bezier(.34,1.2,.64,1);border:2px solid rgba(255,252,240,.08);
+  position:relative;padding:18px 14px 16px;border-radius:18px;cursor:pointer;
+  font-family:var(--font);display:flex;align-items:center;gap:13px;
+  transition:all .28s cubic-bezier(.34,1.56,.64,1);
+  border:2px solid rgba(255,255,255,.07);
+  transform-origin:center;
 }
-.bg-btn.sel{border-color:var(--a)!important;box-shadow:0 0 20px rgba(201,168,76,.25);}
-.bg-btn:active{transform:scale(.92);}
-.bg-sw{width:28px;height:28px;border-radius:50%;border:1px solid rgba(255,252,240,.2);}
-.bg-lb{font-size:10.5px;font-weight:600;color:#94a3b8;}
-.bg-btn.sel .bg-lb{color:var(--a2);}
+.bg-btn.sel{
+  border-color:var(--a);
+  box-shadow:0 0 22px rgba(201,168,76,.28);
+  transform:scale(1.03);
+}
+.bg-btn:not(.sel):hover{transform:scale(1.02);border-color:rgba(255,255,255,.15);}
+.bg-btn:active{transform:scale(.93);transition:transform .12s;}
+.bg-sw{
+  width:34px;height:34px;border-radius:50%;flex-shrink:0;
+  border:2px solid rgba(255,255,255,.18);
+  box-shadow:0 2px 8px rgba(0,0,0,.3);
+}
+.bg-lb{font-size:13px;font-weight:600;color:#94a3b8;}
+.bg-btn.sel .bg-lb{color:#fff;}
 .bg-chk{
-  position:absolute;top:7px;right:7px;width:18px;height:18px;
-  border-radius:50%;background:var(--grad);
+  position:absolute;top:10px;left:10px;
+  width:20px;height:20px;border-radius:50%;
+  background:var(--grad);
   display:flex;align-items:center;justify-content:center;
   box-shadow:0 0 8px rgba(201,168,76,.4);
 }
 
-/* ACCENT GRID */
-.ac-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:26px;}
+/* ACCENT GRID — 2 columns */
+.ac-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:0;}
 .ac-btn{
-  padding:12px 13px;border-radius:var(--radius-sm);cursor:pointer;font-family:var(--font);
-  border:2px solid rgba(255,252,240,.08);
-  background:var(--surface);
-  display:flex;align-items:center;gap:11px;
-  transition:all .22s cubic-bezier(.34,1.2,.64,1);
-  backdrop-filter:var(--blur-sm);
+  padding:15px 14px;border-radius:18px;cursor:pointer;font-family:var(--font);
+  border:2px solid rgba(255,255,255,.07);
+  background:linear-gradient(135deg,rgba(255,252,240,.04),rgba(255,252,240,.01));
+  display:flex;align-items:center;gap:13px;
+  transition:all .28s cubic-bezier(.34,1.56,.64,1);
+  backdrop-filter:blur(12px);
+  transform-origin:center;
 }
-.ac-btn.sel{transform:scale(1.04);}
-.ac-btn:active{transform:scale(.94);}
-.ac-sw{width:32px;height:32px;border-radius:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
-.ac-nm{font-size:12px;font-weight:700;color:#94a3b8;white-space:nowrap;}
+.ac-btn.sel{
+  border-color:var(--a);
+  transform:scale(1.04);
+  box-shadow:0 4px 24px rgba(0,0,0,.25);
+}
+.ac-btn:active{transform:scale(.93);transition:transform .12s;}
+.ac-sw{
+  width:36px;height:36px;border-radius:11px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 2px 10px rgba(0,0,0,.25);
+}
+.ac-right{flex:1;min-width:0;}
+.ac-nm{font-size:13px;font-weight:700;color:#94a3b8;white-space:nowrap;}
 .ac-btn.sel .ac-nm{color:#fff;}
-.ac-dots{display:flex;gap:4px;margin-top:4px;}
-.ac-dot{width:8px;height:8px;border-radius:50%;}
-
-/* FONT LIST */
-.fn-list{display:flex;flex-direction:column;gap:8px;margin-bottom:26px;}
-.fn-btn{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:14px 17px;border-radius:var(--radius-sm);cursor:pointer;
-  border:1px solid var(--border);
-  background:var(--surface);backdrop-filter:var(--blur-sm);
-  transition:all .2s;
-}
-.fn-btn.sel{border-color:rgba(201,168,76,.35);background:rgba(201,168,76,.08);}
-.fn-btn:active{transform:scale(.98);}
-.fn-sm{font-size:17px;font-weight:700;color:#cbd5e1;}
-.fn-btn.sel .fn-sm{color:#fff;}
-.fn-hi{font-size:13px;color:var(--dim);}
-
-/* PREVIEW */
-.prev-card{
-  border-radius:var(--radius);padding:20px;
-  background:linear-gradient(135deg,rgba(201,168,76,.1),rgba(201,168,76,.03));
-  border:1px solid rgba(201,168,76,.25);
-  display:flex;align-items:center;gap:15px;margin-bottom:26px;
-  box-shadow:0 0 24px rgba(201,168,76,.08);
-}
-.prev-ico{width:56px;height:56px;border-radius:16px;flex-shrink:0;
-  background:var(--grad);display:flex;align-items:center;justify-content:center;
-  transition:background .3s;}
-.prev-badge{
-  font-size:13px;font-weight:800;padding:5px 14px;border-radius:11px;
-  color:var(--a2);border:1px solid rgba(201,168,76,.35);
-  background:rgba(201,168,76,.12);transition:color .3s;
-}
+.ac-dots{display:flex;gap:5px;margin-top:5px;}
+.ac-dot{width:9px;height:9px;border-radius:50%;}
 
 /* STRETCH SWATCH */
 .ssw{display:inline-block;width:11px;height:11px;border-radius:3px;
@@ -1046,7 +1327,7 @@ body{
   background:rgba(255,252,240,.04);border:1px solid rgba(255,252,240,.07);
   transition:all .3s cubic-bezier(.34,1.4,.64,1);
 }
-.cr-day .cd-name{font-size:9px;color:var(--dim);font-weight:600;}
+.cr-day .cd-name{font-size:10px;color:var(--dim);font-weight:600;}
 .cr-day .cd-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,252,240,.12);transition:all .3s;}
 .cr-day.done{
   background:linear-gradient(135deg,rgba(201,168,76,.18),rgba(201,168,76,.05));
@@ -1057,24 +1338,46 @@ body{
 .cr-day.today{border-color:rgba(255,252,240,.25);}
 .cr-day.today .cd-name{color:var(--text2);}
 </style>
+<link rel="apple-touch-icon" href="data:image/png;base64,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">
+<link rel="icon" type="image/png" href="data:image/png;base64,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">
+<meta name="apple-mobile-web-app-title" content="FORGE">
 </head>
 <body>
 <div id="vbg"></div>
 <div class="vov"></div>
 <div class="ambient"></div>
 
+<!-- SPLASH -->
 <div id="splash">
-  <div class="splash-icon lr">
-    <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M6 7h2v10H6zM16 7h2v10h-2zM8 12h8M3 9h1v6H3zM20 9h1v6h-1z"/>
-    </svg>
+  <!-- ambient rings -->
+  <div class="splash-ring splash-ring-1"></div>
+  <div class="splash-ring splash-ring-2"></div>
+  <div class="splash-ring splash-ring-3"></div>
+  <!-- center group: icon + FORGE + credit -->
+  <div class="splash-center" id="splash-icon">
+    <div class="splash-icon-wrap lr">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 7h2v10H6zM16 7h2v10h-2zM8 12h8M3 9h1v6H3zM20 9h1v6h-1z"/>
+      </svg>
+    </div>
+    <div class="splash-title">FORGE</div>
+    <div class="splash-sub">Hypertrophy · Upper Body</div>
+    <!-- credit right below FORGE -->
+    <div class="splash-credit" id="splash-credit">
+      <div class="splash-orb"></div>
+      <span class="splash-credit-text">BY YAHLI DIMRI</span>
+      <div class="splash-orb"></div>
+    </div>
   </div>
-  <div class="splash-title">FORGE</div>
-  <div class="splash-sub">Hypertrophy · Upper Body</div>
-  <div class="splash-bar-wrap"><div class="splash-bar" id="splash-bar"></div></div>
+  <!-- progress bar -->
+  <div class="splash-progress" id="splash-progress">
+    <div class="splash-bar-wrap"><div class="splash-bar" id="splash-bar"></div></div>
+    <div class="splash-pct" id="splash-pct">0%</div>
+  </div>
 </div>
 
 <div class="app">
+  <!-- HEADER -->
   <header class="hdr">
     <div class="hdr-l">
       <div class="hdr-icon lr">
@@ -1100,51 +1403,54 @@ body{
 
   <div class="scroll" id="scroll">
 
+    <!-- SUPER: WORKOUT -->
     <div class="super-panel active" id="super-workout">
+      <!-- workout sub-tabs -->
       <div class="wtabs">
         <button class="wtab active" data-wp="a" onclick="switchWorkout(this)">A · דחיפה</button>
         <button class="wtab" data-wp="b" onclick="switchWorkout(this)">B · משיכה</button>
-        <button class="wtab" data-wp="c" onclick="switchWorkout(this)">C · מאוזן</button>
+        <button class="wtab" data-wp="c" onclick="switchWorkout(this)">C · ממוקד</button>
       </div>
+    <!-- PANEL A -->
     <div class="panel active" id="panel-a">
-      <div class="whead"><div class="wbadge lr">A</div><div><div class="wtitle">אימון דחיפה</div><div class="wfocus">חזה · כתפיים · טרייספס</div></div></div>
+      <div class="whead"><div class="wbadge lr">A</div><div><div class="wtitle">שני — דחיפה</div><div class="wfocus">חזה · כתפיים · טרייספס</div></div></div>
       <div class="ex lr" style="animation-delay:.05s" onclick="showTip(this)"
-        data-name="לחיצת חזה במוט ישר"
-        data-focus="מרגישים את זה בחזה האמצעי והתחתון"
+        data-name="לחיצת חזה מוט ישר"
+        data-focus="תרגיל בסיס — עצור 1-2 חזרות לפני כשל"
         data-steps='["שכב על הספסל, שכמות לחוצות אחורה ולמטה","אחוז במוט ברוחב כתפיים פלוס קצת — מרפקים ב-45° מהגוף","הורד לחזה התחתון (3 שניות) — מוט נוגע קלות בחזה","דחוף חזק בנשיפה, אל תנעל ידיים בסוף"]'>
         <div class="num">1</div>
         <div class="body">
-          <div class="exname">לחיצת חזה במוט ישר</div>
+          <div class="exname">לחיצת חזה מוט ישר</div>
           <div class="exmeta"><div class="exscheme">6-8 חזרות</div><div class="tap-hint"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>איך עושים</div></div>
         </div>
         <div class="sets">2×</div>
       </div>
       <div class="ex lr" style="animation-delay:.1s" onclick="showTip(this)"
-        data-name="לחיצת כתפיים (מוט / יד)"
-        data-focus="מרגישים בדלתא הקדמי ובטרייספס"
+        data-name="לחיצת כתפיים"
+        data-focus="מוט או דמבלים — לפני כשל"
         data-steps='["עמוד זקוף — הדק בטן ואל תקמר גב","אחוז מוט ברוחב כתפיים, מרפקים קדימה-מעט (לא לצד)","הרם ישר למעלה עד שהיד כמעט ישרה","הורד לגובה הסנטר בשליטה — עצור שנייה ורפס"]'>
         <div class="num">2</div>
         <div class="body">
-          <div class="exname">לחיצת כתפיים (מוט / יד)</div>
+          <div class="exname">לחיצת כתפיים</div>
           <div class="exmeta"><div class="exscheme">6-8 חזרות</div><div class="tap-hint"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>איך עושים</div></div>
         </div>
         <div class="sets">2×</div>
       </div>
       <div class="ex lr" style="animation-delay:.15s" onclick="showTip(this)"
-        data-name="לחיצת חזה משופע · יד"
-        data-focus="מרגישים בחזה העליון — החלק שנשאר חלש"
+        data-name="לחיצת חזה משופע"
+        data-focus="חזה עליון — זווית שונה מתרגיל 1"
         data-steps='["הספסל ב-30-45° — לא יותר, אחרת נהיה כתפיים","משקולות יד בגובה החזה העליון, כפות ידיים קדימה","דחוף למעלה ומעט פנימה, משקולות כמעט נוגעות בראש","הורד לאט — תרגיש מתיחה בחזה העליון בנקודה הנמוכה"]'>
         <div class="num">3</div>
         <div class="body">
-          <div class="exname">לחיצת חזה משופע · משקולות יד</div>
+          <div class="exname">לחיצת חזה משופע</div>
           <div class="exmeta"><div class="exscheme">6-8 חזרות</div><div class="tap-hint"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>איך עושים</div></div>
         </div>
         <div class="sets">2×</div>
       </div>
       <div class="ex stretch lr" style="animation-delay:.2s" onclick="showTip(this)"
         data-name="הרחקת כתפיים"
-        data-focus="הירידה האיטית היא הגירוי העיקרי — אל תמהר"
-        data-steps='["עמוד זקוף, מרפקים קלות כפופים ונעולים — לא ישרים","הרם הצידה עד גובה הכתפיים בדיוק — לא מעל","בנקודה הגבוהה — עצור שנייה, תרגיש כיווץ","הורד לאט 3-4 שניות — תרגיש מתיחה בדלתא הצדדי"]'>
+        data-focus="דלתא צדית — ירידה איטית, בטוח עד כשל"
+        data-steps='["עמוד זקוף, מרפקים קלות כפופים ונעולים — לא ישרים","הרם הצידה עד גובה הכתפיים בדיוק — לא מעל","בנקודה הגבוהה — עצור שנייה, תרגיש כיווץ","הורד לאט 3-4 שניות — דגש על מתיחה בדלתא הצדדי"]'>
         <span class="stag">נקודה מתוחה</span>
         <div class="num">4</div>
         <div class="body">
@@ -1153,111 +1459,134 @@ body{
         </div>
         <div class="sets">2×</div>
       </div>
-      <div class="ex lr" style="animation-delay:.25s" onclick="showTip(this)"
-        data-name="פושדאון טרייספס בכבל"
-        data-focus="המרפק לא זז — הוא הציר של התנועה"
-        data-steps='["עמוד מול הכבל, כפוף קדימה קלות","מרפק צמוד לגוף ולא זז — זה הכלל הכי חשוב","דחוף ידית למטה עד שהיד ישרה לגמרי","חזור לאט — אל תשתמש בתנע ובמשקל הגוף"]'>
+      <div class="ex stretch lr" style="animation-delay:.25s" onclick="showTip(this)"
+        data-name="פשיטת טרייספס מעל הראש (חבל)"
+        data-focus="טרייספס ראש ארוך — מרפק עמוק, עד כשל"
+        data-steps='["עמוד עם החבל מאחורי הראש, מרפקים גבוהים","הורד את היד עד מתיחה מלאה — מרפק עמוק מאחורי הראש","פשוט את היד עד שהיא ישרה מעל הראש","חזור לאט — תרגיש מתיחה בראש הארוך של הטרייספס"]'>
+        <span class="stag">נקודה מתוחה</span>
         <div class="num">5</div>
         <div class="body">
-          <div class="exname">פושדאון טרייספס בכבל</div>
-          <div class="exmeta"><div class="exscheme">6-8 חזרות</div><div class="tap-hint"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>איך עושים</div></div>
+          <div class="exname">פשיטת טרייספס מעל הראש (חבל)</div>
+          <div class="exmeta" style="margin-top:18px"><div class="exscheme">6-8 חזרות</div><div class="tap-hint"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>איך עושים</div></div>
         </div>
         <div class="sets">2×</div>
       </div>
     </div>
 
+    <!-- PANEL B -->
     <div class="panel" id="panel-b">
-      <div class="whead"><div class="wbadge lr">B</div><div><div class="wtitle">אימון משיכה</div><div class="wfocus">גב · אחורי כתף · בייספס</div></div></div>
+      <div class="whead"><div class="wbadge lr">B</div><div><div class="wtitle">רביעי — משיכה</div><div class="wfocus">גב · בייספס · דלתא אחורית</div></div></div>
       <div class="ex lr" style="animation-delay:.05s" onclick="showTip(this)"
         data-name="חתירה במוט"
-        data-focus="גב ישר — גב מעוגל = פציעה"
+        data-focus="גב עליון — תרגיל בסיס, לפני כשל"
         data-steps='["כפוף קדימה 45°, ברכיים קלות כפופות","גב ישר לגמרי — זה הכלל הכי חשוב בתרגיל הזה","משוך מוט לכיוון הבטן התחתונה, מרפקים לאחור","סחוט גב בנקודה הגבוהה שנייה, הורד בשליטה"]'>
         <div class="num">1</div>
-        <div class="body"><div class="exname">חתירה במוט</div><div class="exmeta"><div class="exscheme">6-8 חזרות</div><div class="tap-hint"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>איך עושים</div></div></div>
+        <div class="body">
+          <div class="exname">חתירה במוט</div>
+          <div class="exmeta"><div class="exscheme">6-8 חזרות</div><div class="tap-hint"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>איך עושים</div></div>
+        </div>
         <div class="sets">2×</div>
       </div>
       <div class="ex lr" style="animation-delay:.1s" onclick="showTip(this)"
-        data-name="משיכת פולי עליון / מתח"
-        data-focus="השכמות יורדות ומתקרבות — לא הידיים"
+        data-name="משיכת פולי / מתח"
+        data-focus="לטיסימוס — תנועה שונה מחתירה"
         data-steps='["שב, הישען 15° אחורה — דחוף חזה קדימה","אחוז רחב, הורד ידיות לחזה העליון","מרפקים יורדים לכיוון הרצפה — לא לאחור","בנקודה הנמוכה: שכמות מסוחטות זו לזו שנייה"]'>
         <div class="num">2</div>
-        <div class="body"><div class="exname">משיכת פולי עליון / מתח</div><div class="exmeta"><div class="exscheme">6-8 חזרות</div><div class="tap-hint"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>איך עושים</div></div></div>
+        <div class="body">
+          <div class="exname">משיכת פולי / מתח</div>
+          <div class="exmeta"><div class="exscheme">6-8 חזרות</div><div class="tap-hint"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>איך עושים</div></div>
+        </div>
         <div class="sets">2×</div>
       </div>
-      <div class="ex lr" style="animation-delay:.15s" onclick="showTip(this)"
-        data-name="חתירה בכבל / ביד אחת"
-        data-focus="תן לגב להרגיש את התנועה — לא ליד"
-        data-steps='["ברך אחת על הספסל, יד שנייה נשענת","גב ישר ומקביל לרצפה — לא מוטה","משוך למעלה לצד הגוף, מרפק קרוב ועובר אחורה","עצור שנייה בנקודה הגבוהה, הורד ותאפשר מתיחה מלאה"]'>
+      <div class="ex stretch lr" style="animation-delay:.15s" onclick="showTip(this)"
+        data-name="כפיפת בייספס בדמבל על ספסל משופע"
+        data-focus="בייספס ראש ארוך — מתיחה מלאה, עד כשל"
+        data-steps='["שב על ספסל משופע (45-60°), זרועות נופלות אחורה לגמרי","תן לזרוע להישאר אחורה — זו המתיחה המלאה של הבייספס","כפוף את המרפק ומשוך את הדמבל למעלה","הורד לאט עד מתיחה מלאה — מרפק לא זז קדימה"]'>
+        <span class="stag">נקודה מתוחה</span>
         <div class="num">3</div>
-        <div class="body"><div class="exname">חתירה בכבל / ביד אחת</div><div class="exmeta"><div class="exscheme">6-8 חזרות</div><div class="tap-hint"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>איך עושים</div></div></div>
+        <div class="body">
+          <div class="exname">כפיפת בייספס בדמבל על ספסל משופע</div>
+          <div class="exmeta" style="margin-top:18px"><div class="exscheme">6-8 חזרות</div><div class="tap-hint"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>איך עושים</div></div>
+        </div>
         <div class="sets">2×</div>
       </div>
       <div class="ex lr" style="animation-delay:.2s" onclick="showTip(this)"
-        data-name="פייס-פול"
-        data-focus="אייקוני לאחורי הכתף — אל תזניח אותו"
-        data-steps='["קבע כבל לגובה הראש, שב זקוף","אחוז בידית רחבה, מרפקים גבוהים","משוך לכיוון הפנים תוך סיבוב כפות הידיים כלפי מטה","מרפקים מעל גובה הכתפיים בסוף התנועה"]'>
+        data-name="פייס-פול בחבל"
+        data-focus="דלתא אחורית + טרפז אמצעי — עד כשל"
+        data-steps='["קבע כבל לגובה הראש, שב/עמוד זקוף","אחוז בחבל רחב, מרפקים גבוהים","משוך לכיוון הפנים תוך סיבוב כפות הידיים כלפי מטה","סחיטה בשכמות — בלי תנופה, מרפקים מעל הכתפיים"]'>
         <div class="num">4</div>
-        <div class="body"><div class="exname">פייס-פול</div><div class="exmeta"><div class="exscheme">6-8 חזרות</div><div class="tap-hint"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>איך עושים</div></div></div>
+        <div class="body">
+          <div class="exname">פייס-פול בחבל</div>
+          <div class="exmeta"><div class="exscheme">6-8 חזרות</div><div class="tap-hint"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>איך עושים</div></div>
+        </div>
         <div class="sets">2×</div>
       </div>
       <div class="ex stretch lr" style="animation-delay:.25s" onclick="showTip(this)"
-        data-name="כפיפת מרפק במוט W"
-        data-focus="הירידה המלאה עם עצירה — זה הסוד"
-        data-steps='["שב על הספסל, גב ישר, מרפקים ניוטרליים","כפוף מרפק ומשוך מוט לכיוון הכתף","בנקודה הגבוהה — סחוט בייספס שנייה","הורד לאט עד שהיד ישרה — עצור שנייה ותרגיש מתיחה"]'>
+        data-name="כפיפת בייספס במוט W"
+        data-focus="בייספס — ידידותי למרפקים, עד כשל"
+        data-steps='["שב או עמוד, גב ישר, מרפקים ניוטרליים","כפוף מרפק ומשוך מוט לכיוון הכתף","בנקודה הגבוהה — סחוט בייספס שנייה","הורד לאט עד שהיד ישרה — ידידותי למרפקים"]'>
         <span class="stag">נקודה מתוחה</span>
         <div class="num">5</div>
-        <div class="body"><div class="exname">כפיפת מרפק במוט W</div><div class="exmeta" style="margin-top:18px"><div class="exscheme">6-8 חזרות</div><div class="tap-hint"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>איך עושים</div></div></div>
+        <div class="body">
+          <div class="exname">כפיפת בייספס במוט W</div>
+          <div class="exmeta" style="margin-top:18px"><div class="exscheme">6-8 חזרות</div><div class="tap-hint"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>איך עושים</div></div>
+        </div>
         <div class="sets">2×</div>
       </div>
     </div>
 
+    <!-- PANEL C -->
     <div class="panel" id="panel-c">
-      <div class="whead"><div class="wbadge lr">C</div><div><div class="wtitle">עליון מאוזן</div><div class="wfocus">נפח כולל · סופרסטים</div></div></div>
+      <div class="whead"><div class="wbadge lr">C</div><div><div class="wtitle">שישי — ממוקד</div><div class="wfocus">טרייספס · טרפז · דלתא אחורית</div></div></div>
       <div class="ex lr" style="animation-delay:.05s" onclick="showTip(this)"
-        data-name="לחיצת חזה משופע במוט"
-        data-focus="אותם עקרונות כמו A — אבל ספסל משופע"
-        data-steps='["ספסל ב-30-45°, שכמות נלחצות לספסל","הורד מוט לחזה העליון (מתחת לעצם הבריח)","מרפקים ב-45° מהגוף — לא מוטות לצד","דחוף חזק ותרגיש חזה עליון מעובד"]'>
+        data-name="דיפס (מקבילים)"
+        data-focus="טרייספס — גוף זקוף, מרפקים צמודים"
+        data-steps='["אחוז במקבילים, גוף זקוף (כדי להדגיש טרייספס)","מרפקים קרובים לגוף — לא נפתחים החוצה","הורד עד שהמרפק ב-90° בערך","דחוף חזק חזרה למעלה — לפני כשל"]'>
         <div class="num">1</div>
-        <div class="body"><div class="exname">לחיצת חזה משופע במוט</div><div class="exmeta"><div class="exscheme">6-8 חזרות</div><div class="tap-hint"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>איך עושים</div></div></div>
+        <div class="body"><div class="exname">דיפס (מקבילים)</div><div class="exmeta"><div class="exscheme">6-8 חזרות</div><div class="tap-hint"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>איך עושים</div></div></div>
         <div class="sets">2×</div>
       </div>
-      <div class="ex lr" style="animation-delay:.1s" onclick="showTip(this)"
-        data-name="חתירה / משיכת פולי"
-        data-focus="בחר מה עשית פחות השבוע"
-        data-steps='["חתירה: כפוף 45°, גב ישר, משוך לבטן תחתונה","פולי: הישען 15° אחורה, משוך לחזה עליון","בשניהם: שכמות מסוחטות בנקודה הקרובה","הורד בשליטה — אל תשחרר בפתאומיות"]'>
+      <div class="ex stretch lr" style="animation-delay:.1s" onclick="showTip(this)"
+        data-name="פשיטת טרייספס מעל הראש (חבל)"
+        data-focus="טרייספס ראש ארוך — מרפק עמוק, עד כשל"
+        data-steps='["עמוד עם החבל מאחורי הראש, מרפקים גבוהים","הורד את היד עד מתיחה מלאה — מרפק עמוק מאחורי הראש","פשוט את היד עד שהיא ישרה מעל הראש","חזור לאט — תרגיש מתיחה בראש הארוך של הטרייספס"]'>
+        <span class="stag">נקודה מתוחה</span>
         <div class="num">2</div>
-        <div class="body"><div class="exname">חתירה / משיכת פולי</div><div class="exmeta"><div class="exscheme">6-8 חזרות</div><div class="tap-hint"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>איך עושים</div></div></div>
+        <div class="body"><div class="exname">פשיטת טרייספס מעל הראש</div><div class="exmeta" style="margin-top:18px"><div class="exscheme">6-8 חזרות</div><div class="tap-hint"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>איך עושים</div></div></div>
         <div class="sets">2×</div>
       </div>
       <div class="ex lr" style="animation-delay:.15s" onclick="showTip(this)"
-        data-name="לחיצת כתפיים · משקולות יד"
-        data-focus="קשה יותר לרמות עם ידיות — עשה זה נכון"
-        data-steps='["שב על ספסל, גב ישר ומגובה","ידיות בגובה האוזניים, כפות קדימה או ניוטרלי","הרם ישר למעלה, מרפקים קדימה-מעט","הורד עד גובה האוזניים — לא יותר למטה"]'>
+        data-name="פושדאון חבל"
+        data-focus="טרייספס ראש צדי — פתיחת חבל בסוף, עד כשל"
+        data-steps='["עמוד מול הכבל, מרפקים צמודים לגוף","דחוף את החבל למטה עד שהיד ישרה","בסוף התנועה — פתח את החבל לצדדים","חזור לאט, מרפקים לא זזים מהגוף"]'>
         <div class="num">3</div>
-        <div class="body"><div class="exname">לחיצת כתפיים · משקולות יד</div><div class="exmeta"><div class="exscheme">6-8 חזרות</div><div class="tap-hint"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>איך עושים</div></div></div>
+        <div class="body"><div class="exname">פושדאון חבל</div><div class="exmeta"><div class="exscheme">6-8 חזרות</div><div class="tap-hint"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>איך עושים</div></div></div>
         <div class="sets">2×</div>
       </div>
-      <div class="ex stretch lr" style="animation-delay:.2s" onclick="showTip(this)"
-        data-name="הרחקת כתפיים + כפיפת בייספס"
-        data-focus="סופרסט — ללא מנוחה בין שני התרגילים"
-        data-steps='["קודם: הרחקת כתפיים — 6-8 חזרות, ירידה איטית","מיד אחרי: כפיפת בייספס עם יד — 6-8 חזרות","בבייספס: עצור שנייה בתחתית עם יד פשוטה","רק אחרי שני התרגילים — מנוחה"]'>
-        <span class="stag">נקודה מתוחה</span>
+      <div class="ex lr" style="animation-delay:.2s" onclick="showTip(this)"
+        data-name="שראגים"
+        data-focus="טרפז עליון — החזקה למעלה, ירידה איטית, עד כשל"
+        data-steps='["עמוד עם משקולות/מוט בידיים, זרועות ישרות","הרם את הכתפיים ישר למעלה לכיוון האוזניים","החזק שנייה למעלה — סחוט את הטרפז","הורד לאט ומבוקר — תרגיש מתיחה בטרפז"]'>
         <div class="num">4</div>
-        <div class="body"><div class="exname">הרחקת כתפיים + סופרסט כפיפת בייספס</div><div class="exmeta" style="margin-top:18px"><div class="exscheme">6-8 חזרות</div><div class="tap-hint"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>איך עושים</div></div></div>
+        <div class="body"><div class="exname">שראגים</div><div class="exmeta"><div class="exscheme">6-8 חזרות</div><div class="tap-hint"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>איך עושים</div></div></div>
         <div class="sets">2×</div>
       </div>
-      <div class="ex stretch lr" style="animation-delay:.25s" onclick="showTip(this)"
-        data-name="פלייז חזה + פושדאון טרייספס"
-        data-focus="סופרסט — גמר אימון מושלם לחזה וטרייספס"
-        data-steps='["קודם: פלייז עם משקולות יד — הורד עד מתיחה מקסימלית","בפלייז: מרפקים קלות כפופים, הורד לצדדים לאט","מיד אחרי: פושדאון בכבל — מרפקים צמודים לגוף","דחוף עד יד ישרה, חזור לאט — זה הסיום"]'>
-        <span class="stag">נקודה מתוחה</span>
+      <div class="ex lr" style="animation-delay:.25s" onclick="showTip(this)"
+        data-name="הרחקת כתפיים אחורה בשכיבה"
+        data-focus="דלתא אחורית — פתיחה לצדדים ולמעלה, עד כשל"
+        data-steps='["שכב עם החזה על ספסל משופע, משקולות יד תלויות","מרפקים קלות כפופים — פתח את הידיים לצדדים ולמעלה","סחוט את הדלתא האחורית בנקודה הגבוהה","הורד לאט — בלי תנופה, תנועה נקייה"]'>
         <div class="num">5</div>
-        <div class="body"><div class="exname">פלייז חזה + פושדאון טרייספס (סופרסט)</div><div class="exmeta" style="margin-top:18px"><div class="exscheme">6-8 חזרות</div><div class="tap-hint"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>איך עושים</div></div></div>
+        <div class="body"><div class="exname">הרחקת כתפיים אחורה (Rear Delt)</div><div class="exmeta"><div class="exscheme">6-8 חזרות</div><div class="tap-hint"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>איך עושים</div></div></div>
         <div class="sets">2×</div>
       </div>
     </div>
 
-    </div><div class="super-panel" id="super-tools">
+    </div><!-- /super-workout -->
+
+    <!-- SUPER: TOOLS -->
+    <div class="super-panel" id="super-tools">
+      <!-- toggle timer / 1RM -->
+      <!-- TIMER panel (only tool) -->
       <div class="tool-panel active" id="tool-timer">
         <div class="timer-wrap">
           <div class="timer-glow" id="timer-glow"></div>
@@ -1294,15 +1623,22 @@ body{
         </div>
         <div class="timer-laps-wrap" id="timer-laps"></div>
       </div>
-    </div><div class="super-panel" id="super-tracker">
+    </div><!-- /super-tools -->
+
+    <!-- SUPER: TRACKER -->
+    <div class="super-panel" id="super-tracker">
       <div style="padding:14px 18px 130px">
         <div id="trk-pr-banner"></div>
         <div id="trk-tip"></div>
         <div id="trk-groups"></div>
       </div>
-    </div><div class="super-panel" id="super-creatine">
+    </div><!-- /super-tracker -->
+
+    <!-- SUPER: CREATINE -->
+    <div class="super-panel" id="super-creatine">
       <div style="padding:14px 18px 140px">
 
+        <!-- daily creatine button -->
         <div class="cr-hero">
           <div class="cr-date" id="cr-date"></div>
           <button class="cr-btn" id="cr-btn" onclick="toggleCreatine()">
@@ -1318,6 +1654,7 @@ body{
           <div class="cr-status" id="cr-status">לחץ אחרי שלקחת קריאטין היום</div>
         </div>
 
+        <!-- streak + stats -->
         <div class="sprow" style="margin-top:24px">
           <div class="sp lr">
             <div class="sp-l">רצף נוכחי</div>
@@ -1331,9 +1668,11 @@ body{
           </div>
         </div>
 
+        <!-- last 7 days -->
         <div class="shead">7 ימים אחרונים</div>
         <div class="cr-week" id="cr-week"></div>
 
+        <!-- reset note -->
         <div class="nc lr" style="margin-top:18px">
           <h3><span class="dot"></span>איך זה עובד</h3>
           <p>הכפתור <strong>מתאפס אוטומטית כל יום בחצות</strong>. כל בוקר תמצא אותו ריק — לחץ עליו אחרי שלקחת את הקריאטין.</p>
@@ -1341,6 +1680,7 @@ body{
           <p><strong>מינון:</strong> 3-5 גרם ביום, עם הרבה מים. אפשר בכל שעה — העקביות חשובה יותר מהתזמון.</p>
         </div>
 
+        <!-- training principles (kept) -->
         <div class="shead">עקרונות אימון</div>
         <div class="nc lr"><h3><span class="dot"></span>פרוגרסיה — מנוע הגדילה</h3>
           <p>תעד כל אימון ושאף להוסיף <strong>חזרה או מעט משקל בכל שבוע</strong>.</p>
@@ -1354,7 +1694,11 @@ body{
           <div style="font-size:10px;color:var(--dim2);letter-spacing:2px;margin-top:5px;">FORGE · 2026</div>
         </div>
       </div>
-    </div></div><nav class="bnav">
+    </div><!-- /super-creatine -->
+  </div><!-- /scroll -->
+
+  <!-- BOTTOM NAV — 4 super-tabs -->
+  <nav class="bnav">
     <button class="ntab active" data-super="workout" onclick="switchSuper(this)">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h2v10H6zM16 7h2v10h-2zM8 12h8M3 9h1v6H3zM20 9h1v6h-1z"/></svg>
       <span class="nl">אימונים</span>
@@ -1374,6 +1718,7 @@ body{
   </nav>
 </div>
 
+<!-- TIP MODAL -->
 <div class="tip-bd" id="tip-bd" onclick="closeTipOut(event)">
   <div class="tip-sh">
     <div class="tip-drag"></div>
@@ -1403,40 +1748,61 @@ body{
   </div>
 </div>
 
+<!-- CUSTOMIZE MODAL -->
 <div class="cust-bd" id="cust-bd" onclick="closeCustOut(event)">
-  <div class="cust-sh lr" id="cust-sh">
-    <div class="drag-h"></div>
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
-      <div style="display:flex;align-items:center;gap:12px;">
-        <div style="width:40px;height:40px;border-radius:12px;background:var(--grad);display:flex;align-items:center;justify-content:center;box-shadow:0 0 20px rgba(52,211,153,.35);">
-          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+  <div class="cust-sh" id="cust-sh">
+
+    <!-- Sticky header -->
+    <div class="cust-hdr">
+      <div class="drag-h"></div>
+      <div class="cust-title-row">
+        <div class="cust-title-l">
+          <div class="cust-title-ico">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.3" stroke-linecap="round">
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+            </svg>
+          </div>
+          <div>
+            <div class="cust-title-txt">Customize</div>
+            <div class="cust-title-sub">Make it yours</div>
+          </div>
         </div>
-        <div>
-          <div style="font-size:19px;font-weight:800;letter-spacing:-.3px;color:#fff;">Customize</div>
-          <div style="font-size:11px;color:var(--dim);">Make it yours</div>
-        </div>
+        <button class="cust-close" onclick="closeCust()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
       </div>
-      <button onclick="closeCust()" style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.11);color:#94a3b8;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.18s;" onmouseenter="this.style.background='rgba(255,255,255,.12)'" onmouseleave="this.style.background='rgba(255,255,255,.07)'">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </div>
+
+    <!-- Scrollable body -->
+    <div class="cust-body">
+
+      <!-- Background -->
+      <div class="csec-wrap">
+        <div class="csec">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--a)" stroke-width="2" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          רקע
+        </div>
+        <div class="bg-grid" id="bg-grid"></div>
+      </div>
+
+      <!-- Accent Color -->
+      <div class="csec-wrap">
+        <div class="csec">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--a)" stroke-width="2" stroke-linecap="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+          צבע מבטא
+        </div>
+        <div class="ac-grid" id="ac-grid"></div>
+      </div>
+
+      <!-- Done button -->
+      <button class="gbtn pri lg lr" style="width:100%;margin-top:8px" onclick="closeCust()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+        סיום
       </button>
-    </div>
-    <div class="csec"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Background</div>
-    <div class="bg-grid" id="bg-grid"></div>
-    <div class="csec"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>Accent Color</div>
-    <div class="ac-grid" id="ac-grid"></div>
-    <div class="csec"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>Font</div>
-    <div class="fn-list" id="fn-list"></div>
-    <div class="csec"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>Preview</div>
-    <div class="prev-card lr" id="prev-card">
-      <div class="prev-ico lr" id="prev-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.2" stroke-linecap="round"><path d="M6 7h2v10H6zM16 7h2v10h-2zM8 12h8"/></svg></div>
-      <div style="flex:1"><div style="font-size:16px;font-weight:800;color:#fff">Looking sharp 💪</div><div style="font-size:12.5px;color:#94a3b8;margin-top:3px">This is how your app will feel.</div></div>
-      <div class="prev-badge lr" id="prev-badge">A+</div>
-    </div>
-    <button class="gbtn pri lg lr" style="width:100%" onclick="closeCust()">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
-      Done
-    </button>
-  </div>
+
+    </div><!-- /cust-body -->
+  </div><!-- /cust-sh -->
 </div>
 
 <script>
@@ -1498,14 +1864,35 @@ async function initVanta(){
 
 // ── SPLASH ────────────────────────────────────────────────────────────
 function runSplash(){
-  const bar=document.getElementById("splash-bar");
-  const sp=document.getElementById("splash");
-  let p=0;
-  const iv=setInterval(()=>{
-    p+=Math.random()*4+2;
-    bar.style.width=Math.min(p,95)+"%";
-    if(p>=95){clearInterval(iv);setTimeout(()=>{bar.style.width="100%";setTimeout(()=>{sp.classList.add("hide");setTimeout(()=>sp.remove(),700);},300);},400);}
-  },60);
+  const bar   = document.getElementById("splash-bar");
+  const pct   = document.getElementById("splash-pct");
+  const sp    = document.getElementById("splash");
+  const center= document.getElementById("splash-icon"); // splash-center
+  const prog  = document.getElementById("splash-progress");
+
+  // staggered entrance
+  setTimeout(()=>center.classList.add("in"), 100);
+  setTimeout(()=>prog.classList.add("in"), 380);
+
+  // progress bar
+  let p = 0;
+  const iv = setInterval(()=>{
+    p += Math.random() * 3.5 + 1.5;
+    const capped = Math.min(p, 95);
+    bar.style.width = capped + "%";
+    if(pct) pct.textContent = Math.floor(capped) + "%";
+    if(p >= 95){
+      clearInterval(iv);
+      setTimeout(()=>{
+        bar.style.width = "100%";
+        if(pct) pct.textContent = "100%";
+        setTimeout(()=>{
+          sp.classList.add("hide");
+          setTimeout(()=>sp.remove(), 900);
+        }, 320);
+      }, 380);
+    }
+  }, 55);
 }
 
 
@@ -1766,9 +2153,9 @@ function renderOrmPct(orm){
 
 // ── TRACKER v2 — weight per exercise, grouped A/B/C ──────────────────
 const WORKOUT_GROUPS={
-  A:{label:"אימון דחיפה",ex:["לחיצת חזה במוט ישר","לחיצת כתפיים","לחיצת חזה משופע","הרחקת כתפיים","פושדאון טרייספס"]},
-  B:{label:"אימון משיכה",ex:["חתירה במוט","משיכת פולי / מתח","חתירה ביד אחת","פייס-פול","כפיפת בייספס W"]},
-  C:{label:"עליון מאוזן",ex:["לחיצת חזה משופע במוט","חתירה / פולי","לחיצת כתפיים יד","הרחקת כתפיים + בייספס","פלייז + פושדאון"]},
+  A:{label:"שני — דחיפה",ex:["לחיצת חזה מוט ישר","לחיצת כתפיים","לחיצת חזה משופע","הרחקת כתפיים","פשיטת טרייספס מעל הראש"]},
+  B:{label:"רביעי — משיכה",ex:["חתירה במוט","משיכת פולי / מתח","כפיפת בייספס משופע","פייס-פול","כפיפת בייספס W"]},
+  C:{label:"שישי — ממוקד",ex:["דיפס","פשיטת טרייספס (חבל)","פושדאון חבל","שראגים","הרחקת כתפיים אחורה"]},
 };
 // trkData = { exName: [ {w, d} ... ] }  (history of weights)
 let trkData={};
@@ -1779,19 +2166,17 @@ let trkOpen={}; // which cards are expanded
 function trkLast(ex){const a=trkData[ex];return a&&a.length?a[a.length-1].w:null;}
 function trkPrev(ex){const a=trkData[ex];return a&&a.length>1?a[a.length-2].w:null;}
 
-// set/update today's weight for an exercise
+// set weight — every distinct value is a new history entry (up to 20 kept)
 function trkSetWeight(ex,w){
   if(w<=0||isNaN(w)){return;}
   if(!trkData[ex])trkData[ex]=[];
   const arr=trkData[ex];
-  const today=new Date().toISOString().slice(0,10);
-  const lastEntry=arr[arr.length-1];
-  if(lastEntry && lastEntry.d.slice(0,10)===today){
-    // update today's entry in real-time
-    lastEntry.w=w;
-  } else {
-    arr.push({w,d:new Date().toISOString()});
-  }
+  const last=arr[arr.length-1];
+  // only save if value actually changed (avoid duplicates while dragging)
+  if(last && last.w===w) return;
+  arr.push({w,d:new Date().toISOString()});
+  // keep last 20 entries max
+  if(arr.length>20) arr.splice(0,arr.length-20);
   saveTrk();
 }
 
@@ -1896,31 +2281,85 @@ function renderTrk(){
 function renderTrkDetail(ex,acc){
   const recs=trkData[ex]||[];
   if(!recs.length) return `<div class="trk-empty">הזן משקל כדי להתחיל לעקוב</div>`;
+
+  // קח רק 5 רשומות אחרונות לגרף
+  const chartRecs=recs.slice(-5);
   let chart="";
-  if(recs.length>=2){
-    const ws=recs.map(r=>r.w);
+  if(chartRecs.length>=2){
+    const ws=chartRecs.map(r=>r.w);
     const mn=Math.min(...ws),mx=Math.max(...ws);
-    const W=300,H=80;
-    const px=i=>(i/(recs.length-1))*W;
-    const py=v=>H-8-((v-mn)/(mx-mn||1))*(H-16);
-    const pts=recs.map((r,i)=>`${px(i)},${py(r.w)}`).join(" ");
-    const fillPts=`0,${H} ${pts} ${W},${H}`;
-    const dots=recs.map((r,i)=>`<circle cx="${px(i)}" cy="${py(r.w)}" r="3.5" fill="${acc.a}"/>`).join("");
-    chart=`<div class="trk-chart-mini"><svg class="chart-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" height="80">
-      <defs><linearGradient id="cg-${ex.replace(/[^a-z]/gi,'')}" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="${acc.a}" stop-opacity=".3"/><stop offset="100%" stop-color="${acc.a}" stop-opacity="0"/></linearGradient></defs>
-      <polygon points="${fillPts}" fill="url(#cg-${ex.replace(/[^a-z]/gi,'')})"/>
-      <polyline points="${pts}" fill="none" stroke="${acc.a}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      ${dots}
-    </svg></div>`;
+    const range=mx-mn||1;
+    const W=280,H=110,PL=32,PR=8,PT=12,PB=24;
+    const cW=W-PL-PR, cH=H-PT-PB;
+    const gid="cg"+ex.split("").reduce((a,c)=>a+(c.charCodeAt(0)),0);
+
+    const px=i=>PL+(i/(chartRecs.length-1))*cW;
+    const py=v=>PT+cH-((v-mn)/range)*cH;
+
+    // grid lines (3 horizontal)
+    const gridVals=[mn, mn+range*0.5, mx];
+    const gridLines=gridVals.map(v=>{
+      const y=py(v);
+      const label=Number.isInteger(v)?v:v.toFixed(1);
+      return `<line class="chart-grid-line" x1="${PL}" y1="${y}" x2="${W-PR}" y2="${y}"/>
+              <text class="chart-axis-label" x="${PL-4}" y="${y+3.5}" text-anchor="end">${label}</text>`;
+    }).join("");
+
+    // x-axis: תאריך + משקל לכל נקודה
+    const xLabels=chartRecs.map((r,i)=>{
+      const d=new Date(r.d);
+      const ds=`${d.getDate()}/${d.getMonth()+1}`;
+      return `<text class="chart-axis-label" x="${px(i)}" y="${H-4}" text-anchor="middle">${ds}</text>`;
+    }).join("");
+
+    const pts=chartRecs.map((r,i)=>`${px(i)},${py(r.w)}`).join(" ");
+    const fillPts=`${PL},${PT+cH} ${pts} ${W-PR},${PT+cH}`;
+
+    // dots with weight label
+    const dots=chartRecs.map((r,i)=>{
+      const isPr=r.w===mx&&chartRecs.length>1;
+      const cx=px(i),cy=py(r.w);
+      // weight label above dot
+      const wLabel=`<text class="chart-axis-label" x="${cx}" y="${cy-9}" text-anchor="middle" style="fill:rgba(201,168,76,.75);font-size:9px">${r.w}</text>`;
+      return `<circle class="chart-dot-outer" cx="${cx}" cy="${cy}" r="${isPr?7:5}"/>
+              <circle class="chart-dot-inner" cx="${cx}" cy="${cy}" r="${isPr?3.5:2.5}"/>
+              ${wLabel}
+              ${isPr?`<text class="chart-axis-label" x="${cx}" y="${cy-20}" text-anchor="middle" style="fill:rgba(201,168,76,.9);font-size:9px;font-weight:700">PR 🏆</text>`:""}`;
+    }).join("");
+
+    chart=`<div class="trk-chart-mini">
+      <svg class="chart-svg" viewBox="0 0 ${W} ${H}" height="110" style="overflow:visible">
+        <defs>
+          <linearGradient id="${gid}" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="${acc.a}" stop-opacity=".35"/>
+            <stop offset="100%" stop-color="${acc.a}" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        ${gridLines}
+        <polygon points="${fillPts}" fill="url(#${gid})" class="chart-area"/>
+        <polyline points="${pts}" class="chart-line"/>
+        ${dots}
+        ${xLabels}
+      </svg>
+    </div>`;
+  } else {
+    chart=`<div class="trk-empty" style="font-size:11px;padding:8px 0 4px;color:var(--dim)">עדכן משקל שוב כדי לראות גרף התקדמות</div>`;
   }
-  // history list (recent first)
-  const hist=[...recs].reverse().slice(0,8).map((r,i)=>{
+
+  // history list
+  const mxW=Math.max(...recs.map(x=>x.w));
+  const hist=[...recs].reverse().slice(0,10).map((r,i,arr)=>{
     const date=new Date(r.d);
     const ds=`${date.getDate()}/${date.getMonth()+1}`;
-    const all=recs;const idx=all.length-1-i;
-    const pv=idx>0?all[idx-1].w:null;
-    const isPr=r.w===Math.max(...recs.map(x=>x.w))&&recs.length>1;
-    return `<div class="thm-row"><span class="thm-date">${ds}</span><span class="thm-wt">${r.w} ק"ג</span>${isPr?'<span class="thm-pr">🏆</span>':''}</div>`;
+    const origIdx=recs.length-1-i;
+    const pv=origIdx>0?recs[origIdx-1].w:null;
+    const delta=pv!==null?Math.round((r.w-pv)*10)/10:null;
+    const isPr=r.w===mxW&&recs.length>1;
+    const deltaHtml=delta===null?"":
+      delta>0?`<span style="font-size:10px;color:var(--a);font-weight:700">▲+${delta}</span>`:
+      delta<0?`<span style="font-size:10px;color:#f87171;font-weight:700">▼${delta}</span>`:
+              `<span style="font-size:10px;color:var(--dim)">—</span>`;
+    return `<div class="thm-row"><span class="thm-date">${ds}</span><span class="thm-wt">${r.w} ק"ג</span>${deltaHtml}${isPr?'<span class="thm-pr">🏆</span>':''}</div>`;
   }).join("");
   return chart+`<div class="trk-hist-mini">${hist}</div>`;
 }
@@ -2002,53 +2441,63 @@ function closeCust(){document.getElementById("cust-bd").classList.remove("open")
 function closeCustOut(e){if(e.target===document.getElementById("cust-bd"))closeCust();}
 
 function renderCust(){
-  const acc=ACS[C.accent]||ACS.emerald;
+  const acc=ACS[C.accent]||ACS.amber;
 
-  // BG
+  // update icon gradient in header
+  const ico=document.querySelector('.cust-title-ico');
+  if(ico){ico.style.background=`linear-gradient(135deg,${acc.a},${acc.b})`;ico.style.boxShadow=`0 0 18px ${ha(acc.a,.35)},inset 0 1px 0 rgba(255,255,255,.25)`;}
+
+  // BG — 2 columns, big swatches
   const bg=document.getElementById("bg-grid");bg.innerHTML="";
   Object.entries(BGS).forEach(([id,t])=>{
     const on=C.bgTheme===id;
     const b=document.createElement("button");
     b.className="bg-btn"+(on?" sel":"");
-    b.style.background=`linear-gradient(135deg,${t.color},#06080e)`;
-    b.style.borderColor=on?"var(--a)":"rgba(255,255,255,.09)";
-    b.innerHTML=`<div class="bg-sw" style="background:${t.color}"></div><span class="bg-lb">${t.name}</span>${on?`<div class="bg-chk"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="3.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>`:""}`;
-    b.onclick=()=>upd({bgTheme:id});
+    b.style.background=`linear-gradient(135deg,${t.color} 0%,rgba(0,0,0,.85) 100%)`;
+    b.innerHTML=`
+      <div class="bg-sw" style="background:${t.color};border-color:rgba(255,255,255,.2)"></div>
+      <span class="bg-lb">${t.name}</span>
+      ${on?`<div class="bg-chk"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="3.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>`:""}
+    `;
+    b.onclick=()=>{
+      bg.querySelectorAll(".bg-btn").forEach(x=>{x.style.animation="";x.classList.remove("sel");});
+      b.style.animation="selPopBg .3s cubic-bezier(.34,1.56,.64,1)";
+      upd({bgTheme:id});
+    };
     bg.appendChild(b);
   });
 
-  // ACCENT
+  // ACCENT — 2 columns, roomier
   const ag=document.getElementById("ac-grid");ag.innerHTML="";
   Object.entries(ACS).forEach(([id,p])=>{
     const on=C.accent===id;
     const b=document.createElement("button");
     b.className="ac-btn"+(on?" sel":"");
-    b.style.background=on?`linear-gradient(135deg,${ha(p.a,.22)},${ha(p.b,.1)})`:"linear-gradient(135deg,rgba(255,255,255,.045),rgba(255,255,255,.01))";
-    b.style.borderColor=on?ha(p.a,.7):"rgba(255,255,255,.09)";
-    if(on)b.style.boxShadow=`0 0 20px ${ha(p.a,.28)}`;
-    b.innerHTML=`<div class="ac-sw" style="background:linear-gradient(135deg,${p.a},${p.b});box-shadow:0 2px 12px ${ha(p.a,.45)}">${on?`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="3.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>`:""}</div><div><div class="ac-nm">${p.name}</div><div class="ac-dots"><span class="ac-dot" style="background:${p.a}"></span><span class="ac-dot" style="background:${p.b}"></span></div></div>`;
-    b.onclick=()=>upd({accent:id});
+    if(on){
+      b.style.background=`linear-gradient(135deg,${ha(p.a,.2)},${ha(p.b,.08)})`;
+      b.style.borderColor=ha(p.a,.6);
+      b.style.boxShadow=`0 0 18px ${ha(p.a,.22)}`;
+    }
+    b.innerHTML=`
+      <div class="ac-sw" style="background:linear-gradient(135deg,${p.a},${p.b});box-shadow:0 2px 10px ${ha(p.a,.4)}">
+        ${on?`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="3.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>`:""}
+      </div>
+      <div class="ac-right">
+        <div class="ac-nm">${p.name}</div>
+        <div class="ac-dots">
+          <span class="ac-dot" style="background:${p.a}"></span>
+          <span class="ac-dot" style="background:${p.b}"></span>
+        </div>
+      </div>
+    `;
+    b.onclick=()=>{
+      // pop animation on newly selected button
+      ag.querySelectorAll(".ac-btn").forEach(x=>{x.style.animation="";x.classList.remove("sel");});
+      b.style.animation="selPop .3s cubic-bezier(.34,1.56,.64,1)";
+      upd({accent:id});
+    };
     ag.appendChild(b);
   });
-
-  // FONT
-  const fl=document.getElementById("fn-list");fl.innerHTML="";
-  Object.entries(FNS).forEach(([id,f])=>{
-    const on=C.font===id;
-    const b=document.createElement("button");
-    b.className="fn-btn"+(on?" sel":"");
-    b.style.fontFamily=f.s;
-    b.innerHTML=`<span class="fn-sm">${f.name}</span><div style="display:flex;align-items:center;gap:10px"><span class="fn-hi">Aa 0.0</span>${on?`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--a)" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>`:""}</div>`;
-    b.onclick=()=>upd({font:id});
-    fl.appendChild(b);
-  });
-
-  // PREVIEW
-  const pi=document.getElementById("prev-ico");
-  pi.style.background=`linear-gradient(135deg,${acc.a},${acc.b})`;
-  pi.style.boxShadow=`0 0 22px ${ha(acc.a,.42)}`;
-  const pb=document.getElementById("prev-badge");
-  pb.style.color=acc.a;pb.style.borderColor=ha(acc.a,.38);pb.style.background=ha(acc.a,.14);
 }
 
 // ── CREATINE TRACKER ──────────────────────────────────────────────────

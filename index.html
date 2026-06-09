@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#000">
@@ -1266,6 +1269,369 @@ body{
 .ac-dots{display:flex;gap:5px;margin-top:5px;}
 .ac-dot{width:9px;height:9px;border-radius:50%;}
 
+
+/* ── GUIDED WORKOUT MODE ── */
+
+/* ═══ START BUTTON ═══ */
+.gw-start-btn{
+  flex-shrink:0;display:flex;align-items:center;gap:7px;
+  padding:9px 16px;border-radius:13px;
+  background:var(--grad);border:none;
+  font-family:var(--font);font-size:13px;font-weight:800;color:#09080c;
+  cursor:pointer;letter-spacing:-.1px;
+  box-shadow:0 0 20px rgba(201,168,76,.45),inset 0 1px 0 rgba(255,255,255,.28);
+  transition:all .25s cubic-bezier(.34,1.56,.64,1);
+}
+.gw-start-btn svg{fill:#09080c;stroke:none;flex-shrink:0;}
+.gw-start-btn:hover{transform:scale(1.04);box-shadow:0 0 30px rgba(201,168,76,.6);}
+.gw-start-btn:active{transform:scale(.91);}
+
+/* ═══ BACKDROP ═══ */
+.gw-bd{
+  position:fixed;inset:0;z-index:500;
+  display:flex;align-items:flex-end;justify-content:center;
+  background:rgba(0,0,0,.22);
+  opacity:0;pointer-events:none;
+  transition:opacity .38s cubic-bezier(.4,0,.2,1);
+}
+.gw-bd.open{opacity:1;pointer-events:all;}
+
+/* ═══ SHEET ═══ */
+.gw-sh{
+  width:100%;max-width:560px;
+  height:calc(100vh - env(safe-area-inset-top,0px) - 10px);
+  height:calc(100dvh - env(safe-area-inset-top,0px) - 10px);
+  background:
+    radial-gradient(ellipse 80% 35% at 50% 0%, rgba(201,168,76,.12) 0%, transparent 60%),
+    rgba(9,8,12,.78);
+  backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);
+  border:1px solid rgba(201,168,76,.22);border-radius:28px 28px 0 0;
+  padding-bottom:calc(env(safe-area-inset-bottom,0px)+24px);
+  box-shadow:0 -4px 80px rgba(0,0,0,.7),0 -1px 0 rgba(201,168,76,.14);
+  transform:translateY(100%);
+  transition:transform .46s cubic-bezier(.22,1,.36,1);
+  display:flex;flex-direction:column;overflow:hidden;
+  scrollbar-width:none;
+}
+.gw-sh::-webkit-scrollbar{display:none;}
+.gw-bd.open .gw-sh{transform:translateY(0);}
+
+/* ═══ HEADER ═══ */
+.gw-hdr{
+  display:flex;align-items:center;gap:13px;
+  padding:16px 20px 15px;flex-shrink:0;
+  background:linear-gradient(180deg,rgba(16,13,20,.98) 0%,rgba(16,13,20,.7) 100%);
+  border-bottom:1px solid rgba(255,252,240,.06);
+  position:relative;z-index:2;
+}
+.gw-close-btn{
+  width:36px;height:36px;border-radius:50%;flex-shrink:0;
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);
+  display:flex;align-items:center;justify-content:center;
+  color:#94a3b8;cursor:pointer;transition:all .18s;
+}
+.gw-close-btn:active{transform:scale(.86);background:rgba(255,255,255,.14);}
+.gw-prog-wrap{flex:1;display:flex;flex-direction:column;gap:8px;}
+.gw-prog-bar{
+  height:3px;background:rgba(255,252,240,.07);
+  border-radius:99px;overflow:hidden;
+  box-shadow:0 0 0 1px rgba(255,252,240,.04);
+}
+.gw-prog-fill{
+  height:100%;border-radius:99px;width:0%;
+  background:linear-gradient(90deg,var(--a),var(--a2),var(--a3));
+  transition:width .75s cubic-bezier(.22,1,.36,1);
+  box-shadow:0 0 12px rgba(201,168,76,.7);
+}
+.gw-prog-txt{
+  font-size:10.5px;color:var(--dim);font-weight:600;
+  letter-spacing:.8px;text-transform:uppercase;
+}
+.gw-tip-btn{
+  width:36px;height:36px;border-radius:50%;flex-shrink:0;
+  background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--a);cursor:pointer;
+  transition:all .18s cubic-bezier(.34,1.4,.64,1);
+}
+.gw-tip-btn:active{transform:scale(.86);}
+
+/* ═══ VIEW ENTRANCE ANIMATION ═══ */
+@keyframes gwViewIn{
+  from{opacity:0;transform:translateY(18px) scale(.98);}
+  to{opacity:1;transform:none;}
+}
+@keyframes gwExSlide{
+  from{opacity:0;transform:translateX(24px);}
+  to{opacity:1;transform:none;}
+}
+@keyframes chipIn{
+  from{opacity:0;transform:scale(.8);}
+  to{opacity:1;transform:scale(1);}
+}
+
+/* ═══ EXERCISE VIEW ═══ */
+.gw-ex-view{
+  flex:1;display:flex;flex-direction:column;align-items:center;
+  padding:18px 20px 16px;overflow-y:auto;
+  scrollbar-width:none;
+  animation:gwViewIn .42s cubic-bezier(.22,1,.36,1);
+}
+.gw-ex-view::-webkit-scrollbar{display:none;}
+.gw-ex-name{
+  font-size:clamp(20px,5.5vw,28px);font-weight:800;letter-spacing:-.5px;
+  background:linear-gradient(135deg,#fff 30%,var(--a2) 80%,var(--a) 100%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  text-align:center;line-height:1.22;max-width:300px;
+  margin-bottom:10px;
+  filter:drop-shadow(0 0 18px rgba(201,168,76,.2));
+  transition:opacity .25s,transform .25s;
+}
+.gw-set-chip{
+  font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;
+  color:var(--a);background:rgba(201,168,76,.12);
+  border:1px solid rgba(201,168,76,.28);
+  padding:5px 18px;border-radius:99px;margin-bottom:18px;
+  animation:chipIn .4s cubic-bezier(.34,1.56,.64,1);
+}
+
+/* ─── WEIGHT STEPPER ─── */
+.gw-stepper{
+  width:100%;display:flex;align-items:stretch;
+  background:radial-gradient(ellipse at 50% 0%,rgba(201,168,76,.15),rgba(201,168,76,.04) 70%);
+  border:1px solid rgba(201,168,76,.32);border-radius:22px;overflow:hidden;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 0 28px rgba(201,168,76,.1);
+  margin-bottom:8px;
+}
+.gw-step-btn{
+  width:72px;flex-shrink:0;border:none;background:transparent;
+  cursor:pointer;color:var(--a2);
+  display:flex;align-items:center;justify-content:center;
+  transition:all .14s cubic-bezier(.34,1.4,.64,1);
+  border-right:1px solid rgba(255,252,240,.07);
+}
+.gw-step-btn:last-child{border-right:none;border-left:1px solid rgba(255,252,240,.07);}
+.gw-step-btn svg{width:22px;height:22px;stroke:currentColor;stroke-width:2.8;}
+.gw-step-btn:active{background:rgba(201,168,76,.16);transform:scale(.88);}
+.gw-step-center{
+  flex:1;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;padding:14px 4px;min-width:0;
+}
+.gw-step-val{
+  width:100%;background:transparent;border:none;outline:none;
+  font-family:var(--font);font-size:50px;font-weight:800;
+  color:var(--a2);-webkit-text-fill-color:var(--a2);
+  text-align:center;font-variant-numeric:tabular-nums;line-height:1;
+  transition:-webkit-text-fill-color .2s;
+}
+.gw-step-val:focus{-webkit-text-fill-color:var(--a3);}
+.gw-step-val::placeholder{color:rgba(201,168,76,.2);}
+.gw-step-val::-webkit-outer-spin-button,
+.gw-step-val::-webkit-inner-spin-button{-webkit-appearance:none;}
+.gw-step-val{-moz-appearance:textfield;appearance:textfield;}
+.gw-step-unit{font-size:11px;color:var(--a);opacity:.65;letter-spacing:1.5px;margin-top:4px;font-weight:600;}
+
+/* weight hint */
+.gw-weight-hint{
+  font-size:11px;color:var(--dim);font-weight:500;
+  min-height:18px;margin-bottom:10px;
+  text-align:center;letter-spacing:.3px;
+}
+
+/* sets log */
+.gw-sets-log{width:100%;display:flex;flex-direction:column;gap:7px;margin-bottom:14px;}
+.gw-set-done-row{
+  display:flex;align-items:center;gap:12px;
+  background:linear-gradient(135deg,rgba(255,252,240,.05),rgba(255,252,240,.016));
+  border:1px solid rgba(255,252,240,.08);border-radius:13px;
+  padding:11px 16px;
+  box-shadow:inset 0 1px 0 rgba(255,252,240,.06);
+  animation:fadeUp .3s cubic-bezier(.22,1,.36,1);
+}
+.gw-sdr-num{
+  width:26px;height:26px;border-radius:8px;flex-shrink:0;
+  background:var(--grad);display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:800;color:#09080c;
+  box-shadow:0 0 10px rgba(201,168,76,.3);
+}
+.gw-sdr-w{font-size:18px;font-weight:800;color:var(--a2);flex:1;font-variant-numeric:tabular-nums;}
+.gw-sdr-chk{color:var(--a);font-size:15px;}
+.gw-cta-wrap{width:100%;margin-top:auto;padding-top:10px;}
+.gw-cta{
+  width:100%;padding:19px;border-radius:20px;cursor:pointer;
+  background:var(--grad);border:none;font-family:var(--font);
+  font-size:18px;font-weight:800;color:#09080c;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  box-shadow:0 0 40px rgba(201,168,76,.55),inset 0 2px 0 rgba(255,255,255,.28),0 10px 30px rgba(0,0,0,.35);
+  transition:all .25s cubic-bezier(.34,1.56,.64,1);letter-spacing:-.2px;
+  animation:gwViewIn .5s cubic-bezier(.22,1,.36,1);
+}
+.gw-cta:active{transform:scale(.95);box-shadow:0 0 16px rgba(201,168,76,.3);}
+
+/* ═══ REST VIEW ═══ */
+.gw-rest-view{
+  flex:1;display:none;flex-direction:column;align-items:center;
+  padding:16px 22px 14px;gap:14px;
+}
+.gw-rest-view.show{
+  display:flex;
+  animation:gwViewIn .38s cubic-bezier(.22,1,.36,1);
+}
+
+/* weight confirmation row */
+.gw-rest-weight-row{
+  width:100%;display:flex;align-items:center;
+  background:rgba(255,252,240,.05);
+  border:1px solid rgba(201,168,76,.22);border-radius:16px;overflow:hidden;
+}
+.gw-rw-btn{
+  width:56px;height:54px;border:none;background:transparent;
+  cursor:pointer;color:var(--a2);
+  display:flex;align-items:center;justify-content:center;
+  transition:.14s;flex-shrink:0;
+}
+.gw-rw-btn svg{width:18px;height:18px;stroke:currentColor;stroke-width:2.6;}
+.gw-rw-btn:first-child{border-right:1px solid rgba(255,252,240,.07);}
+.gw-rw-btn:last-child{border-left:1px solid rgba(255,252,240,.07);}
+.gw-rw-btn:active{background:rgba(201,168,76,.12);}
+.gw-rest-weight-disp{
+  flex:1;text-align:center;
+  font-size:16px;font-weight:700;color:var(--a2);
+  font-variant-numeric:tabular-nums;letter-spacing:.3px;
+}
+
+/* timer circle */
+.gw-rest-circle-wrap{
+  position:relative;width:210px;height:210px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;overflow:visible;
+}
+.gw-rest-glow{
+  position:absolute;inset:-20px;border-radius:50%;
+  background:radial-gradient(circle,rgba(201,168,76,.22),transparent 65%);
+  filter:blur(18px);animation:glowPulse 3s ease-in-out infinite;pointer-events:none;
+}
+.gw-rest-circle{position:relative;width:210px;height:210px;overflow:visible;}
+.gw-rest-svg{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg);}
+.gw-rt-track{fill:none;stroke:rgba(255,252,240,.06);stroke-width:7;}
+.gw-rt-prog{
+  fill:none;stroke-width:7;stroke-linecap:round;
+  stroke-dasharray:534.07;stroke-dashoffset:0;
+  stroke:url(#gwgrad);
+  filter:drop-shadow(0 0 10px rgba(201,168,76,.6));
+  transition:stroke-dashoffset .95s linear;
+}
+.gw-rest-center{
+  position:absolute;inset:-30px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;z-index:2;pointer-events:none;
+}
+.gw-rest-num{
+  font-size:62px;font-weight:800;letter-spacing:-3px;line-height:1;
+  color:var(--a2);font-variant-numeric:tabular-nums;
+  text-shadow:0 0 30px rgba(201,168,76,.55),0 0 60px rgba(201,168,76,.2);
+}
+.gw-rest-lbl{font-size:10px;color:var(--dim);letter-spacing:3px;text-transform:uppercase;margin-top:7px;font-weight:600;}
+
+/* rest chips */
+.gw-rest-chips{display:flex;gap:8px;width:100%;}
+.gw-chip{
+  flex:1;padding:12px 4px;border-radius:13px;cursor:pointer;
+  font-family:var(--font);font-size:13px;font-weight:700;
+  background:rgba(255,252,240,.05);border:1px solid rgba(255,252,240,.09);
+  color:var(--dim);transition:all .25s cubic-bezier(.34,1.4,.64,1);
+}
+.gw-chip.active{
+  background:linear-gradient(135deg,rgba(201,168,76,.2),rgba(201,168,76,.07));
+  border-color:rgba(201,168,76,.4);color:var(--a2);transform:scale(1.06);
+  box-shadow:0 0 14px rgba(201,168,76,.18);
+}
+.gw-chip:active{transform:scale(.88);}
+.gw-skip{
+  font-family:var(--font);font-size:13px;color:var(--dim);font-weight:600;
+  background:none;border:none;cursor:pointer;padding:8px 22px;border-radius:99px;
+  border:1px solid rgba(255,255,255,.07);transition:all .2s;letter-spacing:.2px;
+}
+.gw-skip:active{transform:scale(.94);}
+
+/* ═══ DONE VIEW ═══ */
+.gw-done-view{
+  flex:1;display:none;flex-direction:column;align-items:center;
+  padding:24px 22px 16px;overflow-y:auto;gap:4px;scrollbar-width:none;
+}
+.gw-done-view::-webkit-scrollbar{display:none;}
+.gw-done-view.show{
+  display:flex;
+  animation:gwViewIn .45s cubic-bezier(.22,1,.36,1);
+}
+@keyframes trophyDrop{
+  0%{transform:scale(0) rotate(-20deg);opacity:0;}
+  60%{transform:scale(1.2) rotate(4deg);opacity:1;}
+  80%{transform:scale(.92) rotate(-2deg);}
+  100%{transform:scale(1) rotate(0deg);opacity:1;}
+}
+/* premium done emblem */
+.gw-done-emblem{
+  position:relative;
+  width:110px;height:110px;flex-shrink:0;
+  margin-bottom:12px;
+  animation:trophyDrop .65s cubic-bezier(.34,1.56,.64,1);
+}
+.gw-done-ring{
+  position:absolute;border-radius:50%;border:1px solid rgba(201,168,76,.22);
+  animation:splashRingPulse 2.8s ease-in-out infinite;
+  inset:-18px;pointer-events:none;
+}
+.gw-done-ring-2{
+  inset:-36px;border-color:rgba(201,168,76,.1);
+  animation-delay:.45s;
+}
+.gw-done-badge{
+  width:100%;height:100%;border-radius:30px;
+  background:var(--grad);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.22) inset,
+    0 0 50px rgba(201,168,76,.65),
+    0 0 100px rgba(201,168,76,.25),
+    0 18px 40px rgba(0,0,0,.5);
+  position:relative;overflow:hidden;
+}
+.gw-done-badge::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:55%;
+  background:linear-gradient(180deg,rgba(255,255,255,.18),transparent);
+  border-radius:30px 30px 0 0;
+}
+.gw-done-divider{
+  width:48px;height:1px;margin:12px 0;
+  background:linear-gradient(90deg,transparent,rgba(201,168,76,.4),transparent);
+}
+.gw-done-title{
+  font-size:28px;font-weight:800;letter-spacing:2px;text-transform:uppercase;
+  background:linear-gradient(135deg,var(--a3),var(--a2),var(--a));
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  filter:drop-shadow(0 0 18px rgba(201,168,76,.35));
+  margin-bottom:0;
+}
+.gw-done-sub{
+  font-size:14px;color:var(--text2);margin-bottom:20px;
+  font-weight:500;text-align:center;
+}
+.gw-summary{width:100%;display:flex;flex-direction:column;gap:9px;margin-bottom:8px;}
+.gw-sum-row{
+  background:linear-gradient(135deg,rgba(255,252,240,.055),rgba(255,252,240,.018));
+  border:1px solid rgba(255,252,240,.09);
+  border-radius:16px;padding:14px 18px;
+  box-shadow:inset 0 1px 0 rgba(255,252,240,.07);
+  animation:fadeUp .42s cubic-bezier(.22,1,.36,1) backwards;
+}
+.gw-sum-name{font-size:13px;font-weight:700;color:var(--text2);margin-bottom:9px;}
+.gw-sum-sets{display:flex;gap:7px;flex-wrap:wrap;}
+.gw-sum-set{
+  font-size:13px;font-weight:700;
+  background:rgba(201,168,76,.13);border:1px solid rgba(201,168,76,.25);
+  color:var(--a2);padding:4px 13px;border-radius:10px;
+  font-variant-numeric:tabular-nums;
+  box-shadow:0 0 8px rgba(201,168,76,.08);
+}
 /* STRETCH SWATCH */
 .ssw{display:inline-block;width:11px;height:11px;border-radius:3px;
   background:var(--grad);vertical-align:middle;margin-left:5px;
@@ -1414,7 +1780,7 @@ body{
       </div>
     <!-- PANEL A -->
     <div class="panel active" id="panel-a">
-      <div class="whead"><div class="wbadge lr">A</div><div><div class="wtitle">שני — דחיפה</div><div class="wfocus">חזה · כתפיים · טרייספס</div></div></div>
+      <div class="whead"><div class="wbadge lr">A</div><div style="flex:1"><div class="wtitle">שני — דחיפה</div><div class="wfocus">חזה · כתפיים · טרייספס</div></div><button class="gw-start-btn" onclick="gwStart('a')"><svg width="11" height="13" viewBox="0 0 12 14"><polygon points="0 0 12 7 0 14"/></svg>התחל</button></div>
       <div class="ex lr" style="animation-delay:.05s" onclick="showTip(this)"
         data-name="לחיצת חזה מוט ישר"
         data-focus="תרגיל בסיס — עצור 1-2 חזרות לפני כשל"
@@ -1476,7 +1842,7 @@ body{
 
     <!-- PANEL B -->
     <div class="panel" id="panel-b">
-      <div class="whead"><div class="wbadge lr">B</div><div><div class="wtitle">רביעי — משיכה</div><div class="wfocus">גב · בייספס · דלתא אחורית</div></div></div>
+      <div class="whead"><div class="wbadge lr">B</div><div style="flex:1"><div class="wtitle">רביעי — משיכה</div><div class="wfocus">גב · בייספס · דלתא אחורית</div></div><button class="gw-start-btn" onclick="gwStart('b')"><svg width="11" height="13" viewBox="0 0 12 14"><polygon points="0 0 12 7 0 14"/></svg>התחל</button></div>
       <div class="ex lr" style="animation-delay:.05s" onclick="showTip(this)"
         data-name="חתירה במוט"
         data-focus="גב עליון — תרגיל בסיס, לפני כשל"
@@ -1538,7 +1904,7 @@ body{
 
     <!-- PANEL C -->
     <div class="panel" id="panel-c">
-      <div class="whead"><div class="wbadge lr">C</div><div><div class="wtitle">שישי — ממוקד</div><div class="wfocus">טרייספס · טרפז · דלתא אחורית</div></div></div>
+      <div class="whead"><div class="wbadge lr">C</div><div style="flex:1"><div class="wtitle">שישי — ממוקד</div><div class="wfocus">טרייספס · טרפז · דלתא אחורית</div></div><button class="gw-start-btn" onclick="gwStart('c')"><svg width="11" height="13" viewBox="0 0 12 14"><polygon points="0 0 12 7 0 14"/></svg>התחל</button></div>
       <div class="ex lr" style="animation-delay:.05s" onclick="showTip(this)"
         data-name="דיפס (מקבילים)"
         data-focus="טרייספס — גוף זקוף, מרפקים צמודים"
@@ -2577,6 +2943,272 @@ setInterval(()=>{
   }
 },30000); // check every 30s
 
+
+// ── GUIDED WORKOUT MODE ─────────────────────────────────────────────
+const GW = {
+  exercises: [],   // [{name, focus, steps}]
+  exIdx: 0,
+  setIdx: 0,
+  totalSets: 2,
+  sessionWeights: {}, // {name:[w1,w2]}
+  restDur: 90,
+  restStart: null,
+  restRAF: null,
+  CIRCUM: 534.07   // 2*PI*85
+};
+
+function gwStart(wk) {
+  const panel = document.getElementById('panel-' + wk);
+  if (!panel) return;
+  GW.exercises = [...panel.querySelectorAll('.ex')].map(el => ({
+    name: el.dataset.name || '',
+    focus: el.dataset.focus || '',
+    steps: JSON.parse(el.dataset.steps || '[]')
+  })).filter(e => e.name);
+  GW.exIdx = 0; GW.setIdx = 0;
+  GW.sessionWeights = {};
+  GW.restDur = 90;
+
+  // tip button wires to current exercise
+  document.getElementById('gw-tip-btn').onclick = () => {
+    const ex = GW.exercises[GW.exIdx];
+    if (!ex) return;
+    showTip({dataset:{name:ex.name,focus:ex.focus,steps:JSON.stringify(ex.steps)}});
+  };
+
+  // reset views
+  document.getElementById('gw-ex-view').style.display = 'flex';
+  document.getElementById('gw-rest-view').classList.remove('show');
+  document.getElementById('gw-done-view').classList.remove('show');
+
+  document.getElementById('gw-bd').classList.add('open');
+  gwRender();
+}
+
+function gwRender() {
+  const ex = GW.exercises[GW.exIdx];
+  if (!ex) return;
+  const totalSteps = GW.exercises.length * GW.totalSets;
+  const doneSoFar  = GW.exIdx * GW.totalSets + GW.setIdx;
+
+  // progress bar
+  document.getElementById('gw-prog-fill').style.width = (doneSoFar / totalSteps * 100) + '%';
+  document.getElementById('gw-prog-txt').textContent   = GW.exIdx + 1 + ' / ' + GW.exercises.length + ' תרגילים';
+
+  // set chip
+  document.getElementById('gw-set-chip').textContent = 'סט ' + (GW.setIdx + 1) + ' מתוך ' + GW.totalSets;
+
+  // exercise name — spring entrance
+  const nameEl = document.getElementById('gw-ex-name');
+  nameEl.style.opacity = '0';
+  nameEl.style.transform = 'translateX(20px)';
+  nameEl.style.transition = 'none';
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    nameEl.textContent = ex.name;
+    nameEl.style.transition = 'opacity .35s cubic-bezier(.22,1,.36,1), transform .35s cubic-bezier(.22,1,.36,1)';
+    nameEl.style.opacity = '1';
+    nameEl.style.transform = 'translateX(0)';
+  }));
+
+  // set chip — re-animate
+  const chip = document.getElementById('gw-set-chip');
+  chip.style.animation = 'none';
+  chip.offsetHeight; // reflow
+  chip.style.animation = 'chipIn .4s cubic-bezier(.34,1.56,.64,1)';
+
+  // smart pre-fill stepper from tracker / session
+  const recs   = trkData[ex.name] || [];
+  const lastW  = recs.length ? recs[recs.length - 1].w : null;
+  const sw     = GW.sessionWeights[ex.name] || [];
+  const prevSw = sw[sw.length - 1];
+  const stepInp = document.getElementById('gw-step-val');
+  const hint    = document.getElementById('gw-weight-hint');
+  if (stepInp) stepInp.value = prevSw || lastW || '';
+  if (hint) {
+    if (lastW && !prevSw) hint.textContent = 'הפעם האחרונה: ' + lastW + ' ק"ג';
+    else if (!lastW && !prevSw) hint.textContent = 'תרגיל חדש — הזן את המשקל שלך';
+    else hint.textContent = '';
+  }
+
+  // session sets log for this exercise
+  const log = document.getElementById('gw-sets-log');
+  log.innerHTML = (GW.sessionWeights[ex.name] || []).map((w, i) =>
+    '<div class="gw-set-done-row">' +
+    '<div class="gw-sdr-num">' + (i + 1) + '</div>' +
+    '<div class="gw-sdr-w">' + w + ' ק"ג</div>' +
+    '<div class="gw-sdr-chk">✓</div>' +
+    '</div>'
+  ).join('');
+
+  // CTA label
+  const isVeryLast = GW.exIdx === GW.exercises.length - 1 && GW.setIdx === GW.totalSets - 1;
+  const cta = document.getElementById('gw-cta');
+  cta.innerHTML = isVeryLast
+    ? '<svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>סיים אימון'
+    : '<svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>סיימתי סט';
+
+  // ensure exercise view is shown
+  document.getElementById('gw-ex-view').style.display = 'flex';
+  document.getElementById('gw-rest-view').classList.remove('show');
+}
+
+function gwDoneSet() {
+  if ('vibrate' in navigator) navigator.vibrate(60);
+
+  // switch views
+  document.getElementById('gw-ex-view').style.display = 'none';
+  document.getElementById('gw-rest-view').classList.add('show');
+
+  // carry weight from stepper → show in rest view weight display
+  const ex      = GW.exercises[GW.exIdx];
+  const stepVal = document.getElementById('gw-step-val')?.value;
+  GW.currentSetWeight = parseFloat(stepVal) || 0;
+  const disp = document.getElementById('gw-rest-weight-disp');
+  if (disp) {
+    disp.textContent = GW.currentSetWeight > 0
+      ? GW.currentSetWeight + ' ק"ג'
+      : 'הזן משקל →';
+  }
+
+  // start rest timer
+  gwStartRest();
+}
+
+function gwStartRest() {
+  cancelAnimationFrame(GW.restRAF);
+  GW.restStart = performance.now();
+  const prog = document.getElementById('gw-rt-prog');
+  prog.style.transition = 'none';
+  prog.style.strokeDashoffset = '0';
+  document.getElementById('gw-rest-num').textContent = GW.restDur;
+  document.getElementById('gw-rest-lbl').textContent = 'מנוחה';
+  document.getElementById('gw-rest-num').style.color = '';
+
+  function tick() {
+    const elapsed   = (performance.now() - GW.restStart) / 1000;
+    const remaining = Math.max(0, GW.restDur - elapsed);
+    const frac      = elapsed / GW.restDur;
+
+    document.getElementById('gw-rest-num').textContent = Math.ceil(remaining);
+    prog.style.transition = 'stroke-dashoffset .95s linear';
+    prog.style.strokeDashoffset = (GW.CIRCUM * frac).toString();
+
+    if (remaining <= 0) {
+      if ('vibrate' in navigator) navigator.vibrate([80,50,80,50,160]);
+      document.getElementById('gw-rest-num').textContent = '0';
+      document.getElementById('gw-rest-num').style.color = 'var(--a3)';
+      document.getElementById('gw-rest-lbl').textContent = 'מוכן!';
+      setTimeout(gwAdvance, 800);
+      return;
+    }
+    GW.restRAF = requestAnimationFrame(tick);
+  }
+  GW.restRAF = requestAnimationFrame(tick);
+}
+
+function gwSetRest(secs) {
+  GW.restDur = secs;
+  document.querySelectorAll('.gw-chip').forEach(c => c.classList.remove('active'));
+  const labels = {60:'60s', 90:'90s', 120:'2:00', 180:'3:00'};
+  document.querySelectorAll('.gw-chip').forEach(c => {
+    if (c.textContent === labels[secs]) c.classList.add('active');
+  });
+  gwStartRest();
+}
+
+function gwSkipRest() {
+  cancelAnimationFrame(GW.restRAF);
+  gwAdvance();
+}
+
+function gwAdvance() {
+  // save weight
+  const ex = GW.exercises[GW.exIdx];
+  const w  = GW.currentSetWeight || 0;
+  if (w > 0 && !isNaN(w)) {
+    if (!GW.sessionWeights[ex.name]) GW.sessionWeights[ex.name] = [];
+    GW.sessionWeights[ex.name].push(w);
+    trkSetWeight(ex.name, w);
+  }
+
+  if ('vibrate' in navigator) navigator.vibrate(40);
+
+  // advance state
+  if (GW.setIdx < GW.totalSets - 1) {
+    GW.setIdx++;
+    gwRender();
+  } else if (GW.exIdx < GW.exercises.length - 1) {
+    GW.exIdx++;
+    GW.setIdx = 0;
+    gwRender();
+  } else {
+    gwShowDone();
+    return;
+  }
+  // bounce CTA after transition
+  setTimeout(() => {
+    const cta = document.getElementById('gw-cta');
+    if (cta) { cta.style.animation = 'none'; cta.offsetHeight; cta.style.animation = 'gwViewIn .5s cubic-bezier(.22,1,.36,1)'; }
+  }, 80);
+}
+
+function gwShowDone() {
+  cancelAnimationFrame(GW.restRAF);
+  document.getElementById('gw-ex-view').style.display = 'none';
+  document.getElementById('gw-rest-view').classList.remove('show');
+  document.getElementById('gw-done-view').classList.add('show');
+
+  // 100% progress
+  document.getElementById('gw-prog-fill').style.width = '100%';
+  document.getElementById('gw-prog-txt').textContent = 'אימון הושלם! 🎉';
+
+  // summary
+  const totalSets = Object.values(GW.sessionWeights).reduce((a,ws)=>a+ws.length,0);
+  document.getElementById('gw-done-sub').textContent =
+    'סיימת ' + totalSets + ' סטים';
+
+  const sum = document.getElementById('gw-summary');
+  sum.innerHTML = Object.entries(GW.sessionWeights).map(([name, ws], i) =>
+    '<div class="gw-sum-row lr" style="animation-delay:' + (i * 0.08 + 0.1) + 's">' +
+    '<div class="gw-sum-name">' + name + '</div>' +
+    '<div class="gw-sum-sets">' +
+    ws.map((w, j) => '<span class="gw-sum-set">סט ' + (j+1) + ': ' + w + ' ק"ג</span>').join('') +
+    '</div></div>'
+  ).join('');
+
+  if ('vibrate' in navigator) navigator.vibrate([100,50,100,50,200]);
+  renderTrk(); // update tracker tab silently
+}
+
+function gwStepWeight(delta) {
+  const inp = document.getElementById('gw-step-val');
+  if (!inp) return;
+  const cur = parseFloat(inp.value) || 0;
+  const nw  = Math.max(0, Math.round((cur + delta) * 2) / 2);
+  inp.value = nw || '';
+  if ('vibrate' in navigator) navigator.vibrate(18);
+}
+
+function gwAdjustWeight(delta) {
+  GW.currentSetWeight = Math.max(0, Math.round((GW.currentSetWeight + delta) * 2) / 2);
+  const disp = document.getElementById('gw-rest-weight-disp');
+  if (disp) disp.textContent = GW.currentSetWeight > 0
+    ? GW.currentSetWeight + ' ק"ג'
+    : 'הזן משקל →';
+  if ('vibrate' in navigator) navigator.vibrate(18);
+}
+
+function gwClose() {
+  cancelAnimationFrame(GW.restRAF);
+  document.getElementById('gw-bd').classList.remove('open');
+  setTimeout(() => {
+    document.getElementById('gw-ex-view').style.display = 'flex';
+    document.getElementById('gw-rest-view').classList.remove('show');
+    document.getElementById('gw-done-view').classList.remove('show');
+    document.getElementById('gw-prog-fill').style.width = '0%';
+  }, 450);
+}
+
 // ── INIT ──────────────────────────────────────────────────────────────
 window.addEventListener("load",()=>{
   applyA(C.accent);applyF(C.font);
@@ -2589,5 +3221,123 @@ window.addEventListener("load",()=>{
   initVanta();
 });
 </script>
+
+<!-- GUIDED WORKOUT MODAL -->
+<div class="gw-bd" id="gw-bd">
+  <div class="gw-sh">
+    <!-- Header -->
+    <div class="gw-hdr">
+      <button class="gw-close-btn" onclick="gwClose()">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <div class="gw-prog-wrap">
+        <div class="gw-prog-bar"><div class="gw-prog-fill" id="gw-prog-fill"></div></div>
+        <div class="gw-prog-txt" id="gw-prog-txt">תרגיל 1 מ-5</div>
+      </div>
+      <button class="gw-tip-btn" id="gw-tip-btn" title="איך עושים">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      </button>
+    </div>
+
+    <!-- EXERCISE VIEW -->
+    <div class="gw-ex-view" id="gw-ex-view">
+      <div class="gw-ex-name" id="gw-ex-name"></div>
+      <div class="gw-set-chip" id="gw-set-chip">סט 1 מתוך 2</div>
+      <!-- weight stepper -->
+      <div class="gw-stepper">
+        <button class="gw-step-btn" onclick="gwStepWeight(-2.5)">
+          <svg viewBox="0 0 24 24" fill="none"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="gw-step-center">
+          <input class="gw-step-val" id="gw-step-val" type="number"
+            inputmode="decimal" placeholder="0">
+          <div class="gw-step-unit">ק"ג</div>
+        </div>
+        <button class="gw-step-btn" onclick="gwStepWeight(2.5)">
+          <svg viewBox="0 0 24 24" fill="none"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+      </div>
+      <div class="gw-weight-hint" id="gw-weight-hint"></div>
+      <!-- sets done this session -->
+      <div class="gw-sets-log" id="gw-sets-log"></div>
+      <!-- CTA -->
+      <div class="gw-cta-wrap">
+        <button class="gw-cta" id="gw-cta" onclick="gwDoneSet()">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+          סיימתי סט
+        </button>
+      </div>
+    </div>
+
+    <!-- REST VIEW — timer is hero -->
+    <div class="gw-rest-view" id="gw-rest-view">
+      <!-- weight confirm + quick adjust -->
+      <div class="gw-rest-weight-row">
+        <button class="gw-rw-btn" onclick="gwAdjustWeight(-2.5)">
+          <svg viewBox="0 0 24 24" fill="none"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="gw-rest-weight-disp" id="gw-rest-weight-disp">— ק"ג</div>
+        <button class="gw-rw-btn" onclick="gwAdjustWeight(2.5)">
+          <svg viewBox="0 0 24 24" fill="none"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+      </div>
+      <!-- BIG circular timer -->
+      <div class="gw-rest-circle-wrap">
+        <div class="gw-rest-glow"></div>
+        <div class="gw-rest-circle">
+          <svg class="gw-rest-svg" viewBox="0 0 200 200">
+            <circle class="gw-rt-track" cx="100" cy="100" r="85"/>
+            <circle class="gw-rt-prog" id="gw-rt-prog" cx="100" cy="100" r="85"/>
+            <defs>
+              <linearGradient id="gwgrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="var(--a3)"/>
+                <stop offset="100%" stop-color="var(--a)"/>
+              </linearGradient>
+            </defs>
+          </svg>
+          <div class="gw-rest-center">
+            <div class="gw-rest-num" id="gw-rest-num">90</div>
+            <div class="gw-rest-lbl" id="gw-rest-lbl">מנוחה</div>
+          </div>
+        </div>
+      </div>
+      <!-- rest presets -->
+      <div class="gw-rest-chips">
+        <button class="gw-chip" onclick="gwSetRest(60)">60s</button>
+        <button class="gw-chip active" onclick="gwSetRest(90)">90s</button>
+        <button class="gw-chip" onclick="gwSetRest(120)">2:00</button>
+        <button class="gw-chip" onclick="gwSetRest(180)">3:00</button>
+      </div>
+      <button class="gw-skip" onclick="gwSkipRest()">דלג על מנוחה ←</button>
+    </div>
+
+    <!-- DONE VIEW -->
+    <div class="gw-done-view" id="gw-done-view">
+      <!-- premium emblem -->
+      <div class="gw-done-emblem">
+        <div class="gw-done-ring"></div>
+        <div class="gw-done-ring gw-done-ring-2"></div>
+        <div class="gw-done-badge">
+          <svg width="54" height="54" viewBox="0 0 54 54" fill="none">
+            <polyline points="13,27 23,38 41,17"
+              stroke="#09080c" stroke-width="5.5"
+              stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+      <div class="gw-done-title">אימון הושלם</div>
+      <div class="gw-done-divider"></div>
+      <div class="gw-done-sub" id="gw-done-sub"></div>
+      <div class="gw-summary" id="gw-summary"></div>
+      <div class="gw-cta-wrap" style="width:100%;margin-top:16px">
+        <button class="gw-cta" onclick="gwClose()">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+          סיים
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>

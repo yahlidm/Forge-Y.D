@@ -1637,6 +1637,479 @@ body{
   background:var(--grad);vertical-align:middle;margin-left:5px;
   box-shadow:0 0 6px rgba(201,168,76,.5);}
 
+
+/* ── ONBOARDING / PLAN EDITOR ── */
+.ob-bd{
+  position:fixed;inset:0;z-index:600;
+  background:rgba(9,8,12,.55);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  display:flex;flex-direction:column;
+  opacity:0;pointer-events:none;
+  transition:opacity .42s cubic-bezier(.4,0,.2,1);
+}
+.ob-bd.open{opacity:1;pointer-events:all;}
+.ob-sheet{
+  flex:1;display:flex;flex-direction:column;
+  max-width:560px;width:100%;margin:0 auto;
+  overflow:hidden;
+}
+/* header */
+.ob-hdr{
+  padding:max(env(safe-area-inset-top,52px),52px) 22px 14px;
+  display:flex;align-items:center;gap:14px;flex-shrink:0;
+}
+.ob-hdr-back{
+  width:38px;height:38px;border-radius:50%;flex-shrink:0;
+  background:rgba(255,252,240,.06);border:1px solid rgba(255,252,240,.12);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--text2);cursor:pointer;transition:.2s cubic-bezier(.34,1.4,.64,1);
+}
+.ob-hdr-back:hover{background:rgba(201,168,76,.1);border-color:rgba(201,168,76,.25);}
+.ob-hdr-back:active{transform:scale(.86);}
+.ob-hdr-title{flex:1;font-size:17px;font-weight:800;color:var(--text);letter-spacing:-.2px;}
+.ob-hdr-step{
+  font-size:10px;color:var(--a);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  padding:5px 12px;border-radius:99px;
+  background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);
+}
+/* progress dots */
+.ob-dots{display:flex;gap:6px;padding:0 22px 10px;flex-shrink:0;}
+.ob-dot{flex:1;height:3px;border-radius:99px;background:rgba(255,252,240,.08);transition:all .45s cubic-bezier(.22,1,.36,1);}
+.ob-dot.done{background:linear-gradient(90deg,var(--a),var(--a2));box-shadow:0 0 8px rgba(201,168,76,.5);}
+.ob-dot.current{background:rgba(201,168,76,.45);box-shadow:0 0 6px rgba(201,168,76,.3);}
+/* scrollable body */
+.ob-body{
+  flex:1;overflow-y:auto;padding:16px 22px 20px;
+  scrollbar-width:none;
+  animation:gwViewIn .42s cubic-bezier(.22,1,.36,1);
+}
+.ob-body::-webkit-scrollbar{display:none;}
+
+/* ═══ WELCOME ═══ */
+.ob-welcome{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:0 24px;min-height:60vh;
+}
+.ob-welcome-icon{
+  width:96px;height:96px;border-radius:28px;background:var(--grad);
+  display:flex;align-items:center;justify-content:center;margin-bottom:30px;
+  box-shadow:0 0 0 1px rgba(255,255,255,.22) inset,0 0 50px rgba(201,168,76,.5),0 0 100px rgba(201,168,76,.2),0 20px 40px rgba(0,0,0,.45);
+  animation:iconFloat 3s ease-in-out infinite;
+  position:relative;overflow:hidden;
+}
+.ob-welcome-icon::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:55%;
+  background:linear-gradient(180deg,rgba(255,255,255,.2),transparent);
+  border-radius:28px 28px 0 0;
+}
+.ob-welcome-title{
+  font-size:32px;font-weight:800;letter-spacing:-.5px;margin-bottom:14px;
+  background:linear-gradient(135deg,#fff 35%,var(--a2) 85%,var(--a) 100%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  filter:drop-shadow(0 0 18px rgba(201,168,76,.2));
+}
+.ob-welcome-sub{font-size:15px;color:var(--text2);line-height:1.65;max-width:300px;}
+
+/* ═══ QUESTION ═══ */
+.ob-q{
+  font-size:24px;font-weight:800;color:var(--text);letter-spacing:-.4px;
+  margin-bottom:10px;text-align:center;line-height:1.3;
+}
+.ob-q-sub{font-size:13px;color:var(--dim);text-align:center;margin-bottom:28px;line-height:1.5;}
+
+/* day count — premium glass cards */
+.ob-count-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.ob-count-btn{
+  aspect-ratio:1;border-radius:20px;cursor:pointer;font-family:var(--font);
+  background:linear-gradient(135deg,rgba(255,252,240,.06),rgba(255,252,240,.02));
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border:1px solid rgba(255,252,240,.1);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
+  transition:all .28s cubic-bezier(.34,1.56,.64,1);
+  box-shadow:inset 0 1px 0 rgba(255,252,240,.06);
+  position:relative;overflow:hidden;
+}
+.ob-count-btn .obc-num{font-size:36px;font-weight:800;color:var(--text);line-height:1;transition:color .25s;font-variant-numeric:tabular-nums;}
+.ob-count-btn .obc-lbl{font-size:11px;color:var(--dim);font-weight:600;letter-spacing:.5px;}
+.ob-count-btn.sel{
+  border-color:rgba(201,168,76,.5);
+  background:linear-gradient(135deg,rgba(201,168,76,.2),rgba(201,168,76,.06));
+  box-shadow:0 0 28px rgba(201,168,76,.22),inset 0 1px 0 rgba(201,168,76,.25);
+  transform:scale(1.04);
+}
+.ob-count-btn.sel .obc-num{color:var(--a2);text-shadow:0 0 18px rgba(201,168,76,.4);}
+.ob-count-btn.sel .obc-lbl{color:var(--a);}
+.ob-count-btn:not(.sel):active{transform:scale(.93);}
+
+/* ═══ DAY EDITOR ═══ */
+.ob-day-head{display:flex;align-items:center;gap:13px;margin-bottom:20px;}
+.ob-day-badge{
+  width:50px;height:50px;border-radius:15px;flex-shrink:0;
+  background:linear-gradient(135deg,rgba(201,168,76,.2),rgba(201,168,76,.06));
+  border:1px solid rgba(201,168,76,.32);
+  display:flex;align-items:center;justify-content:center;
+  font-size:24px;font-weight:800;color:var(--a2);
+  box-shadow:0 0 24px rgba(201,168,76,.12),inset 0 1px 0 rgba(201,168,76,.2);
+}
+/* field */
+.ob-field{margin-bottom:16px;}
+.ob-field-label{
+  font-size:10px;color:var(--dim);font-weight:700;letter-spacing:1.5px;
+  text-transform:uppercase;margin-bottom:9px;display:flex;align-items:center;gap:7px;
+}
+.ob-input{
+  width:100%;font-family:var(--font);
+  background:linear-gradient(135deg,rgba(255,252,240,.055),rgba(255,252,240,.02));
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border:1px solid rgba(255,252,240,.1);
+  border-radius:15px;padding:15px 16px;
+  font-size:15px;font-weight:600;color:var(--text);outline:none;
+  transition:border-color .25s,box-shadow .25s,background .25s;
+  box-shadow:inset 0 1px 0 rgba(255,252,240,.05);
+}
+.ob-input:focus{
+  border-color:rgba(201,168,76,.45);
+  box-shadow:0 0 0 3px rgba(201,168,76,.1),inset 0 1px 0 rgba(255,252,240,.05);
+  background:linear-gradient(135deg,rgba(201,168,76,.06),rgba(255,252,240,.02));
+}
+.ob-input::placeholder{color:var(--dim2);}
+
+/* section label */
+.ob-sec-label{
+  font-size:10.5px;font-weight:700;color:var(--dim);letter-spacing:2px;text-transform:uppercase;
+  margin:0 0 12px;display:flex;align-items:center;gap:10px;
+}
+.ob-sec-label::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,rgba(201,168,76,.2),transparent);}
+
+/* exercise list */
+.ob-ex-list{display:flex;flex-direction:column;gap:9px;margin-bottom:12px;}
+.ob-ex-row{
+  display:flex;align-items:center;gap:10px;
+  background:linear-gradient(135deg,rgba(255,252,240,.055),rgba(255,252,240,.018));
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border:1px solid rgba(255,252,240,.09);
+  border-radius:15px;padding:9px 11px 9px 14px;
+  box-shadow:inset 0 1px 0 rgba(255,252,240,.06);
+  animation:fadeUp .32s cubic-bezier(.22,1,.36,1);
+  transition:border-color .25s;
+}
+.ob-ex-row:focus-within{border-color:rgba(201,168,76,.3);}
+.ob-ex-num{
+  width:26px;height:26px;border-radius:8px;flex-shrink:0;
+  background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.25);
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:800;color:var(--a2);
+}
+.ob-ex-input{
+  flex:1;min-width:0;background:transparent;border:none;outline:none;
+  font-family:var(--font);font-size:14.5px;font-weight:600;color:var(--text);
+}
+.ob-ex-input::placeholder{color:var(--dim2);}
+.ob-ex-stretch{
+  width:32px;height:32px;border-radius:10px;flex-shrink:0;cursor:pointer;
+  background:rgba(255,252,240,.04);border:1px solid rgba(255,252,240,.1);
+  display:flex;align-items:center;justify-content:center;
+  transition:all .22s cubic-bezier(.34,1.4,.64,1);
+}
+.ob-ex-stretch.on{
+  background:linear-gradient(135deg,rgba(201,168,76,.22),rgba(201,168,76,.08));
+  border-color:rgba(201,168,76,.42);
+  box-shadow:0 0 12px rgba(201,168,76,.18);
+}
+.ob-ex-stretch svg{width:15px;height:15px;stroke:var(--dim);transition:stroke .2s;}
+.ob-ex-stretch.on svg{stroke:var(--a2);fill:rgba(201,168,76,.2);}
+.ob-ex-stretch:active{transform:scale(.85);}
+.ob-ex-del{
+  width:32px;height:32px;border-radius:10px;flex-shrink:0;cursor:pointer;
+  background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.16);
+  display:flex;align-items:center;justify-content:center;
+  transition:all .22s;
+}
+.ob-ex-del svg{width:14px;height:14px;stroke:#f87171;}
+.ob-ex-del:active{transform:scale(.82);background:rgba(248,113,113,.16);}
+/* add exercise */
+.ob-add-ex{
+  width:100%;padding:14px;border-radius:15px;cursor:pointer;font-family:var(--font);
+  background:rgba(201,168,76,.07);border:1px dashed rgba(201,168,76,.32);
+  color:var(--a2);font-size:13.5px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  transition:all .22s cubic-bezier(.34,1.4,.64,1);
+}
+.ob-add-ex svg{width:16px;height:16px;stroke:currentColor;stroke-width:2.6;}
+.ob-add-ex:hover{background:rgba(201,168,76,.12);border-color:rgba(201,168,76,.45);}
+.ob-add-ex:active{transform:scale(.97);}
+.ob-hint{
+  font-size:11px;color:var(--dim);text-align:center;margin-top:14px;
+  display:flex;align-items:center;justify-content:center;gap:7px;line-height:1.4;
+}
+.ob-hint svg{flex-shrink:0;}
+/* footer */
+.ob-footer{
+  padding:16px 22px calc(env(safe-area-inset-bottom,0px)+18px);
+  flex-shrink:0;
+  background:linear-gradient(180deg,transparent,rgba(9,8,12,.55) 45%);
+}
+.ob-next{
+  width:100%;padding:18px;border-radius:18px;cursor:pointer;
+  background:var(--grad);border:none;font-family:var(--font);
+  font-size:16px;font-weight:800;color:#09080c;
+  display:flex;align-items:center;justify-content:center;gap:9px;letter-spacing:-.2px;
+  box-shadow:0 0 40px rgba(201,168,76,.5),inset 0 2px 0 rgba(255,255,255,.28),0 10px 28px rgba(0,0,0,.35);
+  transition:all .24s cubic-bezier(.34,1.56,.64,1);
+}
+.ob-next:hover{transform:scale(1.02);box-shadow:0 0 52px rgba(201,168,76,.65),inset 0 2px 0 rgba(255,255,255,.3);}
+.ob-next:active{transform:scale(.96);}
+.ob-next svg{stroke:#09080c;stroke-width:2.6;}
+.ob-next.disabled{opacity:.4;pointer-events:none;}
+
+/* ── OB ANIMATIONS & POLISH ── */
+@keyframes obStepIn{
+  from{opacity:0;transform:translateY(14px) scale(.985);}
+  to{opacity:1;transform:translateY(0) scale(1);}
+}
+@keyframes obStepInBack{
+  from{opacity:0;transform:translateY(14px) scale(.985);}
+  to{opacity:1;transform:translateY(0) scale(1);}
+}
+/* staggered children fade-in */
+@keyframes obFadeUp{
+  from{opacity:0;transform:translateY(12px);}
+  to{opacity:1;transform:translateY(0);}
+}
+@keyframes obRowIn{
+  from{opacity:0;transform:translateY(10px) scale(.97);}
+  to{opacity:1;transform:none;}
+}
+@keyframes obRowOut{
+  from{opacity:1;transform:none;}
+  to{opacity:0;transform:translateX(30px) scale(.9);}
+}
+@keyframes obStarPop{
+  0%{transform:scale(1);}
+  40%{transform:scale(1.35) rotate(12deg);}
+  100%{transform:scale(1);}
+}
+@keyframes obCountPop{
+  0%{transform:scale(1.04);}
+  45%{transform:scale(1.12);}
+  100%{transform:scale(1.04);}
+}
+@keyframes obBadgeShine{
+  0%{background-position:200% 0;}
+  100%{background-position:-200% 0;}
+}
+/* body transitions */
+.ob-body.step-fwd{animation:obStepIn .5s cubic-bezier(.22,1,.36,1);}
+.ob-body.step-back{animation:obStepInBack .5s cubic-bezier(.22,1,.36,1);}
+
+/* questionnaire stagger — children fade in sequentially */
+.ob-body .ob-q{animation:obFadeUp .5s cubic-bezier(.22,1,.36,1) .05s backwards;}
+.ob-body .ob-q-sub{animation:obFadeUp .5s cubic-bezier(.22,1,.36,1) .12s backwards;}
+.ob-body .ob-count-grid{animation:obFadeUp .5s cubic-bezier(.22,1,.36,1) .2s backwards;}
+.ob-body .ob-day-head{animation:obFadeUp .5s cubic-bezier(.22,1,.36,1) .05s backwards;}
+.ob-body .ob-field{animation:obFadeUp .5s cubic-bezier(.22,1,.36,1) .12s backwards;}
+.ob-body .ob-sec-label{animation:obFadeUp .5s cubic-bezier(.22,1,.36,1) .18s backwards;}
+.ob-body .ob-ex-list{animation:obFadeUp .5s cubic-bezier(.22,1,.36,1) .24s backwards;}
+.ob-body .ob-add-ex{animation:obFadeUp .5s cubic-bezier(.22,1,.36,1) .3s backwards;}
+.ob-body .ob-hint{animation:obFadeUp .5s cubic-bezier(.22,1,.36,1) .36s backwards;}
+/* welcome stagger */
+.ob-body .ob-welcome-icon{animation:obFadeUp .6s cubic-bezier(.22,1,.36,1) .05s backwards;}
+.ob-body .ob-welcome-title{animation:obFadeUp .6s cubic-bezier(.22,1,.36,1) .15s backwards;}
+.ob-body .ob-welcome-sub{animation:obFadeUp .6s cubic-bezier(.22,1,.36,1) .25s backwards;}
+/* footer button fade */
+.ob-next{animation:obFadeUp .5s cubic-bezier(.22,1,.36,1) .15s backwards;}
+
+/* row enter/leave */
+.ob-ex-row{animation:obRowIn .34s cubic-bezier(.34,1.4,.64,1);}
+.ob-ex-row.removing{animation:obRowOut .26s cubic-bezier(.4,0,.2,1) forwards;}
+/* count pop on select */
+.ob-count-btn.sel{animation:obCountPop .34s cubic-bezier(.34,1.56,.64,1);}
+/* star pop */
+.ob-ex-stretch.just-toggled svg{animation:obStarPop .4s cubic-bezier(.34,1.56,.64,1);}
+/* badge shimmer */
+.ob-day-badge{
+  background:linear-gradient(110deg,rgba(201,168,76,.2) 0%,rgba(232,200,122,.32) 50%,rgba(201,168,76,.2) 100%);
+  background-size:200% 100%;
+  animation:obBadgeShine 4s linear infinite;
+}
+/* ripple on count + add */
+.ob-count-btn,.ob-add-ex,.ob-ex-stretch,.ob-ex-del{position:relative;overflow:hidden;}
+.ob-ripple{
+  position:absolute;border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle,rgba(201,168,76,.4),transparent 70%);
+  transform:translate(-50%,-50%) scale(0);
+  animation:obRippleGo .5s cubic-bezier(.4,0,.2,1) forwards;
+}
+@keyframes obRippleGo{
+  to{transform:translate(-50%,-50%) scale(4);opacity:0;}
+}
+/* next button press wave */
+.ob-next{position:relative;overflow:hidden;}
+.ob-next::after{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(circle at center,rgba(255,255,255,.3),transparent 60%);
+  opacity:0;transition:opacity .4s;
+}
+.ob-next:active::after{opacity:1;transition:opacity .1s;}
+/* input focus glow lift */
+.ob-input,.ob-ex-row{transition:all .25s cubic-bezier(.34,1.4,.64,1);}
+.ob-ex-row:focus-within{transform:translateX(-2px);box-shadow:0 4px 20px rgba(201,168,76,.12),inset 0 1px 0 rgba(255,252,240,.06);}
+
+
+/* ── PLAN ACTIONS (settings) ── */
+.plan-actions{display:flex;flex-direction:column;gap:10px;}
+.plan-action{
+  display:flex;align-items:center;gap:13px;
+  width:100%;padding:14px 15px;border-radius:16px;cursor:pointer;
+  font-family:var(--font);text-align:right;
+  background:linear-gradient(135deg,rgba(255,252,240,.055),rgba(255,252,240,.018));
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border:1px solid rgba(255,252,240,.1);
+  box-shadow:inset 0 1px 0 rgba(255,252,240,.06);
+  transition:all .26s cubic-bezier(.34,1.4,.64,1);
+  position:relative;overflow:hidden;
+}
+.plan-action:hover{
+  border-color:rgba(201,168,76,.28);
+  background:linear-gradient(135deg,rgba(255,252,240,.08),rgba(255,252,240,.025));
+  transform:translateY(-1px);
+}
+.plan-action:active{transform:scale(.975);}
+.pa-icon{
+  width:42px;height:42px;border-radius:13px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .3s cubic-bezier(.34,1.4,.64,1);
+}
+.pa-icon.edit{
+  background:linear-gradient(135deg,rgba(201,168,76,.2),rgba(201,168,76,.06));
+  border:1px solid rgba(201,168,76,.3);color:var(--a2);
+  box-shadow:0 0 18px rgba(201,168,76,.12),inset 0 1px 0 rgba(201,168,76,.2);
+}
+.pa-icon.restart{
+  background:linear-gradient(135deg,rgba(255,252,240,.07),rgba(255,252,240,.02));
+  border:1px solid rgba(255,252,240,.12);color:var(--text2);
+}
+.plan-action:hover .pa-icon{transform:scale(1.08) rotate(-3deg);}
+.plan-action:hover .pa-icon.restart{color:var(--a2);border-color:rgba(201,168,76,.25);}
+.pa-text{flex:1;min-width:0;}
+.pa-title{font-size:14.5px;font-weight:700;color:var(--text);letter-spacing:-.2px;}
+.pa-sub{font-size:11.5px;color:var(--dim);margin-top:2px;line-height:1.3;}
+.pa-chev{stroke:var(--dim);flex-shrink:0;transition:transform .26s cubic-bezier(.34,1.4,.64,1),stroke .26s;}
+.plan-action:hover .pa-chev{stroke:var(--a2);transform:translateX(-3px);}
+/* ripple */
+.plan-action .ob-ripple{
+  background:radial-gradient(circle,rgba(201,168,76,.35),transparent 70%);
+}
+
+/* restart confirm dialog */
+.confirm-bd{
+  position:fixed;inset:0;z-index:700;
+  display:flex;align-items:center;justify-content:center;padding:28px;
+  background:rgba(0,0,0,.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  opacity:0;pointer-events:none;transition:opacity .3s cubic-bezier(.4,0,.2,1);
+}
+.confirm-bd.open{opacity:1;pointer-events:all;}
+.confirm-card{
+  width:100%;max-width:340px;border-radius:24px;padding:26px 24px 22px;
+  background:linear-gradient(160deg,rgba(20,17,24,.98),rgba(12,10,15,.99));
+  border:1px solid rgba(201,168,76,.2);
+  box-shadow:0 20px 60px rgba(0,0,0,.6),inset 0 1px 0 rgba(201,168,76,.12);
+  text-align:center;
+  transform:scale(.88) translateY(10px);opacity:0;
+  transition:transform .4s cubic-bezier(.34,1.56,.64,1),opacity .3s;
+}
+.confirm-bd.open .confirm-card{transform:scale(1) translateY(0);opacity:1;}
+.confirm-icon{
+  width:56px;height:56px;border-radius:17px;margin:0 auto 16px;
+  background:linear-gradient(135deg,rgba(248,113,113,.18),rgba(248,113,113,.06));
+  border:1px solid rgba(248,113,113,.3);
+  display:flex;align-items:center;justify-content:center;
+}
+.confirm-icon svg{stroke:#f87171;}
+.confirm-title{font-size:18px;font-weight:800;color:var(--text);margin-bottom:8px;letter-spacing:-.3px;}
+.confirm-msg{font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:22px;}
+.confirm-btns{display:flex;gap:10px;}
+.confirm-btns button{
+  flex:1;padding:14px;border-radius:14px;cursor:pointer;font-family:var(--font);
+  font-size:14px;font-weight:700;transition:all .2s cubic-bezier(.34,1.4,.64,1);
+}
+.confirm-cancel{
+  background:rgba(255,252,240,.06);border:1px solid rgba(255,252,240,.12);color:var(--text2);
+}
+.confirm-cancel:active{transform:scale(.94);}
+.confirm-ok{
+  background:linear-gradient(135deg,#f87171,#fca5a5);border:none;color:#1a0808;
+  box-shadow:0 0 24px rgba(248,113,113,.35);
+}
+.confirm-ok:active{transform:scale(.94);}
+
+
+/* ── ONBOARDING CHOICE CARDS ── */
+.ob-choice-intro{text-align:center;margin-bottom:26px;}
+.ob-choice-logo{
+  width:72px;height:72px;border-radius:22px;background:var(--grad);margin:0 auto 18px;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 0 0 1px rgba(255,255,255,.2) inset,0 0 40px rgba(201,168,76,.45),0 12px 30px rgba(0,0,0,.4);
+  animation:iconFloat 3s ease-in-out infinite;position:relative;overflow:hidden;
+}
+.ob-choice-logo::before{content:"";position:absolute;top:0;left:0;right:0;height:55%;background:linear-gradient(180deg,rgba(255,255,255,.2),transparent);border-radius:22px 22px 0 0;}
+.ob-choice-title{
+  font-size:26px;font-weight:800;letter-spacing:-.4px;margin-bottom:8px;
+  background:linear-gradient(135deg,#fff 35%,var(--a2) 90%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+}
+.ob-choice-sub{font-size:14px;color:var(--text2);line-height:1.55;max-width:300px;margin:0 auto;}
+.ob-choices{display:flex;flex-direction:column;gap:12px;}
+.ob-choice{
+  display:flex;align-items:center;gap:15px;text-align:right;
+  width:100%;padding:18px 18px;border-radius:20px;cursor:pointer;font-family:var(--font);
+  background:linear-gradient(135deg,rgba(255,252,240,.055),rgba(255,252,240,.018));
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  border:1px solid rgba(255,252,240,.1);
+  box-shadow:inset 0 1px 0 rgba(255,252,240,.06);
+  transition:all .28s cubic-bezier(.34,1.4,.64,1);
+  position:relative;overflow:hidden;
+}
+.ob-choice:active{transform:scale(.975);}
+/* recommended (Dimri) variant */
+.ob-choice.featured{
+  border-color:rgba(201,168,76,.4);
+  background:linear-gradient(135deg,rgba(201,168,76,.16),rgba(201,168,76,.04));
+  box-shadow:0 0 32px rgba(201,168,76,.14),inset 0 1px 0 rgba(201,168,76,.22);
+}
+.ob-choice.featured:hover{box-shadow:0 0 44px rgba(201,168,76,.22),inset 0 1px 0 rgba(201,168,76,.25);transform:translateY(-2px);}
+.ob-choice:not(.featured):hover{border-color:rgba(201,168,76,.25);transform:translateY(-2px);}
+.ob-choice-icon{
+  width:52px;height:52px;border-radius:16px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  transition:transform .3s cubic-bezier(.34,1.4,.64,1);
+}
+.ob-choice.featured .ob-choice-icon{
+  background:var(--grad);color:#09080c;
+  box-shadow:0 0 22px rgba(201,168,76,.4),inset 0 1px 0 rgba(255,255,255,.3);
+}
+.ob-choice:not(.featured) .ob-choice-icon{
+  background:linear-gradient(135deg,rgba(255,252,240,.08),rgba(255,252,240,.03));
+  border:1px solid rgba(255,252,240,.12);color:var(--a2);
+}
+.ob-choice:hover .ob-choice-icon{transform:scale(1.08) rotate(-3deg);}
+.ob-choice-body{flex:1;min-width:0;}
+.ob-choice-name{font-size:16px;font-weight:800;color:var(--text);letter-spacing:-.2px;display:flex;align-items:center;gap:8px;}
+.ob-choice-badge{
+  font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;
+  padding:3px 9px;border-radius:99px;color:#09080c;background:var(--grad);
+  box-shadow:0 0 12px rgba(201,168,76,.35);
+}
+.ob-choice-desc{font-size:12px;color:var(--dim);margin-top:4px;line-height:1.4;}
+.ob-choice-arrow{flex-shrink:0;stroke:var(--dim);transition:transform .26s,stroke .26s;}
+.ob-choice:hover .ob-choice-arrow{stroke:var(--a2);transform:translateX(-3px);}
+.ob-choice .ob-ripple{background:radial-gradient(circle,rgba(201,168,76,.4),transparent 70%);}
+/* stagger */
+.ob-body .ob-choice-intro{animation:obFadeUp .55s cubic-bezier(.22,1,.36,1) .05s backwards;}
+.ob-body .ob-choice:nth-of-type(1){animation:obFadeUp .55s cubic-bezier(.22,1,.36,1) .18s backwards;}
+.ob-body .ob-choice:nth-of-type(2){animation:obFadeUp .55s cubic-bezier(.22,1,.36,1) .28s backwards;}
+
 /* ── CREATINE ── */
 .cr-hero{display:flex;flex-direction:column;align-items:center;padding:20px 0 8px;}
 .cr-date{font-size:12px;color:var(--dim);letter-spacing:1px;margin-bottom:22px;font-weight:600;text-transform:uppercase;}
@@ -1772,182 +2245,9 @@ body{
 
     <!-- SUPER: WORKOUT -->
     <div class="super-panel active" id="super-workout">
-      <!-- workout sub-tabs -->
-      <div class="wtabs">
-        <button class="wtab active" data-wp="a" onclick="switchWorkout(this)">A · דחיפה</button>
-        <button class="wtab" data-wp="b" onclick="switchWorkout(this)">B · משיכה</button>
-        <button class="wtab" data-wp="c" onclick="switchWorkout(this)">C · ממוקד</button>
-      </div>
-    <!-- PANEL A -->
-    <div class="panel active" id="panel-a">
-      <div class="whead"><div class="wbadge lr">A</div><div style="flex:1"><div class="wtitle">שני — דחיפה</div><div class="wfocus">חזה · כתפיים · טרייספס</div></div><button class="gw-start-btn" onclick="gwStart('a')"><svg width="11" height="13" viewBox="0 0 12 14"><polygon points="0 0 12 7 0 14"/></svg>התחל</button></div>
-      <div class="ex lr" style="animation-delay:.05s" onclick="showTip(this)"
-        data-name="לחיצת חזה מוט ישר"
-        data-focus="תרגיל בסיס — עצור 1-2 חזרות לפני כשל"
-        data-steps='["שכב על הספסל, שכמות לחוצות אחורה ולמטה","אחוז במוט ברוחב כתפיים פלוס קצת — מרפקים ב-45° מהגוף","הורד לחזה התחתון (3 שניות) — מוט נוגע קלות בחזה","דחוף חזק בנשיפה, אל תנעל ידיים בסוף"]'>
-        <div class="num">1</div>
-        <div class="body">
-          <div class="exname">לחיצת חזה מוט ישר</div>
-          <div class="exmeta"><div class="exscheme">6-8 חזרות</div><div class="tap-hint"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>איך עושים</div></div>
-        </div>
-        <div class="sets">2×</div>
-      </div>
-      <div class="ex lr" style="animation-delay:.1s" onclick="showTip(this)"
-        data-name="לחיצת כתפיים"
-        data-focus="מוט או דמבלים — לפני כשל"
-        data-steps='["עמוד זקוף — הדק בטן ואל תקמר גב","אחוז מוט ברוחב כתפיים, מרפקים קדימה-מעט (לא לצד)","הרם ישר למעלה עד שהיד כמעט ישרה","הורד לגובה הסנטר בשליטה — עצור שנייה ורפס"]'>
-        <div class="num">2</div>
-        <div class="body">
-          <div class="exname">לחיצת כתפיים</div>
-          <div class="exmeta"><div class="exscheme">6-8 חזרות</div><div class="tap-hint"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>איך עושים</div></div>
-        </div>
-        <div class="sets">2×</div>
-      </div>
-      <div class="ex lr" style="animation-delay:.15s" onclick="showTip(this)"
-        data-name="לחיצת חזה משופע"
-        data-focus="חזה עליון — זווית שונה מתרגיל 1"
-        data-steps='["הספסל ב-30-45° — לא יותר, אחרת נהיה כתפיים","משקולות יד בגובה החזה העליון, כפות ידיים קדימה","דחוף למעלה ומעט פנימה, משקולות כמעט נוגעות בראש","הורד לאט — תרגיש מתיחה בחזה העליון בנקודה הנמוכה"]'>
-        <div class="num">3</div>
-        <div class="body">
-          <div class="exname">לחיצת חזה משופע</div>
-          <div class="exmeta"><div class="exscheme">6-8 חזרות</div><div class="tap-hint"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>איך עושים</div></div>
-        </div>
-        <div class="sets">2×</div>
-      </div>
-      <div class="ex stretch lr" style="animation-delay:.2s" onclick="showTip(this)"
-        data-name="הרחקת כתפיים"
-        data-focus="דלתא צדית — ירידה איטית, בטוח עד כשל"
-        data-steps='["עמוד זקוף, מרפקים קלות כפופים ונעולים — לא ישרים","הרם הצידה עד גובה הכתפיים בדיוק — לא מעל","בנקודה הגבוהה — עצור שנייה, תרגיש כיווץ","הורד לאט 3-4 שניות — דגש על מתיחה בדלתא הצדדי"]'>
-        <span class="stag">נקודה מתוחה</span>
-        <div class="num">4</div>
-        <div class="body">
-          <div class="exname">הרחקת כתפיים</div>
-          <div class="exmeta" style="margin-top:18px"><div class="exscheme">6-8 חזרות</div><div class="tap-hint"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>איך עושים</div></div>
-        </div>
-        <div class="sets">2×</div>
-      </div>
-      <div class="ex stretch lr" style="animation-delay:.25s" onclick="showTip(this)"
-        data-name="פשיטת טרייספס מעל הראש (חבל)"
-        data-focus="טרייספס ראש ארוך — מרפק עמוק, עד כשל"
-        data-steps='["עמוד עם החבל מאחורי הראש, מרפקים גבוהים","הורד את היד עד מתיחה מלאה — מרפק עמוק מאחורי הראש","פשוט את היד עד שהיא ישרה מעל הראש","חזור לאט — תרגיש מתיחה בראש הארוך של הטרייספס"]'>
-        <span class="stag">נקודה מתוחה</span>
-        <div class="num">5</div>
-        <div class="body">
-          <div class="exname">פשיטת טרייספס מעל הראש (חבל)</div>
-          <div class="exmeta" style="margin-top:18px"><div class="exscheme">6-8 חזרות</div><div class="tap-hint"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>איך עושים</div></div>
-        </div>
-        <div class="sets">2×</div>
-      </div>
-    </div>
-
-    <!-- PANEL B -->
-    <div class="panel" id="panel-b">
-      <div class="whead"><div class="wbadge lr">B</div><div style="flex:1"><div class="wtitle">רביעי — משיכה</div><div class="wfocus">גב · בייספס · דלתא אחורית</div></div><button class="gw-start-btn" onclick="gwStart('b')"><svg width="11" height="13" viewBox="0 0 12 14"><polygon points="0 0 12 7 0 14"/></svg>התחל</button></div>
-      <div class="ex lr" style="animation-delay:.05s" onclick="showTip(this)"
-        data-name="חתירה במוט"
-        data-focus="גב עליון — תרגיל בסיס, לפני כשל"
-        data-steps='["כפוף קדימה 45°, ברכיים קלות כפופות","גב ישר לגמרי — זה הכלל הכי חשוב בתרגיל הזה","משוך מוט לכיוון הבטן התחתונה, מרפקים לאחור","סחוט גב בנקודה הגבוהה שנייה, הורד בשליטה"]'>
-        <div class="num">1</div>
-        <div class="body">
-          <div class="exname">חתירה במוט</div>
-          <div class="exmeta"><div class="exscheme">6-8 חזרות</div><div class="tap-hint"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>איך עושים</div></div>
-        </div>
-        <div class="sets">2×</div>
-      </div>
-      <div class="ex lr" style="animation-delay:.1s" onclick="showTip(this)"
-        data-name="משיכת פולי / מתח"
-        data-focus="לטיסימוס — תנועה שונה מחתירה"
-        data-steps='["שב, הישען 15° אחורה — דחוף חזה קדימה","אחוז רחב, הורד ידיות לחזה העליון","מרפקים יורדים לכיוון הרצפה — לא לאחור","בנקודה הנמוכה: שכמות מסוחטות זו לזו שנייה"]'>
-        <div class="num">2</div>
-        <div class="body">
-          <div class="exname">משיכת פולי / מתח</div>
-          <div class="exmeta"><div class="exscheme">6-8 חזרות</div><div class="tap-hint"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>איך עושים</div></div>
-        </div>
-        <div class="sets">2×</div>
-      </div>
-      <div class="ex stretch lr" style="animation-delay:.15s" onclick="showTip(this)"
-        data-name="כפיפת בייספס בדמבל על ספסל משופע"
-        data-focus="בייספס ראש ארוך — מתיחה מלאה, עד כשל"
-        data-steps='["שב על ספסל משופע (45-60°), זרועות נופלות אחורה לגמרי","תן לזרוע להישאר אחורה — זו המתיחה המלאה של הבייספס","כפוף את המרפק ומשוך את הדמבל למעלה","הורד לאט עד מתיחה מלאה — מרפק לא זז קדימה"]'>
-        <span class="stag">נקודה מתוחה</span>
-        <div class="num">3</div>
-        <div class="body">
-          <div class="exname">כפיפת בייספס בדמבל על ספסל משופע</div>
-          <div class="exmeta" style="margin-top:18px"><div class="exscheme">6-8 חזרות</div><div class="tap-hint"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>איך עושים</div></div>
-        </div>
-        <div class="sets">2×</div>
-      </div>
-      <div class="ex lr" style="animation-delay:.2s" onclick="showTip(this)"
-        data-name="פייס-פול בחבל"
-        data-focus="דלתא אחורית + טרפז אמצעי — עד כשל"
-        data-steps='["קבע כבל לגובה הראש, שב/עמוד זקוף","אחוז בחבל רחב, מרפקים גבוהים","משוך לכיוון הפנים תוך סיבוב כפות הידיים כלפי מטה","סחיטה בשכמות — בלי תנופה, מרפקים מעל הכתפיים"]'>
-        <div class="num">4</div>
-        <div class="body">
-          <div class="exname">פייס-פול בחבל</div>
-          <div class="exmeta"><div class="exscheme">6-8 חזרות</div><div class="tap-hint"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>איך עושים</div></div>
-        </div>
-        <div class="sets">2×</div>
-      </div>
-      <div class="ex stretch lr" style="animation-delay:.25s" onclick="showTip(this)"
-        data-name="כפיפת בייספס במוט W"
-        data-focus="בייספס — ידידותי למרפקים, עד כשל"
-        data-steps='["שב או עמוד, גב ישר, מרפקים ניוטרליים","כפוף מרפק ומשוך מוט לכיוון הכתף","בנקודה הגבוהה — סחוט בייספס שנייה","הורד לאט עד שהיד ישרה — ידידותי למרפקים"]'>
-        <span class="stag">נקודה מתוחה</span>
-        <div class="num">5</div>
-        <div class="body">
-          <div class="exname">כפיפת בייספס במוט W</div>
-          <div class="exmeta" style="margin-top:18px"><div class="exscheme">6-8 חזרות</div><div class="tap-hint"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>איך עושים</div></div>
-        </div>
-        <div class="sets">2×</div>
-      </div>
-    </div>
-
-    <!-- PANEL C -->
-    <div class="panel" id="panel-c">
-      <div class="whead"><div class="wbadge lr">C</div><div style="flex:1"><div class="wtitle">שישי — ממוקד</div><div class="wfocus">טרייספס · טרפז · דלתא אחורית</div></div><button class="gw-start-btn" onclick="gwStart('c')"><svg width="11" height="13" viewBox="0 0 12 14"><polygon points="0 0 12 7 0 14"/></svg>התחל</button></div>
-      <div class="ex lr" style="animation-delay:.05s" onclick="showTip(this)"
-        data-name="דיפס (מקבילים)"
-        data-focus="טרייספס — גוף זקוף, מרפקים צמודים"
-        data-steps='["אחוז במקבילים, גוף זקוף (כדי להדגיש טרייספס)","מרפקים קרובים לגוף — לא נפתחים החוצה","הורד עד שהמרפק ב-90° בערך","דחוף חזק חזרה למעלה — לפני כשל"]'>
-        <div class="num">1</div>
-        <div class="body"><div class="exname">דיפס (מקבילים)</div><div class="exmeta"><div class="exscheme">6-8 חזרות</div><div class="tap-hint"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>איך עושים</div></div></div>
-        <div class="sets">2×</div>
-      </div>
-      <div class="ex stretch lr" style="animation-delay:.1s" onclick="showTip(this)"
-        data-name="פשיטת טרייספס מעל הראש (חבל)"
-        data-focus="טרייספס ראש ארוך — מרפק עמוק, עד כשל"
-        data-steps='["עמוד עם החבל מאחורי הראש, מרפקים גבוהים","הורד את היד עד מתיחה מלאה — מרפק עמוק מאחורי הראש","פשוט את היד עד שהיא ישרה מעל הראש","חזור לאט — תרגיש מתיחה בראש הארוך של הטרייספס"]'>
-        <span class="stag">נקודה מתוחה</span>
-        <div class="num">2</div>
-        <div class="body"><div class="exname">פשיטת טרייספס מעל הראש</div><div class="exmeta" style="margin-top:18px"><div class="exscheme">6-8 חזרות</div><div class="tap-hint"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>איך עושים</div></div></div>
-        <div class="sets">2×</div>
-      </div>
-      <div class="ex lr" style="animation-delay:.15s" onclick="showTip(this)"
-        data-name="פושדאון חבל"
-        data-focus="טרייספס ראש צדי — פתיחת חבל בסוף, עד כשל"
-        data-steps='["עמוד מול הכבל, מרפקים צמודים לגוף","דחוף את החבל למטה עד שהיד ישרה","בסוף התנועה — פתח את החבל לצדדים","חזור לאט, מרפקים לא זזים מהגוף"]'>
-        <div class="num">3</div>
-        <div class="body"><div class="exname">פושדאון חבל</div><div class="exmeta"><div class="exscheme">6-8 חזרות</div><div class="tap-hint"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>איך עושים</div></div></div>
-        <div class="sets">2×</div>
-      </div>
-      <div class="ex lr" style="animation-delay:.2s" onclick="showTip(this)"
-        data-name="שראגים"
-        data-focus="טרפז עליון — החזקה למעלה, ירידה איטית, עד כשל"
-        data-steps='["עמוד עם משקולות/מוט בידיים, זרועות ישרות","הרם את הכתפיים ישר למעלה לכיוון האוזניים","החזק שנייה למעלה — סחוט את הטרפז","הורד לאט ומבוקר — תרגיש מתיחה בטרפז"]'>
-        <div class="num">4</div>
-        <div class="body"><div class="exname">שראגים</div><div class="exmeta"><div class="exscheme">6-8 חזרות</div><div class="tap-hint"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>איך עושים</div></div></div>
-        <div class="sets">2×</div>
-      </div>
-      <div class="ex lr" style="animation-delay:.25s" onclick="showTip(this)"
-        data-name="הרחקת כתפיים אחורה בשכיבה"
-        data-focus="דלתא אחורית — פתיחה לצדדים ולמעלה, עד כשל"
-        data-steps='["שכב עם החזה על ספסל משופע, משקולות יד תלויות","מרפקים קלות כפופים — פתח את הידיים לצדדים ולמעלה","סחוט את הדלתא האחורית בנקודה הגבוהה","הורד לאט — בלי תנופה, תנועה נקייה"]'>
-        <div class="num">5</div>
-        <div class="body"><div class="exname">הרחקת כתפיים אחורה (Rear Delt)</div><div class="exmeta"><div class="exscheme">6-8 חזרות</div><div class="tap-hint"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>איך עושים</div></div></div>
-        <div class="sets">2×</div>
-      </div>
-    </div>
-
+      <!-- workout sub-tabs (rendered dynamically by renderPlan) -->
+      <div class="wtabs"></div>
+      <!-- panels rendered dynamically by renderPlan -->
     </div><!-- /super-workout -->
 
     <!-- SUPER: TOOLS -->
@@ -2162,17 +2462,160 @@ body{
         <div class="ac-grid" id="ac-grid"></div>
       </div>
 
+      <!-- Edit Plan button -->
+      <div class="csec-wrap">
+        <div class="csec">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--a)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h2v10H6zM16 7h2v10h-2zM8 12h8M3 9h1v6H3zM20 9h1v6h-1z"/></svg>
+          תוכנית אימון
+        </div>
+        <div class="plan-actions">
+          <button class="plan-action lr" onclick="planRipple(event);openEditor()">
+            <div class="pa-icon edit">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            </div>
+            <div class="pa-text">
+              <div class="pa-title">ערוך תוכנית</div>
+              <div class="pa-sub">שנה ימים, תרגילים והוסף חדשים</div>
+            </div>
+            <svg class="pa-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <button class="plan-action lr" onclick="planRipple(event);restartPlan()">
+            <div class="pa-icon restart">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+            </div>
+            <div class="pa-text">
+              <div class="pa-title">התחל תוכנית מחדש</div>
+              <div class="pa-sub">בנה תוכנית חדשה מאפס דרך האשף</div>
+            </div>
+            <svg class="pa-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+        </div>
+      </div>
+
       <!-- Done button -->
       <button class="gbtn pri lg lr" style="width:100%;margin-top:8px" onclick="closeCust()">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
         סיום
       </button>
 
+
     </div><!-- /cust-body -->
   </div><!-- /cust-sh -->
 </div>
 
 <script>
+const DEFAULT_PLAN = [
+  {
+    key:"a", label:"A · דחיפה", day:"שני", name:"דחיפה",
+    subtitle:"חזה · כתפיים · טרייספס",
+    exercises:[
+      {name:"לחיצת חזה מוט ישר",focus:"תרגיל בסיס — עצור 1-2 חזרות לפני כשל",stretch:false,steps:["שכב על הספסל, שכמות לחוצות אחורה ולמטה", "אחוז במוט ברוחב כתפיים פלוס קצת — מרפקים ב-45° מהגוף", "הורד לחזה התחתון (3 שניות) — מוט נוגע קלות בחזה", "דחוף חזק בנשיפה, אל תנעל ידיים בסוף"]},
+      {name:"לחיצת כתפיים",focus:"מוט או דמבלים — לפני כשל",stretch:false,steps:["עמוד זקוף — הדק בטן ואל תקמר גב", "אחוז מוט ברוחב כתפיים, מרפקים קדימה-מעט (לא לצד)", "הרם ישר למעלה עד שהיד כמעט ישרה", "הורד לגובה הסנטר בשליטה — עצור שנייה ורפס"]},
+      {name:"לחיצת חזה משופע",focus:"חזה עליון — זווית שונה מתרגיל 1",stretch:false,steps:["הספסל ב-30-45° — לא יותר, אחרת נהיה כתפיים", "משקולות יד בגובה החזה העליון, כפות ידיים קדימה", "דחוף למעלה ומעט פנימה, משקולות כמעט נוגעות בראש", "הורד לאט — תרגיש מתיחה בחזה העליון בנקודה הנמוכה"]},
+      {name:"הרחקת כתפיים",focus:"דלתא צדית — ירידה איטית, בטוח עד כשל",stretch:true,steps:["עמוד זקוף, מרפקים קלות כפופים ונעולים — לא ישרים", "הרם הצידה עד גובה הכתפיים בדיוק — לא מעל", "בנקודה הגבוהה — עצור שנייה, תרגיש כיווץ", "הורד לאט 3-4 שניות — דגש על מתיחה בדלתא הצדדי"]},
+      {name:"פשיטת טרייספס מעל הראש (חבל)",focus:"טרייספס ראש ארוך — מרפק עמוק, עד כשל",stretch:true,steps:["עמוד עם החבל מאחורי הראש, מרפקים גבוהים", "הורד את היד עד מתיחה מלאה — מרפק עמוק מאחורי הראש", "פשוט את היד עד שהיא ישרה מעל הראש", "חזור לאט — תרגיש מתיחה בראש הארוך של הטרייספס"]}
+    ]
+  },
+  {
+    key:"b", label:"B · משיכה", day:"רביעי", name:"משיכה",
+    subtitle:"גב · בייספס · דלתא אחורית",
+    exercises:[
+      {name:"חתירה במוט",focus:"גב עליון — תרגיל בסיס, לפני כשל",stretch:false,steps:["כפוף קדימה 45°, ברכיים קלות כפופות", "גב ישר לגמרי — זה הכלל הכי חשוב בתרגיל הזה", "משוך מוט לכיוון הבטן התחתונה, מרפקים לאחור", "סחוט גב בנקודה הגבוהה שנייה, הורד בשליטה"]},
+      {name:"משיכת פולי / מתח",focus:"לטיסימוס — תנועה שונה מחתירה",stretch:false,steps:["שב, הישען 15° אחורה — דחוף חזה קדימה", "אחוז רחב, הורד ידיות לחזה העליון", "מרפקים יורדים לכיוון הרצפה — לא לאחור", "בנקודה הנמוכה: שכמות מסוחטות זו לזו שנייה"]},
+      {name:"כפיפת בייספס בדמבל על ספסל משופע",focus:"בייספס ראש ארוך — מתיחה מלאה, עד כשל",stretch:true,steps:["שב על ספסל משופע (45-60°), זרועות נופלות אחורה לגמרי", "תן לזרוע להישאר אחורה — זו המתיחה המלאה של הבייספס", "כפוף את המרפק ומשוך את הדמבל למעלה", "הורד לאט עד מתיחה מלאה — מרפק לא זז קדימה"]},
+      {name:"פייס-פול בחבל",focus:"דלתא אחורית + טרפז אמצעי — עד כשל",stretch:false,steps:["קבע כבל לגובה הראש, שב/עמוד זקוף", "אחוז בחבל רחב, מרפקים גבוהים", "משוך לכיוון הפנים תוך סיבוב כפות הידיים כלפי מטה", "סחיטה בשכמות — בלי תנופה, מרפקים מעל הכתפיים"]},
+      {name:"כפיפת בייספס במוט W",focus:"בייספס — ידידותי למרפקים, עד כשל",stretch:true,steps:["שב או עמוד, גב ישר, מרפקים ניוטרליים", "כפוף מרפק ומשוך מוט לכיוון הכתף", "בנקודה הגבוהה — סחוט בייספס שנייה", "הורד לאט עד שהיד ישרה — ידידותי למרפקים"]}
+    ]
+  },
+  {
+    key:"c", label:"C · ממוקד", day:"שישי", name:"ממוקד",
+    subtitle:"טרייספס · טרפז · דלתא אחורית",
+    exercises:[
+      {name:"דיפס (מקבילים)",focus:"טרייספס — גוף זקוף, מרפקים צמודים",stretch:false,steps:["אחוז במקבילים, גוף זקוף (כדי להדגיש טרייספס)", "מרפקים קרובים לגוף — לא נפתחים החוצה", "הורד עד שהמרפק ב-90° בערך", "דחוף חזק חזרה למעלה — לפני כשל"]},
+      {name:"פשיטת טרייספס מעל הראש (חבל)",focus:"טרייספס ראש ארוך — מרפק עמוק, עד כשל",stretch:true,steps:["עמוד עם החבל מאחורי הראש, מרפקים גבוהים", "הורד את היד עד מתיחה מלאה — מרפק עמוק מאחורי הראש", "פשוט את היד עד שהיא ישרה מעל הראש", "חזור לאט — תרגיש מתיחה בראש הארוך של הטרייספס"]},
+      {name:"פושדאון חבל",focus:"טרייספס ראש צדי — פתיחת חבל בסוף, עד כשל",stretch:false,steps:["עמוד מול הכבל, מרפקים צמודים לגוף", "דחוף את החבל למטה עד שהיד ישרה", "בסוף התנועה — פתח את החבל לצדדים", "חזור לאט, מרפקים לא זזים מהגוף"]},
+      {name:"שראגים",focus:"טרפז עליון — החזקה למעלה, ירידה איטית, עד כשל",stretch:false,steps:["עמוד עם משקולות/מוט בידיים, זרועות ישרות", "הרם את הכתפיים ישר למעלה לכיוון האוזניים", "החזק שנייה למעלה — סחוט את הטרפז", "הורד לאט ומבוקר — תרגיש מתיחה בטרפז"]},
+      {name:"הרחקת כתפיים אחורה בשכיבה",focus:"דלתא אחורית — פתיחה לצדדים ולמעלה, עד כשל",stretch:false,steps:["שכב עם החזה על ספסל משופע, משקולות יד תלויות", "מרפקים קלות כפופים — פתח את הידיים לצדדים ולמעלה", "סחוט את הדלתא האחורית בנקודה הגבוהה", "הורד לאט — בלי תנופה, תנועה נקייה"]}
+    ]
+  }
+];
+
+// ── PLAN STATE — loaded from localStorage or default ──
+let PLAN = [];
+try {
+  const saved = JSON.parse(localStorage.getItem("forge-plan") || "null");
+  PLAN = (saved && Array.isArray(saved) && saved.length) ? saved : JSON.parse(JSON.stringify(DEFAULT_PLAN));
+} catch(e) { PLAN = JSON.parse(JSON.stringify(DEFAULT_PLAN)); }
+function savePlan(){ try{ localStorage.setItem("forge-plan", JSON.stringify(PLAN)); }catch(e){} }
+
+// has the user completed onboarding?
+let ONBOARDED = false;
+try { ONBOARDED = localStorage.getItem("forge-onboarded") === "1"; } catch(e){}
+
+// ── RENDER WORKOUT TABS + PANELS dynamically ──
+function renderPlan(){
+  // 1. sub-tabs
+  const tabsWrap = document.querySelector('.wtabs');
+  if(tabsWrap){
+    tabsWrap.innerHTML = PLAN.map((d,i)=>
+      `<button class="wtab${i===0?' active':''}" data-wp="${d.key}" onclick="switchWorkout(this)">${d.label}</button>`
+    ).join('');
+  }
+
+  // 2. panels
+  const superWorkout = document.getElementById('super-workout');
+  // remove old panels
+  superWorkout.querySelectorAll('.panel').forEach(p=>p.remove());
+
+  PLAN.forEach((d,di)=>{
+    const panel = document.createElement('div');
+    panel.className = 'panel' + (di===0?' active':'');
+    panel.id = 'panel-' + d.key;
+
+    const exHtml = d.exercises.map((ex,ei)=>{
+      const stretchCls = ex.stretch ? ' stretch' : '';
+      const stag = ex.stretch ? '<span class="stag">נקודה מתוחה</span>' : '';
+      const metaStyle = ex.stretch ? ' style="margin-top:18px"' : '';
+      const stepsAttr = JSON.stringify(ex.steps||[]).replace(/'/g,'&#39;');
+      return `<div class="ex${stretchCls} lr" style="animation-delay:${(ei*.05+.05).toFixed(2)}s" onclick="showTip(this)"
+        data-name="${ex.name}" data-focus="${ex.focus||''}" data-steps='${stepsAttr}'>
+        ${stag}
+        <div class="num">${ei+1}</div>
+        <div class="body">
+          <div class="exname">${ex.name}</div>
+          <div class="exmeta"${metaStyle}><div class="exscheme">6-8 חזרות</div><div class="tap-hint"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>איך עושים</div></div>
+        </div>
+        <div class="sets">2×</div>
+      </div>`;
+    }).join('');
+
+    panel.innerHTML = `
+      <div class="whead">
+        <div class="wbadge lr">${d.key.toUpperCase()}</div>
+        <div style="flex:1"><div class="wtitle">${d.day} — ${d.name}</div><div class="wfocus">${d.subtitle||''}</div></div>
+        <button class="gw-start-btn" onclick="gwStart('${d.key}')"><svg width="11" height="13" viewBox="0 0 12 14"><polygon points="0 0 12 7 0 14"/></svg>התחל</button>
+      </div>
+      ${exHtml}`;
+    superWorkout.appendChild(panel);
+  });
+
+  // 3. rebuild tracker groups from plan
+  rebuildWorkoutGroups();
+}
+
+// rebuild WORKOUT_GROUPS from current PLAN (keeps tracker synced)
+function rebuildWorkoutGroups(){
+  const g = {};
+  PLAN.forEach(d=>{
+    g[d.key.toUpperCase()] = {
+      label: d.day + " — " + d.name,
+      ex: d.exercises.map(e=>e.name)
+    };
+  });
+  WORKOUT_GROUPS = g;
+}
+
+
 // ── DATA ─────────────────────────────────────────────────────────────
 const BGS={
   obsidian: {name:"Obsidian",color:"#09080c",pal:{backgroundColor:0x060405,skyColor:0x100d08,cloudColor:0x1a1510,cloudShadowColor:0x080605,sunColor:0xc9a84c,sunGlareColor:0x8a6620,sunlightColor:0xe8c87a}},
@@ -2515,10 +2958,10 @@ function renderOrmPct(orm){
 }
 
 // ── TRACKER v2 — weight per exercise, grouped A/B/C ──────────────────
-const WORKOUT_GROUPS={
-  A:{label:"שני — דחיפה",ex:["לחיצת חזה מוט ישר","לחיצת כתפיים","לחיצת חזה משופע","הרחקת כתפיים","פשיטת טרייספס מעל הראש"]},
-  B:{label:"רביעי — משיכה",ex:["חתירה במוט","משיכת פולי / מתח","כפיפת בייספס משופע","פייס-פול","כפיפת בייספס W"]},
-  C:{label:"שישי — ממוקד",ex:["דיפס","פשיטת טרייספס (חבל)","פושדאון חבל","שראגים","הרחקת כתפיים אחורה"]},
+let WORKOUT_GROUPS={
+  A:{label:"שני — דחיפה",ex:["לחיצת חזה מוט ישר","לחיצת כתפיים","לחיצת חזה משופע","הרחקת כתפיים","פשיטת טרייספס מעל הראש (חבל)"]},
+  B:{label:"רביעי — משיכה",ex:["חתירה במוט","משיכת פולי / מתח","כפיפת בייספס בדמבל על ספסל משופע","פייס-פול בחבל","כפיפת בייספס במוט W"]},
+  C:{label:"שישי — ממוקד",ex:["דיפס (מקבילים)","פשיטת טרייספס מעל הראש (חבל)","פושדאון חבל","שראגים","הרחקת כתפיים אחורה בשכיבה"]},
 };
 // trkData = { exName: [ {w, d} ... ] }  (history of weights)
 let trkData={};
@@ -3209,16 +3652,428 @@ function gwClose() {
   }, 450);
 }
 
+
+
+// ── PLAN ACTIONS (settings) ─────────────────────────────────────────
+function planRipple(e){
+  const el = e.currentTarget;
+  const r = document.createElement('span');
+  r.className = 'ob-ripple';
+  const rect = el.getBoundingClientRect();
+  const size = Math.max(rect.width, rect.height);
+  r.style.width = r.style.height = size + 'px';
+  r.style.left = (e.clientX - rect.left) + 'px';
+  r.style.top  = (e.clientY - rect.top) + 'px';
+  el.appendChild(r);
+  setTimeout(()=>r.remove(), 520);
+  if('vibrate' in navigator) navigator.vibrate(15);
+}
+function restartPlan(){
+  document.getElementById('confirm-bd').classList.add('open');
+}
+function closeConfirm(){
+  document.getElementById('confirm-bd').classList.remove('open');
+}
+function confirmRestart(){
+  closeConfirm();
+  closeCust();
+  // launch onboarding fresh — empty days (keeps tracker data)
+  setTimeout(()=>openOnboarding(true), 300);
+}
+
+// ── ONBOARDING WIZARD + PLAN EDITOR ─────────────────────────────────
+const OB = {
+  mode: 'onboard',   // 'onboard' | 'edit'
+  step: 0,           // 0=welcome, 1=count, 2..=days, last=done
+  draft: [],         // working copy of plan
+  dayCount: 3,
+};
+const DAY_NAMES_HEB = ['ראשון','שני','שלישי','רביעי','חמישי','שישי','שבת'];
+const DAY_LETTERS = ['A','B','C','D','E','F'];
+
+function blankDay(i){
+  return {
+    key: DAY_LETTERS[i].toLowerCase(),
+    label: DAY_LETTERS[i] + ' · אימון',
+    day: DAY_NAMES_HEB[(i*2)%7],
+    name: 'אימון ' + DAY_LETTERS[i],
+    subtitle: '',
+    exercises: [ {name:'', focus:'', stretch:false, steps:[]} ]
+  };
+}
+
+// total steps: welcome(1) + count(1) + N days + done(1)
+function obTotalSteps(){ return 2 + OB.dayCount + 1; }
+
+function openOnboarding(fresh){
+  OB.mode='onboard'; OB.step=0;
+  if(fresh){
+    // start completely empty — user builds from scratch
+    OB.dayCount = 3;
+    OB.draft = [blankDay(0), blankDay(1), blankDay(2)];
+  } else {
+    // first launch — pre-fill with example plan
+    OB.draft = JSON.parse(JSON.stringify(DEFAULT_PLAN));
+    OB.dayCount = 3;
+  }
+  document.getElementById('ob-bd').classList.add('open');
+  obRender();
+}
+function openEditor(){
+  OB.mode='edit'; OB.step=2; // jump straight to day editing
+  OB.draft = JSON.parse(JSON.stringify(PLAN));
+  OB.dayCount = PLAN.length;
+  closeCust();
+  document.getElementById('ob-bd').classList.add('open');
+  obRender();
+}
+function obClose(){ document.getElementById('ob-bd').classList.remove('open'); }
+
+// ── CHOICE: Dimri Plan (built-in) or custom ──
+function obPickDimri(){
+  // load the built-in plan and jump straight to done
+  OB.draft = JSON.parse(JSON.stringify(DEFAULT_PLAN));
+  OB.dayCount = OB.draft.length;
+  if('vibrate' in navigator) navigator.vibrate(30);
+  // commit immediately
+  PLAN = JSON.parse(JSON.stringify(OB.draft));
+  savePlan();
+  try{ localStorage.setItem('forge-onboarded','1'); }catch(e){}
+  ONBOARDED = true;
+  renderPlan();
+  renderTrk();
+  OB.step = obTotalSteps()-1; // done screen
+  obRender();
+}
+function obPickCustom(){
+  // start fresh empty days
+  OB.dayCount = 3;
+  OB.draft = [blankDay(0), blankDay(1), blankDay(2)];
+  if('vibrate' in navigator) navigator.vibrate(20);
+  OB.step = 1; // go to day-count step
+  obRender();
+}
+
+function obBack(){
+  if(OB.mode==='edit' && OB.step<=2){ obClose(); return; }
+  if(OB.step===0){ obClose(); return; }
+  // from welcome can't go back
+  if(OB.mode==='onboard' && OB.step===1){ OB.step=0; obRender(); return; }
+  OB.step--;
+  // skip count step in edit mode
+  if(OB.mode==='edit' && OB.step<2) { obClose(); return; }
+  obRender();
+}
+
+function obNext(){
+  if('vibrate' in navigator) navigator.vibrate(25);
+  const total = obTotalSteps();
+  // welcome → count
+  if(OB.step===0){ OB.step=1; obRender(); return; }
+  // count → first day
+  if(OB.step===1){
+    // resize draft to dayCount
+    const cur = OB.draft.length;
+    if(OB.dayCount > cur){
+      for(let i=cur;i<OB.dayCount;i++) OB.draft.push(blankDay(i));
+    } else if(OB.dayCount < cur){
+      OB.draft = OB.draft.slice(0,OB.dayCount);
+    }
+    // fix keys/letters
+    OB.draft.forEach((d,i)=>{ d.key=DAY_LETTERS[i].toLowerCase(); });
+    OB.step=2; obRender(); return;
+  }
+  // day steps
+  const dayIdx = OB.step - 2;
+  if(dayIdx < OB.dayCount - 1){
+    if(!obValidateDay(dayIdx)) return;
+    OB.step++; obRender(); return;
+  }
+  // last day → finish
+  if(dayIdx === OB.dayCount - 1){
+    if(!obValidateDay(dayIdx)) return;
+    obFinish();
+  }
+}
+
+function obValidateDay(idx){
+  const d = OB.draft[idx];
+  // need a name and at least 1 non-empty exercise
+  const validEx = d.exercises.filter(e=>e.name.trim());
+  if(validEx.length===0){
+    alert('הוסף לפחות תרגיל אחד ליום זה');
+    return false;
+  }
+  // clean empties
+  d.exercises = validEx;
+  // label
+  d.label = DAY_LETTERS[idx] + ' · ' + (d.name||'אימון');
+  return true;
+}
+
+function obFinish(){
+  // commit draft → PLAN
+  PLAN = JSON.parse(JSON.stringify(OB.draft));
+  // ensure keys + labels
+  PLAN.forEach((d,i)=>{
+    d.key = DAY_LETTERS[i].toLowerCase();
+    d.label = DAY_LETTERS[i] + ' · ' + (d.name||'אימון');
+    d.exercises.forEach(e=>{ if(!e.steps) e.steps=[]; if(!e.focus) e.focus=''; });
+  });
+  savePlan();
+  try{ localStorage.setItem('forge-onboarded','1'); }catch(e){}
+  ONBOARDED = true;
+  renderPlan();
+  renderTrk();
+  // show done screen briefly then close
+  OB.step = obTotalSteps()-1;
+  obRender();
+}
+
+// ripple effect on tap
+function obRipple(e){
+  const el = e.currentTarget;
+  const r = document.createElement('span');
+  r.className = 'ob-ripple';
+  const rect = el.getBoundingClientRect();
+  const size = Math.max(rect.width, rect.height);
+  r.style.width = r.style.height = size + 'px';
+  r.style.left = (e.clientX - rect.left) + 'px';
+  r.style.top  = (e.clientY - rect.top) + 'px';
+  el.appendChild(r);
+  setTimeout(()=>r.remove(), 520);
+}
+
+let obLastStep = 0;
+function obRender(){
+  // direction-aware body animation
+  const dir = OB.step >= obLastStep ? 'step-fwd' : 'step-back';
+  obLastStep = OB.step;
+  const total = obTotalSteps();
+  const body = document.getElementById('ob-body');
+  body.classList.remove('step-fwd','step-back');
+  void body.offsetWidth;
+  body.classList.add(dir);
+  const back = document.getElementById('ob-back');
+  const title = document.getElementById('ob-title');
+  const stepLbl = document.getElementById('ob-step');
+  const dots = document.getElementById('ob-dots');
+  const nextBtn = document.getElementById('ob-next');
+  const footer = nextBtn.parentElement;
+
+  // progress dots (skip welcome+done from count)
+  const dotCount = OB.dayCount + 1; // count + days
+  let dotsHtml='';
+  for(let i=0;i<dotCount;i++){
+    const stepForDot = i+1; // step 1=count, 2+=days
+    let cls='ob-dot';
+    if(OB.step>stepForDot) cls+=' done';
+    else if(OB.step===stepForDot) cls+=' current';
+    dotsHtml+=`<div class="${cls}"></div>`;
+  }
+  dots.innerHTML = (OB.step>=1 && OB.step<total-1) ? dotsHtml : '';
+
+  // ALWAYS reset next handler at top (fixes restart bug)
+  nextBtn.onclick = obNext;
+
+  // back button visible everywhere except first welcome — but always lets you exit
+  back.style.visibility = 'visible';
+
+  // ─── WELCOME / CHOICE ───
+  if(OB.step===0){
+    title.textContent=''; stepLbl.textContent='';
+    footer.style.display='none'; // no next button — choice cards advance
+    body.innerHTML=`
+      <div class="ob-choice-intro">
+        <div class="ob-choice-logo">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h2v10H6zM16 7h2v10h-2zM8 12h8M3 9h1v6H3zM20 9h1v6h-1z"/></svg>
+        </div>
+        <div class="ob-choice-title">ברוך הבא ל-FORGE</div>
+        <div class="ob-choice-sub">בחר איך להתחיל — תוכל לערוך הכל בהמשך</div>
+      </div>
+      <div class="ob-choices">
+        <button class="ob-choice featured" onclick="planRipple(event);obPickDimri()">
+          <div class="ob-choice-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h2v10H6zM16 7h2v10h-2zM8 12h8M3 9h1v6H3zM20 9h1v6h-1z"/></svg>
+          </div>
+          <div class="ob-choice-body">
+            <div class="ob-choice-name">Dimri Plan <span class="ob-choice-badge">מומלץ</span></div>
+            <div class="ob-choice-desc">תוכנית מובנית · שני · רביעי · שישי · פלג גוף עליון</div>
+          </div>
+          <svg class="ob-choice-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button class="ob-choice" onclick="planRipple(event);obPickCustom()">
+          <div class="ob-choice-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          </div>
+          <div class="ob-choice-body">
+            <div class="ob-choice-name">בנה תוכנית משלי</div>
+            <div class="ob-choice-desc">הגדר ימים ותרגילים בעצמך מאפס</div>
+          </div>
+          <svg class="ob-choice-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+      </div>`;
+    return;
+  }
+
+  // ─── DONE ───
+  if(OB.step===total-1){
+    title.textContent=''; stepLbl.textContent='';
+    dots.innerHTML='';
+    footer.style.display='block';
+    back.style.visibility='hidden';
+    nextBtn.innerHTML='בוא נתאמן <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>';
+    nextBtn.onclick = obClose;
+    body.innerHTML=`
+      <div class="ob-welcome">
+        <div class="gw-done-emblem" style="margin-bottom:24px">
+          <div class="gw-done-ring"></div>
+          <div class="gw-done-ring gw-done-ring-2"></div>
+          <div class="gw-done-badge">
+            <svg width="54" height="54" viewBox="0 0 54 54" fill="none"><polyline points="13,27 23,38 41,17" stroke="#09080c" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </div>
+        <div class="ob-welcome-title">הכל מוכן</div>
+        <div class="ob-welcome-sub">התוכנית שלך נשמרה. אפשר להתחיל להתאמן — ולערוך הכל מתי שתרצה דרך ההגדרות.</div>
+      </div>`;
+    return;
+  }
+
+  footer.style.display='block';
+
+  // ─── DAY COUNT ───
+  if(OB.step===1){
+    title.textContent='כמה ימים?'; stepLbl.textContent='שלב 1';
+    nextBtn.innerHTML='המשך <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>';
+    body.innerHTML=`
+      <div class="ob-q">כמה ימים אתה מתאמן בשבוע?</div>
+      <div class="ob-q-sub">תוכל להוסיף או להסיר ימים בהמשך</div>
+      <div class="ob-count-grid">
+        ${[2,3,4,5,6].map(n=>`
+          <button class="ob-count-btn${OB.dayCount===n?' sel':''}" onclick="obRipple(event);obSetCount(${n})">
+            <span class="obc-num">${n}</span><span class="obc-lbl">ימים</span>
+          </button>`).join('')}
+      </div>`;
+    return;
+  }
+
+  // ─── DAY EDITOR ───
+  const dayIdx = OB.step - 2;
+  const d = OB.draft[dayIdx];
+  title.textContent = OB.mode==='edit' ? 'עריכת תוכנית' : 'בניית התוכנית';
+  stepLbl.textContent = 'יום ' + (dayIdx+1) + ' / ' + OB.dayCount;
+  const isLastDay = dayIdx === OB.dayCount-1;
+  nextBtn.innerHTML = isLastDay
+    ? (OB.mode==='edit' ? 'שמור תוכנית <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>' : 'סיום <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>')
+    : 'היום הבא <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>';
+
+  body.innerHTML=`
+    <div class="ob-day-head">
+      <div class="ob-day-badge lr">${DAY_LETTERS[dayIdx]}</div>
+      <div style="flex:1;min-width:0">
+        <input class="ob-input" id="ob-day-name" placeholder="שם האימון (למשל: דחיפה)" value="${(d.name||'').replace(/"/g,'&quot;')}" oninput="obUpdateDayName(${dayIdx},this.value)">
+      </div>
+    </div>
+    <div class="ob-field">
+      <div class="ob-field-label">תיאור / שרירים &nbsp;·&nbsp; אופציונלי</div>
+      <input class="ob-input" id="ob-day-sub" placeholder="חזה · כתפיים · טרייספס" value="${(d.subtitle||'').replace(/"/g,'&quot;')}" oninput="obUpdateDaySub(${dayIdx},this.value)">
+    </div>
+    <div class="ob-sec-label">תרגילים</div>
+    <div class="ob-ex-list" id="ob-ex-list">
+      ${d.exercises.map((ex,ei)=>obExRow(dayIdx,ei,ex)).join('')}
+    </div>
+    <button class="ob-add-ex" onclick="obRipple(event);obAddEx(${dayIdx})">
+      <svg viewBox="0 0 24 24" fill="none"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      הוסף תרגיל
+    </button>
+    <div class="ob-hint">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--a)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      לחץ על הכוכב לסימון תרגיל מתיחה (נקודה מתוחה)
+    </div>`;
+}
+
+function obExRow(dayIdx,ei,ex){
+  return `<div class="ob-ex-row">
+    <div class="ob-ex-num">${ei+1}</div>
+    <input class="ob-ex-input" placeholder="שם התרגיל" value="${(ex.name||'').replace(/"/g,'&quot;')}" oninput="obUpdateEx(${dayIdx},${ei},this.value)">
+    <div class="ob-ex-stretch${ex.stretch?' on':''}" onclick="obToggleStretch(${dayIdx},${ei})" title="נקודה מתוחה">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+    </div>
+    <div class="ob-ex-del" onclick="obDelEx(${dayIdx},${ei})">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </div>
+  </div>`;
+}
+
+// ── editor field handlers (don't re-render — keep focus) ──
+function obSetCount(n){
+  OB.dayCount=n;
+  if('vibrate' in navigator) navigator.vibrate(15);
+  // update selection without full re-render (preserves pop animation)
+  document.querySelectorAll('.ob-count-btn').forEach(b=>{
+    const bn = parseInt(b.querySelector('.obc-num').textContent);
+    b.classList.toggle('sel', bn===n);
+  });
+}
+function obUpdateDayName(i,v){ OB.draft[i].name=v; }
+function obUpdateDaySub(i,v){ OB.draft[i].subtitle=v; }
+function obUpdateEx(di,ei,v){ OB.draft[di].exercises[ei].name=v; }
+function obToggleStretch(di,ei){
+  const on = !OB.draft[di].exercises[ei].stretch;
+  OB.draft[di].exercises[ei].stretch = on;
+  if('vibrate' in navigator) navigator.vibrate(18);
+  // toggle in place + pop the star (no full re-render, keeps focus)
+  const rows = document.querySelectorAll('#ob-ex-list .ob-ex-row');
+  const row = rows[ei];
+  if(row){
+    const star = row.querySelector('.ob-ex-stretch');
+    star.classList.toggle('on', on);
+    star.classList.add('just-toggled');
+    setTimeout(()=>star.classList.remove('just-toggled'), 420);
+  }
+}
+function obAddEx(di){
+  OB.draft[di].exercises.push({name:'',focus:'',stretch:false,steps:[]});
+  if('vibrate' in navigator) navigator.vibrate(15);
+  const list=document.getElementById('ob-ex-list');
+  if(list){
+    list.innerHTML = OB.draft[di].exercises.map((ex,ei)=>obExRow(di,ei,ex)).join('');
+    // focus the newly added input
+    const inputs = list.querySelectorAll('.ob-ex-input');
+    const last = inputs[inputs.length-1];
+    if(last) setTimeout(()=>last.focus(), 80);
+  }
+}
+function obDelEx(di,ei){
+  if('vibrate' in navigator) navigator.vibrate(20);
+  const list=document.getElementById('ob-ex-list');
+  const rows = list ? list.querySelectorAll('.ob-ex-row') : [];
+  const row = rows[ei];
+  const commit = ()=>{
+    if(OB.draft[di].exercises.length<=1){ OB.draft[di].exercises[0]={name:'',focus:'',stretch:false,steps:[]}; }
+    else OB.draft[di].exercises.splice(ei,1);
+    if(list) list.innerHTML = OB.draft[di].exercises.map((ex,ei2)=>obExRow(di,ei2,ex)).join('');
+  };
+  if(row){ row.classList.add('removing'); setTimeout(commit, 240); }
+  else commit();
+}
+
+
 // ── INIT ──────────────────────────────────────────────────────────────
 window.addEventListener("load",()=>{
   applyA(C.accent);applyF(C.font);
   R.setProperty("--bg",(BGS[C.bgTheme]||BGS.obsidian).color);
+  renderPlan();
   initTrkTabs();
   renderTrk();
   renderCreatine();
   setTimerBtns();
   runSplash();
   initVanta();
+  // first-launch onboarding
+  if(!ONBOARDED){
+    setTimeout(()=>openOnboarding(true), 2600); // after splash — fresh empty plan
+  }
 });
 </script>
 
@@ -3335,6 +4190,48 @@ window.addEventListener("load",()=>{
           סיים
         </button>
       </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ONBOARDING / PLAN EDITOR -->
+<div class="ob-bd" id="ob-bd">
+  <div class="ob-sheet">
+    <!-- header -->
+    <div class="ob-hdr" id="ob-hdr">
+      <button class="ob-hdr-back" id="ob-back" onclick="obBack()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <div class="ob-hdr-title" id="ob-title">הגדרת התוכנית</div>
+      <div class="ob-hdr-step" id="ob-step"></div>
+    </div>
+    <!-- progress dots -->
+    <div class="ob-dots" id="ob-dots"></div>
+    <!-- body (rendered per step) -->
+    <div class="ob-body" id="ob-body"></div>
+    <!-- footer -->
+    <div class="ob-footer">
+      <button class="ob-next" id="ob-next" onclick="obNext()">
+        המשך
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<!-- RESTART CONFIRM DIALOG -->
+<div class="confirm-bd" id="confirm-bd">
+  <div class="confirm-card">
+    <div class="confirm-icon">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+    </div>
+    <div class="confirm-title">להתחיל תוכנית מחדש?</div>
+    <div class="confirm-msg">התוכנית הנוכחית תוחלף בתוכנית חדשה שתבנה באשף. נתוני המעקב (משקלים) יישמרו.</div>
+    <div class="confirm-btns">
+      <button class="confirm-cancel" onclick="closeConfirm()">ביטול</button>
+      <button class="confirm-ok" onclick="confirmRestart()">התחל מחדש</button>
     </div>
   </div>
 </div>

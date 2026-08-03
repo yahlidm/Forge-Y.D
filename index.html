@@ -391,7 +391,7 @@ body{
   width:40px;height:40px;border-radius:13px;
   border:1px solid rgba(255,252,240,.1);
   background:rgba(255,252,240,.05);
-  backdrop-filter:var(--blur-sm);
+  -webkit-backdrop-filter:var(--blur-sm);backdrop-filter:var(--blur-sm);
   display:flex;align-items:center;justify-content:center;
   cursor:pointer;transition:.22s;color:var(--dim);
 }
@@ -417,7 +417,7 @@ body{
   flex:1;padding:11px 4px;border-radius:var(--radius-sm);cursor:pointer;
   border:1px solid var(--border);
   background:var(--surface);
-  backdrop-filter:var(--blur-sm);
+  -webkit-backdrop-filter:var(--blur-sm);backdrop-filter:var(--blur-sm);
   font-family:var(--font);font-size:12.5px;font-weight:700;
   color:var(--dim);transition:all .28s cubic-bezier(.4,0,.2,1);text-align:center;
 }
@@ -533,7 +533,7 @@ body{
   background:linear-gradient(135deg,rgba(255,252,240,.055),rgba(255,252,240,.018));
   border:1px solid var(--border);border-radius:18px;
   padding:18px 20px;margin-bottom:11px;
-  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);
   box-shadow:inset 0 1px 0 rgba(255,252,240,.06),0 2px 16px rgba(0,0,0,.2);
   transition:all .5s cubic-bezier(.4,0,.2,1);
 }
@@ -559,7 +559,7 @@ body{
 .sp{
   padding:16px;border-radius:var(--radius-sm);
   background:linear-gradient(135deg,rgba(255,252,240,.06),rgba(255,252,240,.02));
-  border:1px solid var(--border);backdrop-filter:var(--blur);
+  border:1px solid var(--border);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);
   box-shadow:inset 0 1px 0 rgba(255,252,240,.07);
 }
 .sp-l{font-size:10px;color:var(--dim);font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;}
@@ -637,7 +637,7 @@ body{
   display:flex;gap:0;margin:16px 18px 0;
   background:rgba(255,252,240,.04);border:1px solid var(--border);
   border-radius:var(--radius-sm);padding:4px;
-  backdrop-filter:var(--blur-sm);
+  -webkit-backdrop-filter:var(--blur-sm);backdrop-filter:var(--blur-sm);
 }
 .ttog{
   flex:1;padding:12px 8px;border-radius:var(--radius-xs);cursor:pointer;
@@ -782,7 +782,7 @@ body{
   background:linear-gradient(135deg,rgba(255,252,240,.05),rgba(255,252,240,.015));
   border:1px solid rgba(255,252,240,.08);
   border-radius:14px;margin-bottom:8px;
-  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
   box-shadow:inset 0 1px 0 rgba(255,252,240,.06);
   animation:lapIn .4s cubic-bezier(.22,1,.36,1);
 }
@@ -803,7 +803,7 @@ body{
   padding:12px 10px;border-radius:var(--radius-sm);cursor:pointer;
   font-family:var(--font);font-size:12px;font-weight:600;color:var(--dim);
   background:var(--surface);border:1px solid var(--border);
-  backdrop-filter:var(--blur-sm);
+  -webkit-backdrop-filter:var(--blur-sm);backdrop-filter:var(--blur-sm);
   transition:all .22s;text-align:center;
 }
 .orm-ex-btn.sel{
@@ -816,7 +816,7 @@ body{
 .orm-field{
   background:var(--surface);border:1px solid var(--border);
   border-radius:var(--radius-sm);padding:15px 16px;
-  backdrop-filter:var(--blur-sm);
+  -webkit-backdrop-filter:var(--blur-sm);backdrop-filter:var(--blur-sm);
   transition:border-color .25s,box-shadow .25s;
 }
 .orm-field:focus-within{
@@ -838,7 +838,7 @@ body{
 .orm-howto{
   border-radius:16px;margin-bottom:18px;overflow:hidden;
   background:linear-gradient(135deg,rgba(255,252,240,.05),rgba(255,252,240,.015));
-  border:1px solid var(--border);backdrop-filter:blur(20px);
+  border:1px solid var(--border);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);
   box-shadow:inset 0 1px 0 rgba(255,252,240,.06);
 }
 .orm-howto-head{
@@ -918,7 +918,7 @@ body{
   background:linear-gradient(135deg,rgba(255,252,240,.055),rgba(255,252,240,.018));
   border:1px solid var(--border);
   border-radius:var(--radius-sm);padding:14px 10px;text-align:center;
-  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);
   box-shadow:inset 0 1px 0 rgba(255,252,240,.06);
   transition:all .3s cubic-bezier(.4,0,.2,1);
 }
@@ -929,7 +929,7 @@ body{
 .orm-pct-table{
   border-radius:18px;padding:6px;overflow:hidden;
   background:linear-gradient(135deg,rgba(255,252,240,.05),rgba(255,252,240,.015));
-  border:1px solid var(--border);backdrop-filter:blur(20px);
+  border:1px solid var(--border);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);
   box-shadow:inset 0 1px 0 rgba(255,252,240,.06);
 }
 .orm-pct-row{
@@ -966,7 +966,7 @@ body{
   background:linear-gradient(135deg,rgba(255,252,240,.055),rgba(255,252,240,.018));
   border:1px solid var(--border);border-radius:18px;
   padding:14px 16px;margin-bottom:10px;
-  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);
   box-shadow:inset 0 1px 0 rgba(255,252,240,.06),0 2px 16px rgba(0,0,0,.2);
   transition:all .3s cubic-bezier(.4,0,.2,1);
   opacity:0;animation:cardIn .5s cubic-bezier(.22,1,.36,1) forwards;
@@ -1073,7 +1073,7 @@ body{
   position:fixed;inset:0;z-index:300;
   display:flex;align-items:flex-end;justify-content:center;
   background:rgba(0,0,0,.7);
-  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);
   opacity:0;pointer-events:none;
   transition:opacity .32s cubic-bezier(.4,0,.2,1);
 }
@@ -1249,7 +1249,7 @@ body{
   background:linear-gradient(135deg,rgba(255,252,240,.04),rgba(255,252,240,.01));
   display:flex;align-items:center;gap:13px;
   transition:all .28s cubic-bezier(.34,1.56,.64,1);
-  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
   transform-origin:center;
 }
 .ac-btn.sel{
@@ -1285,6 +1285,28 @@ body{
 .gw-start-btn svg{fill:#09080c;stroke:none;flex-shrink:0;}
 .gw-start-btn:hover{transform:scale(1.04);box-shadow:0 0 30px rgba(201,168,76,.6);}
 .gw-start-btn:active{transform:scale(.91);}
+
+/* start button — resuming state */
+.gw-start-btn.resuming{
+  background:linear-gradient(135deg,rgba(201,168,76,.22),rgba(201,168,76,.08));
+  color:var(--a2);
+  border:1px solid rgba(201,168,76,.45);
+  box-shadow:0 0 18px rgba(201,168,76,.2),inset 0 1px 0 rgba(201,168,76,.2);
+  position:relative;
+}
+.gw-start-btn.resuming svg{fill:var(--a2);}
+.gw-start-btn.resuming::before{
+  content:"";position:absolute;top:-3px;right:-3px;
+  width:9px;height:9px;border-radius:50%;
+  background:var(--a2);
+  box-shadow:0 0 8px rgba(201,168,76,.8);
+  animation:resumePulse 1.6s ease-in-out infinite;
+}
+@keyframes resumePulse{
+  0%,100%{opacity:1;transform:scale(1);}
+  50%{opacity:.5;transform:scale(1.3);}
+}
+
 
 /* ═══ BACKDROP ═══ */
 .gw-bd{
@@ -2110,6 +2132,71 @@ body{
 .ob-body .ob-choice:nth-of-type(1){animation:obFadeUp .55s cubic-bezier(.22,1,.36,1) .18s backwards;}
 .ob-body .ob-choice:nth-of-type(2){animation:obFadeUp .55s cubic-bezier(.22,1,.36,1) .28s backwards;}
 
+
+/* ── EXERCISE ROW WITH SETS/REPS CONFIG ── */
+.ob-ex-row2{
+  background:linear-gradient(135deg,rgba(255,252,240,.055),rgba(255,252,240,.018));
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border:1px solid rgba(255,252,240,.09);
+  border-radius:16px;padding:11px 12px 11px 13px;
+  box-shadow:inset 0 1px 0 rgba(255,252,240,.06);
+  animation:obRowIn .34s cubic-bezier(.34,1.4,.64,1);
+  transition:border-color .25s;
+}
+.ob-ex-row2:focus-within{border-color:rgba(201,168,76,.3);}
+.ob-ex-row2.removing{animation:obRowOut .26s cubic-bezier(.4,0,.2,1) forwards;}
+.ob-ex-top{display:flex;align-items:center;gap:10px;}
+/* config row */
+.ob-ex-config{
+  display:flex;align-items:center;gap:0;margin-top:10px;
+  padding:8px 4px 2px;
+  border-top:1px solid rgba(255,252,240,.05);
+}
+.ob-cfg-group{flex:1;display:flex;align-items:center;justify-content:center;gap:10px;}
+.ob-cfg-label{font-size:10px;color:var(--dim);font-weight:700;letter-spacing:1px;text-transform:uppercase;}
+.ob-cfg-divider{width:1px;height:28px;background:rgba(255,252,240,.08);}
+.ob-cfg-stepper{display:flex;align-items:center;gap:8px;}
+.ob-cfg-btn{
+  width:28px;height:28px;border-radius:8px;cursor:pointer;flex-shrink:0;
+  background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.22);
+  color:var(--a2);font-size:18px;font-weight:700;font-family:var(--font);
+  display:flex;align-items:center;justify-content:center;line-height:1;
+  transition:all .16s cubic-bezier(.34,1.4,.64,1);
+}
+.ob-cfg-btn:active{transform:scale(.85);background:rgba(201,168,76,.2);}
+.ob-cfg-val{
+  font-size:18px;font-weight:800;color:var(--a2);min-width:20px;text-align:center;
+  font-variant-numeric:tabular-nums;display:inline-block;
+}
+.ob-cfg-reps{
+  width:64px;text-align:center;font-family:var(--font);
+  background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.22);
+  border-radius:9px;padding:6px 4px;
+  font-size:14px;font-weight:700;color:var(--a2);outline:none;
+  transition:border-color .2s,box-shadow .2s;
+}
+.ob-cfg-reps:focus{border-color:rgba(201,168,76,.45);box-shadow:0 0 0 2px rgba(201,168,76,.1);}
+.ob-cfg-reps::placeholder{color:var(--dim2);}
+
+
+/* ── AI TIP LOADING ── */
+.tip-loading{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:16px;padding:30px 20px;
+  animation:fadeIn .3s ease;
+}
+.tip-spinner{
+  width:38px;height:38px;border-radius:50%;
+  border:3px solid rgba(201,168,76,.15);
+  border-top-color:var(--a2);
+  animation:spin .8s linear infinite;
+  box-shadow:0 0 18px rgba(201,168,76,.25);
+}
+.tip-loading-txt{
+  font-size:13px;color:var(--text2);text-align:center;font-weight:500;
+  letter-spacing:.2px;
+}
+
 /* ── CREATINE ── */
 .cr-hero{display:flex;flex-direction:column;align-items:center;padding:20px 0 8px;}
 .cr-date{font-size:12px;color:var(--dim);letter-spacing:1px;margin-bottom:22px;font-weight:600;text-transform:uppercase;}
@@ -2167,6 +2254,255 @@ body{
 .cr-day.done .cd-name{color:var(--a2);}
 .cr-day.today{border-color:rgba(255,252,240,.25);}
 .cr-day.today .cd-name{color:var(--text2);}
+
+/* ══════════════════════════════════════════════════════
+   HOVER BORDER GRADIENT  (Aceternity-style, pure CSS)
+   A radial "blob" orbits the border: top → left → bottom → right.
+   Two background layers: inner surface (padding-box) + ring (border-box).
+   ══════════════════════════════════════════════════════ */
+@keyframes hbgOrbit{
+  0%  { background-position:0 0, 50% 0%;   }
+  25% { background-position:0 0, 0% 50%;   }
+  50% { background-position:0 0, 50% 100%; }
+  75% { background-position:0 0, 100% 50%; }
+  100%{ background-position:0 0, 50% 0%;   }
+}
+
+/* ---- base: dark surface + travelling gold ring (true Aceternity look) ---- */
+.hbg{
+  position:relative;
+  border:1px solid transparent !important;
+  background:
+    linear-gradient(#0d0b11,#0d0b11) padding-box,
+    radial-gradient(circle, var(--a3) 0%, rgba(201,168,76,.35) 35%, rgba(201,168,76,0) 72%) border-box;
+  background-repeat:no-repeat, no-repeat;
+  background-size:auto, 52% 62%;
+  background-position:0 0, 50% 0%;
+  animation:hbgOrbit 3.4s linear infinite;
+  transition:background-size .5s cubic-bezier(.22,1,.36,1),
+             transform .22s cubic-bezier(.34,1.56,.64,1),
+             box-shadow .3s;
+  box-shadow:inset 0 1px 0 rgba(255,252,240,.05), 0 4px 18px rgba(0,0,0,.35);
+}
+/* hover: the blob swells into a full glowing ring */
+.hbg:hover{ background-size:auto, 150% 260%; }
+.hbg:active{ transform:scale(.96); }
+
+/* ---- gold variant: keeps the solid gold face, adds a bright travelling rim ---- */
+.hbg-gold{
+  position:relative;
+  border:1.5px solid transparent !important;
+  background:
+    var(--grad) padding-box,
+    radial-gradient(circle, #fffdf6 0%, rgba(255,247,214,.55) 38%, rgba(255,247,214,0) 74%) border-box;
+  background-repeat:no-repeat, no-repeat;
+  background-size:auto, 46% 58%;
+  background-position:0 0, 50% 0%;
+  animation:hbgOrbit 3s linear infinite;
+  transition:background-size .5s cubic-bezier(.22,1,.36,1),
+             transform .22s cubic-bezier(.34,1.56,.64,1),
+             box-shadow .3s;
+}
+.hbg-gold:hover{ background-size:auto, 140% 240%; }
+.hbg-gold:active{ transform:scale(.96); }
+
+/* pause the orbit when the user prefers reduced motion */
+@media (prefers-reduced-motion:reduce){
+  /* iPhone "Reduce Motion" is on: stop the orbit but keep a visible
+     static rim so the buttons still read as premium. */
+  .hbg,.hbg-gold,.gw-cta,.ob-next,.gw-start-btn,.gbtn.pri,.gw-skip,.confirm-cancel{
+    animation:none !important;
+    background-size:auto, 160% 300% !important;
+  }
+}
+
+/* ---- apply to FORGE's action buttons ---- */
+
+/* primary CTA — guided workout "סיימתי סט" / "סיים" */
+.gw-cta{
+  border:1.5px solid transparent !important;
+  background:
+    var(--grad) padding-box,
+    radial-gradient(circle, #fffdf6 0%, rgba(255,247,214,.55) 38%, rgba(255,247,214,0) 74%) border-box !important;
+  background-repeat:no-repeat, no-repeat !important;
+  background-size:auto, 46% 58% !important;
+  animation:hbgOrbit 3s linear infinite, gwViewIn .5s cubic-bezier(.22,1,.36,1);
+}
+.gw-cta:hover{ background-size:auto, 140% 240% !important; }
+
+/* wizard CTA — "המשך" / "סיום" */
+.ob-next{
+  border:1.5px solid transparent !important;
+  background:
+    var(--grad) padding-box,
+    radial-gradient(circle, #fffdf6 0%, rgba(255,247,214,.55) 38%, rgba(255,247,214,0) 74%) border-box !important;
+  background-repeat:no-repeat, no-repeat !important;
+  background-size:auto, 46% 58% !important;
+  animation:hbgOrbit 3s linear infinite, obFadeUp .5s cubic-bezier(.22,1,.36,1) .15s backwards;
+}
+.ob-next:hover{ background-size:auto, 140% 240% !important; }
+
+/* start-workout pill — "התחל" */
+.gw-start-btn{
+  border:1.5px solid transparent !important;
+  background:
+    var(--grad) padding-box,
+    radial-gradient(circle, #fffdf6 0%, rgba(255,247,214,.6) 38%, rgba(255,247,214,0) 74%) border-box !important;
+  background-repeat:no-repeat, no-repeat !important;
+  background-size:auto, 44% 60% !important;
+  animation:hbgOrbit 2.6s linear infinite;
+}
+.gw-start-btn:hover{ background-size:auto, 150% 260% !important; }
+/* resuming state keeps its dark glass face, gold ring orbits it */
+.gw-start-btn.resuming{
+  background:
+    linear-gradient(#15121b,#15121b) padding-box,
+    radial-gradient(circle, var(--a3) 0%, rgba(201,168,76,.45) 35%, rgba(201,168,76,0) 72%) border-box !important;
+  background-repeat:no-repeat, no-repeat !important;
+  background-size:auto, 50% 62% !important;
+}
+
+/* settings primary buttons */
+.gbtn.pri{
+  border:1px solid transparent !important;
+  background:
+    linear-gradient(#141119,#141119) padding-box,
+    radial-gradient(circle, var(--a3) 0%, rgba(201,168,76,.4) 35%, rgba(201,168,76,0) 72%) border-box !important;
+  background-repeat:no-repeat, no-repeat !important;
+  background-size:auto, 40% 62% !important;
+  animation:hbgOrbit 3.4s linear infinite;
+}
+.gbtn.pri:hover{ background-size:auto, 150% 260% !important; }
+
+/* secondary / dark buttons — the purest Aceternity look */
+.gw-skip, .confirm-cancel{
+  border:1px solid transparent !important;
+  background:
+    linear-gradient(#100e15,#100e15) padding-box,
+    radial-gradient(circle, rgba(201,168,76,.9) 0%, rgba(201,168,76,.28) 38%, rgba(201,168,76,0) 74%) border-box !important;
+  background-repeat:no-repeat, no-repeat !important;
+  background-size:auto, 46% 62% !important;
+  animation:hbgOrbit 4s linear infinite;
+}
+.gw-skip:hover, .confirm-cancel:hover{ background-size:auto, 150% 260% !important; }
+
+
+/* ══════════════════════════════════════════════════════
+   MOBILE / TOUCH FIXES
+   iOS has no real :hover — a tap leaves the hover state
+   "stuck" until you tap elsewhere, and hover-driven
+   animations never fire. Below: neutralise sticky hover
+   on touch, and mirror every hover effect onto :active.
+   ══════════════════════════════════════════════════════ */
+@media (hover:none){
+
+  /* 1 ── travelling-ring buttons: swell on PRESS instead of hover */
+  .hbg:active, .hbg-gold:active,
+  .gw-cta:active, .ob-next:active, .gw-start-btn:active,
+  .gbtn.pri:active, .gw-skip:active, .confirm-cancel:active{
+    background-size:auto, 150% 260% !important;
+  }
+  /* no sticky swell — each button returns to its own resting blob size */
+  .hbg:hover              { background-size:auto, 52% 62% !important; }
+  .hbg-gold:hover         { background-size:auto, 46% 58% !important; }
+  .gw-cta:hover           { background-size:auto, 46% 58% !important; }
+  .ob-next:hover          { background-size:auto, 46% 58% !important; }
+  .gw-start-btn:hover     { background-size:auto, 44% 60% !important; }
+  .gw-start-btn.resuming:hover{ background-size:auto, 50% 62% !important; }
+  .gbtn.pri:hover         { background-size:auto, 40% 62% !important; }
+  .gw-skip:hover,
+  .confirm-cancel:hover   { background-size:auto, 46% 62% !important; }
+
+  /* 2 ── clear hover transforms that would stay stuck after a tap */
+  .ex:hover, .icon-btn:hover, .plan-action:hover, .plan-action:hover .pa-icon,
+  .plan-action:hover .pa-chev, .ob-choice:hover, .ob-choice.featured:hover,
+  .ob-choice:not(.featured):hover, .ob-choice:hover .ob-choice-icon,
+  .ob-choice:hover .ob-choice-arrow, .tbtn-main:hover, .tbtn-sec:hover,
+  .orm-formula-pill:hover, .gbtn.pri:hover, .gbtn.gho:hover,
+  .bg-btn:not(.sel):hover, .gw-start-btn:hover, .ob-next:hover{
+    transform:none;
+  }
+
+  /* 3 ── mirror each hover effect onto :active so touch still feels alive */
+  .ex:active{
+    border-color:rgba(201,168,76,.28);
+    background:linear-gradient(135deg,rgba(255,252,240,.1) 0%,rgba(255,252,240,.03) 100%);
+    transform:scale(.985);
+  }
+  .icon-btn:active{background:rgba(201,168,76,.14);border-color:rgba(201,168,76,.3);}
+  .plan-action:active{
+    border-color:rgba(201,168,76,.32);
+    background:linear-gradient(135deg,rgba(255,252,240,.09),rgba(255,252,240,.03));
+    transform:scale(.975);
+  }
+  .plan-action:active .pa-icon{transform:scale(1.08) rotate(-3deg);}
+  .plan-action:active .pa-chev{stroke:var(--a2);transform:translateX(-3px);}
+  .ob-choice:active{transform:scale(.975);border-color:rgba(201,168,76,.35);}
+  .ob-choice.featured:active{box-shadow:0 0 44px rgba(201,168,76,.24),inset 0 1px 0 rgba(201,168,76,.25);}
+  .ob-choice:active .ob-choice-icon{transform:scale(1.08) rotate(-3deg);}
+  .ob-choice:active .ob-choice-arrow{stroke:var(--a2);transform:translateX(-3px);}
+  .ob-add-ex:active{background:rgba(201,168,76,.16);border-color:rgba(201,168,76,.5);}
+  .ob-hdr-back:active{background:rgba(201,168,76,.14);border-color:rgba(201,168,76,.3);}
+  .trk-card:active, .nc:active{border-color:rgba(201,168,76,.24);}
+  .trk-expand-btn:active{color:var(--a2);}
+  .orm-formula-pill:active{border-color:rgba(201,168,76,.28);transform:scale(.97);}
+  .tbtn-sec:active{
+    background:linear-gradient(135deg,rgba(201,168,76,.14),rgba(201,168,76,.05));
+    border-color:rgba(201,168,76,.32);
+  }
+}
+
+/* ══ GPU PROMOTION — keeps looping animations smooth on iPhone ══
+   Without this iOS repaints on the CPU and the orbit stutters
+   while the Vanta canvas and backdrop-filters are compositing. */
+.gw-cta, .ob-next, .gw-start-btn, .gbtn.pri, .gw-skip, .confirm-cancel,
+.hbg, .hbg-gold{
+  will-change:background-position, background-size;
+  -webkit-transform:translateZ(0);
+  transform:translateZ(0);
+  -webkit-backface-visibility:hidden;
+  backface-visibility:hidden;
+}
+.gw-rest-glow, .gw-rt-prog, .ob-day-badge, .gw-done-emblem,
+.ob-welcome-icon, .ob-choice-logo, .gw-done-ring{
+  -webkit-transform:translateZ(0);
+  transform:translateZ(0);
+  -webkit-backface-visibility:hidden;
+  backface-visibility:hidden;
+}
+
+/* ══ SMOOTH MOMENTUM SCROLL inside every modal (older iOS) ══ */
+.gw-ex-view, .gw-done-view, .ob-body, .cust-sh, .tip-sh, .gw-sh{
+  -webkit-overflow-scrolling:touch;
+}
+
+
+/* ══════════════════════════════════════════════════════
+   TEXT GENERATE EFFECT (Aceternity-style, pure CSS/JS)
+   Each word fades up out of a blur, staggered.
+   Works in RTL: inline-block spans still flow right-to-left.
+   ══════════════════════════════════════════════════════ */
+@keyframes tgeIn{
+  from{ opacity:0; filter:blur(var(--tge-blur,8px)); }
+  to  { opacity:1; filter:blur(0); }
+}
+.tge-w{
+  display:inline-block;
+  opacity:0;
+  filter:blur(var(--tge-blur,8px));
+  animation-name:tgeIn;
+  animation-fill-mode:forwards;
+  animation-timing-function:cubic-bezier(.22,1,.36,1);
+  animation-duration:.8s;
+  will-change:opacity, filter;
+  -webkit-transform:translateZ(0);
+  transform:translateZ(0);
+}
+/* respect the phone's Reduce Motion setting */
+@media (prefers-reduced-motion:reduce){
+  .tge-w{opacity:1 !important;filter:none !important;animation:none !important;}
+}
+
 </style>
 <link rel="apple-touch-icon" href="data:image/png;base64,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">
 <link rel="icon" type="image/png" href="data:image/png;base64,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">
@@ -2506,47 +2842,60 @@ body{
 <script>
 const DEFAULT_PLAN = [
   {
-    key:"a", label:"A · דחיפה", day:"שני", name:"דחיפה",
-    subtitle:"חזה · כתפיים · טרייספס",
+    key:"a", label:"A · כוח מקסימלי", day:"ראשון", name:"כוח מקסימלי",
+    subtitle:"עומס כבד · מנוחה 2-3 דקות",
     exercises:[
-      {name:"לחיצת חזה מוט ישר",focus:"תרגיל בסיס — עצור 1-2 חזרות לפני כשל",stretch:false,steps:["שכב על הספסל, שכמות לחוצות אחורה ולמטה", "אחוז במוט ברוחב כתפיים פלוס קצת — מרפקים ב-45° מהגוף", "הורד לחזה התחתון (3 שניות) — מוט נוגע קלות בחזה", "דחוף חזק בנשיפה, אל תנעל ידיים בסוף"]},
-      {name:"לחיצת כתפיים",focus:"מוט או דמבלים — לפני כשל",stretch:false,steps:["עמוד זקוף — הדק בטן ואל תקמר גב", "אחוז מוט ברוחב כתפיים, מרפקים קדימה-מעט (לא לצד)", "הרם ישר למעלה עד שהיד כמעט ישרה", "הורד לגובה הסנטר בשליטה — עצור שנייה ורפס"]},
-      {name:"לחיצת חזה משופע",focus:"חזה עליון — זווית שונה מתרגיל 1",stretch:false,steps:["הספסל ב-30-45° — לא יותר, אחרת נהיה כתפיים", "משקולות יד בגובה החזה העליון, כפות ידיים קדימה", "דחוף למעלה ומעט פנימה, משקולות כמעט נוגעות בראש", "הורד לאט — תרגיש מתיחה בחזה העליון בנקודה הנמוכה"]},
-      {name:"הרחקת כתפיים",focus:"דלתא צדית — ירידה איטית, בטוח עד כשל",stretch:true,steps:["עמוד זקוף, מרפקים קלות כפופים ונעולים — לא ישרים", "הרם הצידה עד גובה הכתפיים בדיוק — לא מעל", "בנקודה הגבוהה — עצור שנייה, תרגיש כיווץ", "הורד לאט 3-4 שניות — דגש על מתיחה בדלתא הצדדי"]},
-      {name:"פשיטת טרייספס מעל הראש (חבל)",focus:"טרייספס ראש ארוך — מרפק עמוק, עד כשל",stretch:true,steps:["עמוד עם החבל מאחורי הראש, מרפקים גבוהים", "הורד את היד עד מתיחה מלאה — מרפק עמוק מאחורי הראש", "פשוט את היד עד שהיא ישרה מעל הראש", "חזור לאט — תרגיש מתיחה בראש הארוך של הטרייספס"]}
+      {name:"לחיצת חזה — מוט ישר",focus:"חזה · טרייספס — עומס כבד, עלייה מהירה",stretch:false,sets:2,reps:"4-6",steps:["שכמות לחוצות אחורה ולמטה, כפות רגליים נעוצות ברצפה.", "אחיזה מעט רחבה מרוחב כתפיים, מרפקים ב-45° מהגוף.", "הורדה מבוקרת עד נגיעה קלה בחזה התחתון.", "דחיפה מהירה כלפי מעלה. עצור חזרה אחת לפני כשל."]},
+      {name:"מתח בתוספת משקל",focus:"גב · בייספס — משיכה אנכית כבדה",stretch:false,sets:2,reps:"5-6",steps:["אחיזה ברוחב מעט גדול מהכתפיים, גוף תלוי בשליטה.", "התחל מסחיטת שכמות למטה — לפני שהמרפק נכפף בכלל.", "משוך עד שהסנטר עובר את המוט, חזה כלפי המוט.", "ירידה איטית לתלייה מלאה. משקל נוסף: פנקייק בין הרגליים."]},
+      {name:"מקבילים בתוספת משקל",focus:"טרייספס · חזה תחתון — דחיפה אנכית",stretch:false,sets:2,reps:"6-8",steps:["גוף זקוף ככל האפשר — הטיה קדימה מעבירה את העומס לחזה.", "מרפקים צמודים לגוף, לא נפתחים החוצה.", "רד עד זווית 90° במרפק — לא עמוק יותר, בשביל הכתף.", "דחיפה חזקה חזרה, בלי לנעול את המרפק בסוף."]},
+      {name:"Lat Pulldown",focus:"לטיסימוס — נפח משיכה",stretch:false,sets:2,reps:"8-10",steps:["שב יציב, הישען כ-15° אחורה ודחוף את החזה קדימה.", "אחיזה רחבה, משיכה אל החזה העליון.", "המרפקים יורדים אל הרצפה — לא נמשכים לאחור.", "בנקודה התחתונה סחוט שכמות שנייה, ואז חזרה איטית."]},
+      {name:"ספליט סקוואט בולגרי",focus:"רגליים · יציבות — עבודה חד-צדדית",stretch:false,sets:2,reps:"6-8 לרגל",steps:["רגל אחורית על הבנץ, רגל קדמית צעד גדול קדימה.", "רד ישר למטה — הברך הקדמית מעל כף הרגל, לא פנימה.", "ירידה עד שהירך מקבילה לרצפה, גו זקוף.", "דחיפה מהעקב הקדמי כלפי מעלה. דמבלים בשתי הידיים."]},
+      {name:"כפיפת בייספס — מוט W",focus:"יד קדמית — בידוד בסוף האימון",stretch:false,sets:2,reps:"8-10",steps:["עמידה זקופה, מרפקים צמודים לצדי הגוף.", "כפוף את המרפק בלבד — הכתף והגו לא זזים.", "סחיטה שנייה בנקודה העליונה.", "הורדה איטית עד יישור מלא של הזרוע. בלי תנופה."]}
     ]
   },
   {
-    key:"b", label:"B · משיכה", day:"רביעי", name:"משיכה",
-    subtitle:"גב · בייספס · דלתא אחורית",
+    key:"b", label:"B · מהירות", day:"חמישי", name:"מהירות",
+    subtitle:"עומס 50-60% · מנוחה 60-90 שניות",
     exercises:[
-      {name:"חתירה במוט",focus:"גב עליון — תרגיל בסיס, לפני כשל",stretch:false,steps:["כפוף קדימה 45°, ברכיים קלות כפופות", "גב ישר לגמרי — זה הכלל הכי חשוב בתרגיל הזה", "משוך מוט לכיוון הבטן התחתונה, מרפקים לאחור", "סחוט גב בנקודה הגבוהה שנייה, הורד בשליטה"]},
-      {name:"משיכת פולי / מתח",focus:"לטיסימוס — תנועה שונה מחתירה",stretch:false,steps:["שב, הישען 15° אחורה — דחוף חזה קדימה", "אחוז רחב, הורד ידיות לחזה העליון", "מרפקים יורדים לכיוון הרצפה — לא לאחור", "בנקודה הנמוכה: שכמות מסוחטות זו לזו שנייה"]},
-      {name:"כפיפת בייספס בדמבל על ספסל משופע",focus:"בייספס ראש ארוך — מתיחה מלאה, עד כשל",stretch:true,steps:["שב על ספסל משופע (45-60°), זרועות נופלות אחורה לגמרי", "תן לזרוע להישאר אחורה — זו המתיחה המלאה של הבייספס", "כפוף את המרפק ומשוך את הדמבל למעלה", "הורד לאט עד מתיחה מלאה — מרפק לא זז קדימה"]},
-      {name:"פייס-פול בחבל",focus:"דלתא אחורית + טרפז אמצעי — עד כשל",stretch:false,steps:["קבע כבל לגובה הראש, שב/עמוד זקוף", "אחוז בחבל רחב, מרפקים גבוהים", "משוך לכיוון הפנים תוך סיבוב כפות הידיים כלפי מטה", "סחיטה בשכמות — בלי תנופה, מרפקים מעל הכתפיים"]},
-      {name:"כפיפת בייספס במוט W",focus:"בייספס — ידידותי למרפקים, עד כשל",stretch:true,steps:["שב או עמוד, גב ישר, מרפקים ניוטרליים", "כפוף מרפק ומשוך מוט לכיוון הכתף", "בנקודה הגבוהה — סחוט בייספס שנייה", "הורד לאט עד שהיד ישרה — ידידותי למרפקים"]}
+      {name:"לחיצת חזה מהירה — מוט קל",focus:"כוח דחיפה מהיר — המהירות היא המדד",stretch:false,sets:6,reps:"3",steps:["אותה טכניקה כמו לחיצת חזה רגילה, במשקל קל בהרבה.", "הורדה מבוקרת, ואז דחיפה מהירה ככל שאתה מסוגל.", "עצירה מלאה קצרה בין חזרה לחזרה — לא רצף.", "ברגע שהמהירות יורדת, הסט נגמר — גם אם נשארו חזרות."]},
+      {name:"סקוואט קפיצי במשקל גוף",focus:"רגליים · מהירות — גיוס מהיר",stretch:false,sets:6,reps:"5",steps:["ירידה רדודה בלבד — רבע סקוואט, לא עמוק.", "קפיצה מקסימלית כלפי מעלה, זרועות עוזרות.", "נחיתה רכה על כרית כף הרגל, ברכיים סופגות.", "התייצב לגמרי לפני החזרה הבאה."]},
+      {name:"אגרופים בגומיית התנגדות",focus:"מהירות מכה — קצב לפני כוח",stretch:false,sets:4,reps:"15 שנ׳ לצד",steps:["הגומייה מאחורי הגב, קצה בכל יד, עמידת קרב.", "אגרופים בקצב מקסימלי — מהירות לפני כוח.", "סיבוב מותן וירך מלא בכל מכה, כמו באימון.", "החזרת היד לשמירה מיד — לא להשאיר את היד בחוץ."]},
+      {name:"משיכה סיבובית בפולי",focus:"ליבה · סיבוב גו — שרשרת המכה",stretch:false,sets:3,reps:"8 לצד",steps:["עמידה בצד לפולי, כבל בגובה החזה, אחיזה בשתי ידיים.", "משוך תוך סיבוב הגו — הכוח מתחיל ברגליים ובאגן.", "העקב האחורי מסתובב, בדיוק כמו במכה.", "חזרה איטית ומבוקרת נגד ההתנגדות."]},
+      {name:"דחיפת כדור משקל מהחזה",focus:"דחיפה נפיצה — מהירות היציאה",stretch:false,sets:4,reps:"5",steps:["כדור בגובה החזה, עמידה יציבה מול קיר או חלל פתוח.", "דחיפה מהירה בשתי ידיים — כמו דחיפת יריב.", "הרגליים דוחפות ראשונות, הידיים מסיימות.", "המדד הוא מהירות היציאה, לא כמה רחוק הכדור עף."]},
+      {name:"אינטרוולים בהליכון",focus:"קונדישן — שמירה על קצב אחיד",stretch:false,sets:6,reps:"20 שנ׳ / 40 שנ׳",steps:["20 שניות ריצה מהירה, 40 שניות הליכה.", "שמור על אותה מהירות בכל שישה הסבבים.", "נשימה דרך האף בזמן ההליכה — החזרת דופק מבוקרת.", "אם הסבב האחרון איטי משמעותית — התחלת מהר מדי."]}
     ]
   },
   {
-    key:"c", label:"C · ממוקד", day:"שישי", name:"ממוקד",
-    subtitle:"טרייספס · טרפז · דלתא אחורית",
+    key:"c", label:"C · כוח מתפרץ", day:"שלישי", name:"כוח מתפרץ",
+    subtitle:"עומס בינוני · מנוחה 2 דקות מלאות",
     exercises:[
-      {name:"דיפס (מקבילים)",focus:"טרייספס — גוף זקוף, מרפקים צמודים",stretch:false,steps:["אחוז במקבילים, גוף זקוף (כדי להדגיש טרייספס)", "מרפקים קרובים לגוף — לא נפתחים החוצה", "הורד עד שהמרפק ב-90° בערך", "דחוף חזק חזרה למעלה — לפני כשל"]},
-      {name:"פשיטת טרייספס מעל הראש (חבל)",focus:"טרייספס ראש ארוך — מרפק עמוק, עד כשל",stretch:true,steps:["עמוד עם החבל מאחורי הראש, מרפקים גבוהים", "הורד את היד עד מתיחה מלאה — מרפק עמוק מאחורי הראש", "פשוט את היד עד שהיא ישרה מעל הראש", "חזור לאט — תרגיש מתיחה בראש הארוך של הטרייספס"]},
-      {name:"פושדאון חבל",focus:"טרייספס ראש צדי — פתיחת חבל בסוף, עד כשל",stretch:false,steps:["עמוד מול הכבל, מרפקים צמודים לגוף", "דחוף את החבל למטה עד שהיד ישרה", "בסוף התנועה — פתח את החבל לצדדים", "חזור לאט, מרפקים לא זזים מהגוף"]},
-      {name:"שראגים",focus:"טרפז עליון — החזקה למעלה, ירידה איטית, עד כשל",stretch:false,steps:["עמוד עם משקולות/מוט בידיים, זרועות ישרות", "הרם את הכתפיים ישר למעלה לכיוון האוזניים", "החזק שנייה למעלה — סחוט את הטרפז", "הורד לאט ומבוקר — תרגיש מתיחה בטרפז"]},
-      {name:"הרחקת כתפיים אחורה בשכיבה",focus:"דלתא אחורית — פתיחה לצדדים ולמעלה, עד כשל",stretch:false,steps:["שכב עם החזה על ספסל משופע, משקולות יד תלויות", "מרפקים קלות כפופים — פתח את הידיים לצדדים ולמעלה", "סחוט את הדלתא האחורית בנקודה הגבוהה", "הורד לאט — בלי תנופה, תנועה נקייה"]}
+      {name:"קפיצות רחוקות",focus:"נפיצות תחתונה — מדוד מרחק כל אימון",stretch:false,sets:4,reps:"4",steps:["עמידה ברוחב כתפיים, זרועות אחורה, ירידה מהירה.", "קפיצה קדימה למרחק מקסימלי — זרועות נזרקות קדימה.", "נחיתה על שתי רגליים, ברכיים כפופות סופגות.", "מדוד את המרחק וכתוב אותו. זה מדד ההתקדמות של היום."]},
+      {name:"סלאם בול לרצפה",focus:"כל הגוף — איכות לפני מהירות",stretch:false,sets:4,reps:"5",steps:["הרם את הכדור מעל הראש, גוף מתמתח לגמרי.", "זרוק לרצפה בכל הכוח — ליבה נסגרת בחדות.", "הכוח מתחיל מהעקבים, עובר דרך הליבה, מסתיים בידיים.", "הרם והתחל מחדש. חמש חזרות איכותיות, לא מהירות."]},
+      {name:"זריקת כדור סיבובית לקיר",focus:"מכה סיבובית — הכוח מגיע מהאגן",stretch:false,sets:4,reps:"5 לצד",steps:["עמידת צד לקיר, כדור בגובה המותן.", "סובב את הירך והעקב האחורי, ואז זרוק את הכדור לקיר.", "הידיים רק מלוות — הכוח מגיע מהאגן.", "התרגיל הכי ספציפי כאן: אותה שרשרת תנועה כמו קרוס."]},
+      {name:"פוש פרס — מוט",focus:"העברת כוח מהקרקע — רגליים מתחילות",stretch:false,sets:4,reps:"3-4",steps:["מוט על החזה העליון, מרפקים קדימה, עמידה זקופה.", "כפיפת ברכיים רדודה ומהירה — זו התנופה.", "יישור רגליים נפיץ שמעיף את המוט כלפי מעלה.", "הידיים מסיימות את התנועה. הורדה מבוקרת לחזה."]},
+      {name:"סווינג בדמבל 17.5",focus:"דחיפת אגן — כפיפת ירך, לא ברך",stretch:false,sets:4,reps:"10-12",steps:["דמבל בשתי ידיים, רגליים ברוחב כתפיים, גב ישר.", "הדמבל נע אחורה בין הרגליים — כפיפת ירך, לא ברך.", "דחיפת אגן חדה קדימה מעיפה את הדמבל לגובה החזה.", "הידיים רק מחזיקות. הכוח כולו מהאגן והישבן."]},
+      {name:"שכיבות סמיכה נפיצות",focus:"נפיצות עליונה — הידיים עוזבות",stretch:false,sets:3,reps:"5",steps:["עמדת שכיבת סמיכה רגילה, גוף בקו ישר.", "ירידה מבוקרת עד קרוב לרצפה.", "דחיפה חזקה מספיק שהידיים עוזבות את הרצפה.", "אם הידיים לא עוזבות — פחות חזרות, יותר כוונה בכל אחת."]}
     ]
   }
 ];
 
 // ── PLAN STATE — loaded from localStorage or default ──
+const PLAN_VERSION = "3";  // bump when DEFAULT_PLAN changes -> forces refresh
 let PLAN = [];
 try {
+  const savedVer = localStorage.getItem("forge-plan-ver");
   const saved = JSON.parse(localStorage.getItem("forge-plan") || "null");
-  PLAN = (saved && Array.isArray(saved) && saved.length) ? saved : JSON.parse(JSON.stringify(DEFAULT_PLAN));
+  if (savedVer !== PLAN_VERSION) {
+    PLAN = JSON.parse(JSON.stringify(DEFAULT_PLAN));
+    try {
+      localStorage.setItem("forge-plan", JSON.stringify(PLAN));
+      localStorage.setItem("forge-plan-ver", PLAN_VERSION);
+    } catch(e) {}
+  } else {
+    PLAN = (saved && Array.isArray(saved) && saved.length) ? saved : JSON.parse(JSON.stringify(DEFAULT_PLAN));
+  }
 } catch(e) { PLAN = JSON.parse(JSON.stringify(DEFAULT_PLAN)); }
-function savePlan(){ try{ localStorage.setItem("forge-plan", JSON.stringify(PLAN)); }catch(e){} }
+function savePlan(){ try{ localStorage.setItem("forge-plan", JSON.stringify(PLAN)); localStorage.setItem("forge-plan-ver", PLAN_VERSION); }catch(e){} }
 
 // has the user completed onboarding?
 let ONBOARDED = false;
@@ -2577,15 +2926,17 @@ function renderPlan(){
       const stag = ex.stretch ? '<span class="stag">נקודה מתוחה</span>' : '';
       const metaStyle = ex.stretch ? ' style="margin-top:18px"' : '';
       const stepsAttr = JSON.stringify(ex.steps||[]).replace(/'/g,'&#39;');
+      const exSets = ex.sets || 2;
+      const exReps = ex.reps || '6-8';
       return `<div class="ex${stretchCls} lr" style="animation-delay:${(ei*.05+.05).toFixed(2)}s" onclick="showTip(this)"
         data-name="${ex.name}" data-focus="${ex.focus||''}" data-steps='${stepsAttr}'>
         ${stag}
         <div class="num">${ei+1}</div>
         <div class="body">
           <div class="exname">${ex.name}</div>
-          <div class="exmeta"${metaStyle}><div class="exscheme">6-8 חזרות</div><div class="tap-hint"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>איך עושים</div></div>
+          <div class="exmeta"${metaStyle}><div class="exscheme">${exReps} חזרות</div><div class="tap-hint"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>איך עושים</div></div>
         </div>
-        <div class="sets">2×</div>
+        <div class="sets">${exSets}×</div>
       </div>`;
     }).join('');
 
@@ -2593,7 +2944,7 @@ function renderPlan(){
       <div class="whead">
         <div class="wbadge lr">${d.key.toUpperCase()}</div>
         <div style="flex:1"><div class="wtitle">${d.day} — ${d.name}</div><div class="wfocus">${d.subtitle||''}</div></div>
-        <button class="gw-start-btn" onclick="gwStart('${d.key}')"><svg width="11" height="13" viewBox="0 0 12 14"><polygon points="0 0 12 7 0 14"/></svg>התחל</button>
+        <button class="gw-start-btn" data-wk="${d.key}" onclick="gwStart('${d.key}')"><svg width="11" height="13" viewBox="0 0 12 14"><polygon points="0 0 12 7 0 14"/></svg><span class="gw-start-label">התחל</span></button>
       </div>
       ${exHtml}`;
     superWorkout.appendChild(panel);
@@ -2601,6 +2952,8 @@ function renderPlan(){
 
   // 3. rebuild tracker groups from plan
   rebuildWorkoutGroups();
+  // 4. reflect any active workout session
+  gwUpdateStartButtons();
 }
 
 // rebuild WORKOUT_GROUPS from current PLAN (keeps tracker synced)
@@ -2959,9 +3312,9 @@ function renderOrmPct(orm){
 
 // ── TRACKER v2 — weight per exercise, grouped A/B/C ──────────────────
 let WORKOUT_GROUPS={
-  A:{label:"שני — דחיפה",ex:["לחיצת חזה מוט ישר","לחיצת כתפיים","לחיצת חזה משופע","הרחקת כתפיים","פשיטת טרייספס מעל הראש (חבל)"]},
-  B:{label:"רביעי — משיכה",ex:["חתירה במוט","משיכת פולי / מתח","כפיפת בייספס בדמבל על ספסל משופע","פייס-פול בחבל","כפיפת בייספס במוט W"]},
-  C:{label:"שישי — ממוקד",ex:["דיפס (מקבילים)","פשיטת טרייספס מעל הראש (חבל)","פושדאון חבל","שראגים","הרחקת כתפיים אחורה בשכיבה"]},
+  A:{label:"ראשון — כוח מקסימלי",ex:["לחיצת חזה — מוט ישר","מתח בתוספת משקל","מקבילים בתוספת משקל","Lat Pulldown","ספליט סקוואט בולגרי","כפיפת בייספס — מוט W"]},
+  B:{label:"חמישי — מהירות",ex:["לחיצת חזה מהירה — מוט קל","סקוואט קפיצי במשקל גוף","אגרופים בגומיית התנגדות","משיכה סיבובית בפולי","דחיפת כדור משקל מהחזה","אינטרוולים בהליכון"]},
+  C:{label:"שלישי — כוח מתפרץ",ex:["קפיצות רחוקות","סלאם בול לרצפה","זריקת כדור סיבובית לקיר","פוש פרס — מוט","סווינג בדמבל 17.5","שכיבות סמיכה נפיצות"]},
 };
 // trkData = { exName: [ {w, d} ... ] }  (history of weights)
 let trkData={};
@@ -3209,14 +3562,44 @@ function initTrkTabs(){ renderTrk(); }
 
 
 // ── TIP MODAL ─────────────────────────────────────────────────────────
+
+// ── TEXT GENERATE EFFECT ────────────────────────────────────────────
+function tgeEsc(s){
+  return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;")
+                  .replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+}
+/* Reveals `text` inside `el` word by word.
+   stagger = seconds between words, delay = initial offset. */
+function tgeWrite(el, text, opts){
+  if(!el) return;
+  opts = opts || {};
+  const stagger = opts.stagger != null ? opts.stagger : .045;
+  const dur     = opts.dur     != null ? opts.dur     : .75;
+  const delay0  = opts.delay   != null ? opts.delay   : 0;
+  const blur    = opts.blur    != null ? opts.blur    : 8;
+  const words   = String(text == null ? "" : text).split(/\s+/).filter(Boolean);
+  el.innerHTML = words.map((w,i)=>
+    '<span class="tge-w" style="animation-delay:' + (delay0 + i*stagger).toFixed(3) +
+    's;animation-duration:' + dur + 's;--tge-blur:' + blur + 'px">' + tgeEsc(w) + '</span>'
+  ).join(" ");
+}
+/* Animates every [data-tge] element inside `root`, using its own text. */
+function tgeScan(root, opts){
+  if(!root) return;
+  root.querySelectorAll("[data-tge]").forEach(el=>{
+    const o = Object.assign({}, opts||{});
+    if(el.dataset.tgeDelay) o.delay = parseFloat(el.dataset.tgeDelay);
+    tgeWrite(el, el.textContent, o);
+  });
+}
+
 function showTip(el){
   const name=el.dataset.name;
-  const focus=el.dataset.focus;
-  const steps=JSON.parse(el.dataset.steps||"[]");
-  const acc=ACS[C.accent]||ACS.emerald;
+  let focus=el.dataset.focus;
+  let steps=JSON.parse(el.dataset.steps||"[]");
+  const acc=ACS[C.accent]||ACS.amber;
 
   document.getElementById("tip-nm").textContent=name;
-  document.getElementById("tip-focus-txt").textContent=focus;
 
   const ico=document.getElementById("tip-ico");
   ico.style.background=`linear-gradient(135deg,${acc.a},${acc.b})`;
@@ -3226,17 +3609,93 @@ function showTip(el){
   fs.style.color=acc.a;
   fs.style.borderColor=ha(acc.a,.3);
 
+  document.getElementById("tip-bd").classList.add("open");
+
+  // if exercise has no instructions → generate with AI
+  if(!steps || steps.length===0){
+    gwGenerateTip(name, el);
+    return;
+  }
+
+  // render existing steps
+  tgeWrite(document.getElementById("tip-focus-txt"), focus, {stagger:.04, delay:.05});
+  renderTipSteps(steps, acc);
+}
+
+function renderTipSteps(steps, acc){
   const sc=document.getElementById("tip-steps");
   sc.innerHTML="";
   steps.forEach((s,i)=>{
     const d=document.createElement("div");
     d.className="tip-step";
-    d.innerHTML=`<div class="tip-step-num" style="background:linear-gradient(135deg,${acc.a},${acc.b})">${i+1}</div><div class="tip-step-txt">${s}</div>`;
+    d.innerHTML=`<div class="tip-step-num" style="background:linear-gradient(135deg,${acc.a},${acc.b})">${i+1}</div><div class="tip-step-txt"></div>`;
     sc.appendChild(d);
-    setTimeout(()=>d.classList.add("show"),(i*90)+140);
+    // words materialise just after this step's card appears
+    tgeWrite(d.querySelector(".tip-step-txt"), s, {stagger:.035, delay:(i*.075)+.16, blur:7});
+    setTimeout(()=>d.classList.add("show"),(i*75)+100);
   });
+}
 
-  document.getElementById("tip-bd").classList.add("open");
+// ── AI EXERCISE INSTRUCTIONS ──
+async function gwGenerateTip(name, el){
+  const acc=ACS[C.accent]||ACS.amber;
+  const fsTxt=document.getElementById("tip-focus-txt");
+  const sc=document.getElementById("tip-steps");
+  // loading state
+  fsTxt.textContent="מכין הסבר מותאם...";
+  sc.innerHTML=`<div class="tip-loading">
+    <div class="tip-spinner"></div>
+    <div class="tip-loading-txt">Claude מכין לך הסבר לתרגיל...</div>
+  </div>`;
+
+  try{
+    const prompt = `אתה מאמן כושר מקצועי. תן הסבר קצר וברור בעברית לתרגיל "${name}".
+החזר אך ורק JSON תקין בפורמט הבא, בלי טקסט נוסף, בלי markdown:
+{"focus":"משפט אחד קצר על המוקד של התרגיל ועל מה לשים דגש","steps":["שלב 1","שלב 2","שלב 3","שלב 4"]}
+כל שלב הוא משפט קצר וברור על איך לבצע. בדיוק 4 שלבים. בעברית.`;
+
+    const response = await fetch("https://api.anthropic.com/v1/messages", {
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({
+        model:"claude-sonnet-4-20250514",
+        max_tokens:1000,
+        messages:[{role:"user",content:prompt}]
+      })
+    });
+    const data=await response.json();
+    let txt = data.content.filter(b=>b.type==="text").map(b=>b.text).join("").trim();
+    txt = txt.replace(/```json|```/g,"").trim();
+    const parsed=JSON.parse(txt);
+
+    if(parsed.focus && Array.isArray(parsed.steps)){
+      // save into the exercise (DOM + PLAN) so it's instant next time
+      el.dataset.focus=parsed.focus;
+      el.dataset.steps=JSON.stringify(parsed.steps);
+      gwSaveTipToPlan(name, parsed.focus, parsed.steps);
+      // render
+      tgeWrite(fsTxt, parsed.focus, {stagger:.055, delay:.05});
+      renderTipSteps(parsed.steps, acc);
+    } else {
+      throw new Error("bad format");
+    }
+  }catch(e){
+    fsTxt.textContent="לא הצלחתי להכין הסבר כרגע";
+    sc.innerHTML=`<div class="tip-loading">
+      <div class="tip-loading-txt" style="color:var(--dim)">נסה שוב מאוחר יותר, או הוסף הסבר ידני דרך עריכת התוכנית.</div>
+    </div>`;
+  }
+}
+
+// persist generated tip into PLAN so it's saved
+function gwSaveTipToPlan(name, focus, steps){
+  let changed=false;
+  PLAN.forEach(d=>d.exercises.forEach(ex=>{
+    if(ex.name===name && (!ex.steps || ex.steps.length===0)){
+      ex.focus=focus; ex.steps=steps; changed=true;
+    }
+  }));
+  if(changed) savePlan();
 }
 function closeTip(){document.getElementById("tip-bd").classList.remove("open");}
 function closeTipOut(e){if(e.target===document.getElementById("tip-bd"))closeTip();}
@@ -3397,20 +3856,88 @@ const GW = {
   restDur: 90,
   restStart: null,
   restRAF: null,
+  currentSetWeight: 0,
+  activeKey: null,   // which workout day is in progress
   CIRCUM: 534.07   // 2*PI*85
 };
 
-function gwStart(wk) {
-  const panel = document.getElementById('panel-' + wk);
-  if (!panel) return;
-  GW.exercises = [...panel.querySelectorAll('.ex')].map(el => ({
-    name: el.dataset.name || '',
-    focus: el.dataset.focus || '',
-    steps: JSON.parse(el.dataset.steps || '[]')
-  })).filter(e => e.name);
-  GW.exIdx = 0; GW.setIdx = 0;
-  GW.sessionWeights = {};
-  GW.restDur = 90;
+// ── SESSION PERSISTENCE ──
+function gwSaveSession(){
+  if(!GW.activeKey) return;
+  try{
+    localStorage.setItem('forge-gw-session', JSON.stringify({
+      key: GW.activeKey,
+      exIdx: GW.exIdx,
+      setIdx: GW.setIdx,
+      sessionWeights: GW.sessionWeights,
+      restDur: GW.restDur,
+      ts: Date.now()
+    }));
+  }catch(e){}
+}
+function gwClearSession(){
+  try{ localStorage.removeItem('forge-gw-session'); }catch(e){}
+  GW.activeKey=null;
+}
+function gwGetSavedSession(){
+  try{
+    const s=JSON.parse(localStorage.getItem('forge-gw-session')||'null');
+    if(!s) return null;
+    // expire after 6 hours
+    if(Date.now()-s.ts > 6*60*60*1000){ gwClearSession(); return null; }
+    return s;
+  }catch(e){ return null; }
+}
+// reflect active session on start buttons
+function gwUpdateStartButtons(){
+  const saved = gwGetSavedSession();
+  document.querySelectorAll('.gw-start-btn').forEach(btn=>{
+    const wk = btn.dataset.wk;
+    const label = btn.querySelector('.gw-start-label');
+    if(saved && saved.key===wk){
+      btn.classList.add('resuming');
+      if(label) label.textContent='המשך';
+    } else {
+      btn.classList.remove('resuming');
+      if(label) label.textContent='התחל';
+    }
+  });
+}
+
+function gwStart(wk, resume) {
+  // read from PLAN data (has sets/reps) instead of DOM
+  const day = PLAN.find(d => d.key === wk);
+  if (!day) return;
+  GW.exercises = day.exercises.filter(e => e.name).map(e => ({
+    name: e.name,
+    focus: e.focus || '',
+    steps: e.steps || [],
+    sets: e.sets || 2,
+    reps: e.reps || '6-8'
+  }));
+  if (!GW.exercises.length) return;
+
+  // check for a saved in-progress session for this day
+  const saved = gwGetSavedSession();
+  if(saved && saved.key===wk && !resume){
+    gwAskResume(wk, saved);
+    return;
+  }
+
+  GW.activeKey = wk;
+  if(resume && saved && saved.key===wk){
+    // restore progress
+    GW.exIdx = Math.min(saved.exIdx||0, GW.exercises.length-1);
+    GW.setIdx = saved.setIdx||0;
+    GW.sessionWeights = saved.sessionWeights||{};
+    GW.restDur = saved.restDur||90;
+  } else {
+    GW.exIdx = 0; GW.setIdx = 0;
+    GW.sessionWeights = {};
+    GW.restDur = 90;
+    gwClearSession();
+    GW.activeKey = wk;
+  }
 
   // tip button wires to current exercise
   document.getElementById('gw-tip-btn').onclick = () => {
@@ -3428,18 +3955,35 @@ function gwStart(wk) {
   gwRender();
 }
 
+// resume prompt
+function gwAskResume(wk, saved){
+  const day = PLAN.find(d=>d.key===wk);
+  const doneSets = Object.values(saved.sessionWeights||{}).reduce((a,ws)=>a+ws.length,0);
+  document.getElementById('gw-resume-day').textContent = day ? (day.day+' — '+day.name) : '';
+  document.getElementById('gw-resume-info').textContent = doneSets>0
+    ? ('השלמת ' + doneSets + ' סטים · תרגיל ' + ((saved.exIdx||0)+1))
+    : 'התחלת אימון זה';
+  const bd = document.getElementById('gw-resume-bd');
+  bd.classList.add('open');
+  document.getElementById('gw-resume-continue').onclick = ()=>{ bd.classList.remove('open'); gwStart(wk, true); };
+  document.getElementById('gw-resume-restart').onclick = ()=>{ bd.classList.remove('open'); gwClearSession(); gwStart(wk, false); };
+}
+
 function gwRender() {
   const ex = GW.exercises[GW.exIdx];
   if (!ex) return;
-  const totalSteps = GW.exercises.length * GW.totalSets;
-  const doneSoFar  = GW.exIdx * GW.totalSets + GW.setIdx;
+  const exSets = ex.sets || 2;
+  // total steps = sum of all exercise sets
+  const totalSteps = GW.exercises.reduce((a,e)=>a+(e.sets||2), 0);
+  let doneSoFar = GW.setIdx;
+  for(let i=0;i<GW.exIdx;i++) doneSoFar += (GW.exercises[i].sets||2);
 
   // progress bar
   document.getElementById('gw-prog-fill').style.width = (doneSoFar / totalSteps * 100) + '%';
   document.getElementById('gw-prog-txt').textContent   = GW.exIdx + 1 + ' / ' + GW.exercises.length + ' תרגילים';
 
-  // set chip
-  document.getElementById('gw-set-chip').textContent = 'סט ' + (GW.setIdx + 1) + ' מתוך ' + GW.totalSets;
+  // set chip — shows reps target too
+  document.getElementById('gw-set-chip').textContent = 'סט ' + (GW.setIdx + 1) + ' מתוך ' + exSets + ' · ' + (ex.reps||'6-8') + ' חזרות';
 
   // exercise name — spring entrance
   const nameEl = document.getElementById('gw-ex-name');
@@ -3484,7 +4028,7 @@ function gwRender() {
   ).join('');
 
   // CTA label
-  const isVeryLast = GW.exIdx === GW.exercises.length - 1 && GW.setIdx === GW.totalSets - 1;
+  const isVeryLast = GW.exIdx === GW.exercises.length - 1 && GW.setIdx === (ex.sets||2) - 1;
   const cta = document.getElementById('gw-cta');
   cta.innerHTML = isVeryLast
     ? '<svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>סיים אימון'
@@ -3577,12 +4121,15 @@ function gwAdvance() {
   if ('vibrate' in navigator) navigator.vibrate(40);
 
   // advance state
-  if (GW.setIdx < GW.totalSets - 1) {
+  const curSets = (GW.exercises[GW.exIdx].sets || 2);
+  if (GW.setIdx < curSets - 1) {
     GW.setIdx++;
+    gwSaveSession();
     gwRender();
   } else if (GW.exIdx < GW.exercises.length - 1) {
     GW.exIdx++;
     GW.setIdx = 0;
+    gwSaveSession();
     gwRender();
   } else {
     gwShowDone();
@@ -3591,24 +4138,25 @@ function gwAdvance() {
   // bounce CTA after transition
   setTimeout(() => {
     const cta = document.getElementById('gw-cta');
-    if (cta) { cta.style.animation = 'none'; cta.offsetHeight; cta.style.animation = 'gwViewIn .5s cubic-bezier(.22,1,.36,1)'; }
+    if (cta) { cta.style.animation = 'none'; cta.offsetHeight; cta.style.animation = 'hbgOrbit 3s linear infinite, gwViewIn .5s cubic-bezier(.22,1,.36,1)'; }
   }, 80);
 }
 
 function gwShowDone() {
   cancelAnimationFrame(GW.restRAF);
+  gwClearSession(); // workout complete — clear saved progress
   document.getElementById('gw-ex-view').style.display = 'none';
   document.getElementById('gw-rest-view').classList.remove('show');
   document.getElementById('gw-done-view').classList.add('show');
 
   // 100% progress
   document.getElementById('gw-prog-fill').style.width = '100%';
-  document.getElementById('gw-prog-txt').textContent = 'אימון הושלם! 🎉';
+  document.getElementById('gw-prog-txt').textContent = 'אימון הושלם!';
 
   // summary
   const totalSets = Object.values(GW.sessionWeights).reduce((a,ws)=>a+ws.length,0);
-  document.getElementById('gw-done-sub').textContent =
-    'סיימת ' + totalSets + ' סטים';
+  tgeWrite(document.getElementById('gw-done-sub'),
+    'סיימת ' + totalSets + ' סטים', {stagger:.09, delay:.45, dur:.9});
 
   const sum = document.getElementById('gw-summary');
   sum.innerHTML = Object.entries(GW.sessionWeights).map(([name, ws], i) =>
@@ -3643,7 +4191,13 @@ function gwAdjustWeight(delta) {
 
 function gwClose() {
   cancelAnimationFrame(GW.restRAF);
+  // save progress if workout is mid-way (not on done screen)
+  const onDone = document.getElementById('gw-done-view').classList.contains('show');
+  if(!onDone && GW.activeKey){
+    gwSaveSession();
+  }
   document.getElementById('gw-bd').classList.remove('open');
+  gwUpdateStartButtons();
   setTimeout(() => {
     document.getElementById('gw-ex-view').style.display = 'flex';
     document.getElementById('gw-rest-view').classList.remove('show');
@@ -3698,7 +4252,7 @@ function blankDay(i){
     day: DAY_NAMES_HEB[(i*2)%7],
     name: 'אימון ' + DAY_LETTERS[i],
     subtitle: '',
-    exercises: [ {name:'', focus:'', stretch:false, steps:[]} ]
+    exercises: [ {name:'', focus:'', stretch:false, sets:2, reps:'6-8', steps:[]} ]
   };
 }
 
@@ -3889,7 +4443,7 @@ function obRender(){
           <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h2v10H6zM16 7h2v10h-2zM8 12h8M3 9h1v6H3zM20 9h1v6h-1z"/></svg>
         </div>
         <div class="ob-choice-title">ברוך הבא ל-FORGE</div>
-        <div class="ob-choice-sub">בחר איך להתחיל — תוכל לערוך הכל בהמשך</div>
+        <div class="ob-choice-sub" data-tge data-tge-delay="0.30">בחר איך להתחיל — תוכל לערוך הכל בהמשך</div>
       </div>
       <div class="ob-choices">
         <button class="ob-choice featured" onclick="planRipple(event);obPickDimri()">
@@ -3898,7 +4452,7 @@ function obRender(){
           </div>
           <div class="ob-choice-body">
             <div class="ob-choice-name">Dimri Plan <span class="ob-choice-badge">מומלץ</span></div>
-            <div class="ob-choice-desc">תוכנית מובנית · שני · רביעי · שישי · פלג גוף עליון</div>
+            <div class="ob-choice-desc">כוח · מהירות · נפיצות · 3 אימונים בשבוע</div>
           </div>
           <svg class="ob-choice-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
         </button>
@@ -3913,6 +4467,7 @@ function obRender(){
           <svg class="ob-choice-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
         </button>
       </div>`;
+    tgeScan(body, {stagger:.05});
     return;
   }
 
@@ -3934,8 +4489,9 @@ function obRender(){
           </div>
         </div>
         <div class="ob-welcome-title">הכל מוכן</div>
-        <div class="ob-welcome-sub">התוכנית שלך נשמרה. אפשר להתחיל להתאמן — ולערוך הכל מתי שתרצה דרך ההגדרות.</div>
+        <div class="ob-welcome-sub" data-tge data-tge-delay="0.40">התוכנית שלך נשמרה. אפשר להתחיל להתאמן — ולערוך הכל מתי שתרצה דרך ההגדרות.</div>
       </div>`;
+    tgeScan(body, {stagger:.05});
     return;
   }
 
@@ -3993,14 +4549,33 @@ function obRender(){
 }
 
 function obExRow(dayIdx,ei,ex){
-  return `<div class="ob-ex-row">
-    <div class="ob-ex-num">${ei+1}</div>
-    <input class="ob-ex-input" placeholder="שם התרגיל" value="${(ex.name||'').replace(/"/g,'&quot;')}" oninput="obUpdateEx(${dayIdx},${ei},this.value)">
-    <div class="ob-ex-stretch${ex.stretch?' on':''}" onclick="obToggleStretch(${dayIdx},${ei})" title="נקודה מתוחה">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+  const sets = ex.sets || 2;
+  const reps = ex.reps || '6-8';
+  return `<div class="ob-ex-row2">
+    <div class="ob-ex-top">
+      <div class="ob-ex-num">${ei+1}</div>
+      <input class="ob-ex-input" placeholder="שם התרגיל" value="${(ex.name||'').replace(/"/g,'&quot;')}" oninput="obUpdateEx(${dayIdx},${ei},this.value)">
+      <div class="ob-ex-stretch${ex.stretch?' on':''}" onclick="obToggleStretch(${dayIdx},${ei})" title="נקודה מתוחה">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      </div>
+      <div class="ob-ex-del" onclick="obDelEx(${dayIdx},${ei})">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </div>
     </div>
-    <div class="ob-ex-del" onclick="obDelEx(${dayIdx},${ei})">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    <div class="ob-ex-config">
+      <div class="ob-cfg-group">
+        <span class="ob-cfg-label">סטים</span>
+        <div class="ob-cfg-stepper">
+          <button class="ob-cfg-btn" onclick="obSetSets(${dayIdx},${ei},-1)">−</button>
+          <span class="ob-cfg-val" id="sets-${dayIdx}-${ei}">${sets}</span>
+          <button class="ob-cfg-btn" onclick="obSetSets(${dayIdx},${ei},1)">+</button>
+        </div>
+      </div>
+      <div class="ob-cfg-divider"></div>
+      <div class="ob-cfg-group">
+        <span class="ob-cfg-label">חזרות</span>
+        <input class="ob-cfg-reps" id="reps-${dayIdx}-${ei}" value="${reps.replace(/"/g,'&quot;')}" placeholder="6-8" oninput="obSetReps(${dayIdx},${ei},this.value)">
+      </div>
     </div>
   </div>`;
 }
@@ -4018,12 +4593,24 @@ function obSetCount(n){
 function obUpdateDayName(i,v){ OB.draft[i].name=v; }
 function obUpdateDaySub(i,v){ OB.draft[i].subtitle=v; }
 function obUpdateEx(di,ei,v){ OB.draft[di].exercises[ei].name=v; }
+function obSetSets(di,ei,delta){
+  const ex = OB.draft[di].exercises[ei];
+  ex.sets = Math.max(1, Math.min(6, (ex.sets||2) + delta));
+  const el = document.getElementById('sets-'+di+'-'+ei);
+  if(el){
+    el.textContent = ex.sets;
+    el.style.animation='none'; el.offsetHeight;
+    el.style.animation='obCountPop .3s cubic-bezier(.34,1.56,.64,1)';
+  }
+  if('vibrate' in navigator) navigator.vibrate(15);
+}
+function obSetReps(di,ei,v){ OB.draft[di].exercises[ei].reps = v; }
 function obToggleStretch(di,ei){
   const on = !OB.draft[di].exercises[ei].stretch;
   OB.draft[di].exercises[ei].stretch = on;
   if('vibrate' in navigator) navigator.vibrate(18);
   // toggle in place + pop the star (no full re-render, keeps focus)
-  const rows = document.querySelectorAll('#ob-ex-list .ob-ex-row');
+  const rows = document.querySelectorAll('#ob-ex-list .ob-ex-row2');
   const row = rows[ei];
   if(row){
     const star = row.querySelector('.ob-ex-stretch');
@@ -4033,7 +4620,7 @@ function obToggleStretch(di,ei){
   }
 }
 function obAddEx(di){
-  OB.draft[di].exercises.push({name:'',focus:'',stretch:false,steps:[]});
+  OB.draft[di].exercises.push({name:'',focus:'',stretch:false,sets:2,reps:'6-8',steps:[]});
   if('vibrate' in navigator) navigator.vibrate(15);
   const list=document.getElementById('ob-ex-list');
   if(list){
@@ -4047,10 +4634,10 @@ function obAddEx(di){
 function obDelEx(di,ei){
   if('vibrate' in navigator) navigator.vibrate(20);
   const list=document.getElementById('ob-ex-list');
-  const rows = list ? list.querySelectorAll('.ob-ex-row') : [];
+  const rows = list ? list.querySelectorAll('.ob-ex-row2') : [];
   const row = rows[ei];
   const commit = ()=>{
-    if(OB.draft[di].exercises.length<=1){ OB.draft[di].exercises[0]={name:'',focus:'',stretch:false,steps:[]}; }
+    if(OB.draft[di].exercises.length<=1){ OB.draft[di].exercises[0]={name:'',focus:'',stretch:false,sets:2,reps:'6-8',steps:[]}; }
     else OB.draft[di].exercises.splice(ei,1);
     if(list) list.innerHTML = OB.draft[di].exercises.map((ex,ei2)=>obExRow(di,ei2,ex)).join('');
   };
@@ -4232,6 +4819,25 @@ window.addEventListener("load",()=>{
     <div class="confirm-btns">
       <button class="confirm-cancel" onclick="closeConfirm()">ביטול</button>
       <button class="confirm-ok" onclick="confirmRestart()">התחל מחדש</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- RESUME WORKOUT DIALOG -->
+<div class="confirm-bd" id="gw-resume-bd">
+  <div class="confirm-card">
+    <div class="confirm-icon" style="background:linear-gradient(135deg,rgba(201,168,76,.2),rgba(201,168,76,.06));border-color:rgba(201,168,76,.3)">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--a2)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+    </div>
+    <div class="confirm-title">להמשיך את האימון?</div>
+    <div class="confirm-msg">
+      <span id="gw-resume-day" style="color:var(--a2);font-weight:700;display:block;margin-bottom:4px;"></span>
+      <span id="gw-resume-info"></span>
+    </div>
+    <div class="confirm-btns">
+      <button class="confirm-cancel" id="gw-resume-restart">התחל מחדש</button>
+      <button class="confirm-ok" id="gw-resume-continue" style="background:var(--grad);color:#09080c;box-shadow:0 0 24px rgba(201,168,76,.35)">המשך</button>
     </div>
   </div>
 </div>
